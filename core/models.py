@@ -29,6 +29,3 @@ class Intern(models.Model):
 
     def get_absolute_url(self):
         return reverse('core:intern-detail', kwargs={'pk': self.pk})
-
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
