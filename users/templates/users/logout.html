@@ -1,0 +1,51 @@
+{% load crispy_forms_tags %}
+{% load static %}
+<!--
+=========================================================
+ Paper Kit 2 - v2.2.0
+=========================================================
+
+ Product Page: https://www.creative-tim.com/product/paper-kit-2
+ Copyright 2019 Creative Tim (https://www.creative-tim.com)
+ Licensed under MIT (https://github.com/creativetimofficial/paper-kit-2/blob/master/LICENSE.md)
+
+ Coded by Creative Tim
+
+=========================================================
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+  {% include 'core/head.html' %}
+
+<body class="register-page sidebar-collapse">
+  <!--nav-->
+  {% include 'core/nav.html' %}
+  <div class="page-header" style="background-image: url({% static 'assets/img/main.jpg' %});">
+    <div class="filter"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 ml-auto mr-auto">
+          <div class="card py-5 px-5" style="background-color: #f27028;">
+            <h3 class="title mx-auto">You have been logged out</h3>
+            <p><a href="{% url 'core:home' %}">Go Home</a></p>
+            <p><a href="{% url 'users:login' %}">Login</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer register-footer text-center">
+      <h6>©
+        <script>
+          document.write(new Date().getFullYear())
+        </script>,&nbsp;FlairNow</h6>
+    </div>
+  </div>
+  <!--scripts-->
+  {% include 'core/scripts.html' %}
+</body>
+
+</html>

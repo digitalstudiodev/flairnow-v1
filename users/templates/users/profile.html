@@ -1,0 +1,62 @@
+{% load static %}
+<!--
+=========================================================
+ Paper Kit 2 - v2.2.0
+=========================================================
+
+ Product Page: https://www.creative-tim.com/product/paper-kit-2
+ Copyright 2019 Creative Tim (https://www.creative-tim.com)
+ Licensed under MIT (https://github.com/creativetimofficial/paper-kit-2/blob/master/LICENSE.md)
+
+ Coded by Creative Tim
+
+=========================================================
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+    {% include 'core/head.html' %}
+
+<body class="landing-page sidebar-collapse">
+    <!--nav-->
+    {% include 'core/nav.html' %}
+    <!--header-->
+    <div class="page-header page-header-xs" data-parallax="true" style="background-image: url({% static 'assets/img/main.jpg' %});">
+        <div class="filter"></div>
+    </div>
+    <!--content-->
+    <div class="section profile-content">
+        <div class="container">
+            <div class="owner">
+                <div class="avatar">
+                <img src="{{ user.profile.image.url }}" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                </div>
+                <div class="name">
+                <h4 class="title">{{ user.first_name }} {{ user.last_name }}
+                    <br />
+                </h4>
+                <h6 class="description">{{ user.email }}</h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 ml-auto mr-auto text-center">
+                <span class="badge badge-pill badge-warning py-2 my-2">New Features Coming Soon!</span>
+                <br />
+                <a class="btn btn-outline-default btn-round" href="{% url 'users:profile-update' %}"><i class="fa fa-cog"></i>&nbsp;Update</a>
+                {% if request.user.is_admin %}
+                <a class="btn btn-outline-default btn-round" href="{% url 'core:intern-create' %}"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Add</a>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--footer-->
+    {% include 'core/footer.html' %}
+    <!--scripts-->
+    {% include 'core/scripts.html' %}
+</body>
+
+</html>

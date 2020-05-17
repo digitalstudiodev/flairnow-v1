@@ -1,0 +1,21 @@
+{% load static %}
+<div class="section">
+    <div class="container">
+        <h3 class="title text-dark text-center">Available Listings</h3>
+        <div class="row">
+            {% for i in intern %}
+            <div class="col-3 p-2">
+                <a href="{% url 'core:intern-detail' i.id %}">
+                    <img src="{{ i.cover_image.url }}" class="img-rounded img-responsive" alt="Rounded Image">
+                    <div class="img-details">
+                        <div class="author">
+                            <img src="{{ i.logo.url }}" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                        </div>
+                        <p class="text-dark text-center">{{ i.title }}</p>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

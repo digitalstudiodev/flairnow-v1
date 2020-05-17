@@ -1,0 +1,156 @@
+{% load static %}
+<!--
+=========================================================
+ Paper Kit 2 - v2.2.0
+=========================================================
+
+ Product Page: https://www.creative-tim.com/product/paper-kit-2
+ Copyright 2019 Creative Tim (https://www.creative-tim.com)
+ Licensed under MIT (https://github.com/creativetimofficial/paper-kit-2/blob/master/LICENSE.md)
+
+ Coded by Creative Tim
+
+=========================================================
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+    {% include 'core/head.html' %}
+
+<body class="landing-page sidebar-collapse">
+    <!--nav-->
+    {% include 'core/nav.html' %}
+    <!--header-->
+    <div class="page-header" data-parallax="true" style="background-image: url({% static 'assets/img/main.jpg' %});">
+        <div class="filter"></div>
+        <div class="container">
+            <div class="motto text-center">
+                <h1>Craft Your Future Today!</h1>
+                <h3>
+                    By bridging the opportunity gap, we help individuals move to and through 
+                    the college process and career selection; thus, resulting in an increase 
+                    in upward mobility. We believe everyone no matter of their background could 
+                    climb the socio-economic ladder.
+                </h3>
+                <br />
+                <a href="https://www.youtube.com/watch?v=1s-t01mo0yY&feature=youtu.be" class="btn btn-outline-neutral btn-round" target="_blank"><i class="fa fa-play"></i>Watch video</a>
+                &nbsp;
+                <a href="{% url 'users:register' %}" class="btn btn-outline-neutral btn-round">Register</a>
+            </div>
+        </div>
+    </div>
+    <!--content-->
+    <div class="main">
+        <div class="section">
+            <div class="container">
+                <div class="row mb-5 align-items-center text-center">
+                    <div class="col-md-3">
+                        <div class="info">
+                            <div class="icon icon-danger">
+                                <i class="nc-icon nc-badge"></i>
+                            </div>
+                            <div class="description">
+                            <h4 class="info-title">Personalized Profile</h4>
+                            <p>
+                                Save time on applications by customizing your profile.
+                            </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="info">
+                            <div class="icon icon-danger">
+                                <i class="nc-icon nc-book-bookmark"></i>
+                            </div>
+                            <div class="description">
+                            <h4 class="info-title">Save Opportunities</h4>
+                            <p>
+                                Save a list of opportunities
+                            </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="info">
+                            <div class="icon icon-danger">
+                            <i class="nc-icon nc-chart-bar-32"></i>
+                            </div>
+                            <div class="description">
+                            <h4 class="info-title">Increase Offers</h4>
+                            <p>
+                                Get more opportunities by applying to more opportunities
+                            </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="info">
+                            <div class="icon icon-danger">
+                                <i class="nc-icon nc-briefcase-24"></i>
+                            </div>
+                            <div class="description">
+                            <h4 class="info-title">Start Your Career</h4>
+                            <p>
+                                Find positions at companies
+                            </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="title text-center">Our Story</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <img class="img-fluid img-rounded shadow" src="{% static 'assets/img/claudia.jpg' %}" alt="">
+                    </div>
+                    <div class="col-md-6">
+                        <p class="py-2">
+                            The idea of FlairNow came about when Claudia Saavedra was 16 years old. 
+                            As an immigrant, coming from a low-income household and the first in her 
+                            family to go to college, she had a difficult time understanding what was 
+                            needed to enroll in college what steps she needed to do to receive a full-time 
+                            job after college.  When she found out about her immigration status in the 
+                            United States during the beginning of her senior year of high school, she 
+                            realized that she could not apply to many opportunities and it took hours of 
+                            research to find what she did qualify for.
+                        </p>
+                        <p class="py-2">
+                            FlairNow started with a series of workshops created by Claudia during her lunch 
+                            period in high school where she provided a step by step process to apply to college 
+                            based on the hours of research she conducted.
+                        </p>
+                        <p class="py-2">
+                            The idea further progressed when she attended Rutgers University to the creation of an 
+                            online mentoring platform with in-person workshops. Here she was able to reach 400+ 
+                            students nationally and internationally. She focused on college and career mentoring as 
+                            well as social-emotional building.
+                        </p>
+                        <p class="py-2">
+                            She met her co-founder Jose Dominguez when they spoke on a panel to help underrepresented 
+                            students enroll in college and teamed up to build an application that matches individuals 
+                            to opportunities based on their profile.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--founders-->
+        {% include 'core/founders.html' %}
+        <!--listings_home-->
+        {% include 'core/listings_home.html' %}
+        <!--featuredin-->
+        {% include 'core/featuredin.html' %}
+        <!--cta-->
+        {% include 'core/cta.html' %}
+        <!--contactus-->
+        {% include 'core/contactus.html' %}
+    </div>
+    <!--footer-->
+    {% include 'core/footer.html' %}
+    <!--scripts-->
+    {% include 'core/scripts.html' %}
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg fixed-top navbar-transparent " color-on-scroll="300">
+    <div class="container">
+        <div class="navbar-translate">
+            <a class="navbar-brand" href="{% url 'core:home' %}" rel="tooltip" title="FlairNow" data-placement="bottom">
+            <img src="{% static 'assets/img/logos/logo.svg' %}" height="50px" alt="FlairNow Logo" />&nbsp;&nbsp;FlairNow
+            </a>
+            <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar bar1"></span>
+            <span class="navbar-toggler-bar bar2"></span>
+            <span class="navbar-toggler-bar bar3"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="{% url 'core:home' %}" class="nav-link">&nbsp;Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'core:listings' %}" class="nav-link">&nbsp;Listings</a>
+                </li>
+                {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a href="{% url 'users:profile' %}" class="nav-link">&nbsp;Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'users:logout' %}" class="nav-link">&nbsp;Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a href="{% url 'users:login' %}" class="nav-link">&nbsp;Login</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'users:register' %}" class="nav-link">&nbsp;Register</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
