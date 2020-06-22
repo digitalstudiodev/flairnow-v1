@@ -2,6 +2,12 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from PIL import Image
 from django.urls import reverse
+from django.utils import timezone
+
+ROLES = [
+    ("1","Stu"),
+    ("2","Org")
+]
 
 class Manager(BaseUserManager):
     def create_user(self, first_name, last_name, email, password=None):
@@ -48,6 +54,7 @@ class User(AbstractBaseUser):
 
     first_name = models.CharField(max_length=30, default="", null=False)
     last_name = models.CharField(max_length=30, default="", null=False)
+    role = models.CharField(max_length=5, choices=ROLES, default="1", null=False, verbose_name="Role")
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
@@ -66,7 +73,7 @@ class User(AbstractBaseUser):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default='default.png', upload_to='profile_pics')
+    image = models.ImageField(default='default.png', upload_to='profile_pics', verbose_name="Profile Picture")
 
     def __str__(self):
         return f'{self.user.email} Profile'
@@ -81,3 +88,33 @@ class Profile(models.Model):
             img.thumbnail(output_size)
             img.save(self.image.path)
     '''
+
+class Org(models.Model):
+    owner = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Owner")
+    date_posted = models.DateTimeField(default=timezone.now)
+    name = models.CharField(max_length=100, default="", null=False, verbose_name="Organization Name")
+    logo = models.ImageField(default='default_logo.png', upload_to='logo_pics', verbose_name="Logo")
+    cover_image = models.ImageField(default='default_cover.png', upload_to='cover_pics', verbose_name="Cover Image")
+    location = models.CharField(max_length=300, verbose_name="Location", default="", null=False)
+    industry = models.CharField(max_length=30, verbose_name="Industry", default="", null=False)
+    website = models.CharField(max_length=300, verbose_name="Website (URL):", default="", null=False)
+    description = models.TextField(verbose_name="Description")
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('users:org-detail', kwargs={'pk': self.pk})
+
+
+class Coap(models.Model):
+    student = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Student")
+    date_posted = models.DateTimeField(default=timezone.now)
+    resume = models.FileField(default="sample_resume.pdf", upload_to='resumes', verbose_name="Resume")
+    sign = models.CharField(max_length=100, verbose_name="Signature", default="", null=False)
+    
+    def __str__(self):
+        return self.sign
+
+    def get_absolute_url(self):
+        return reverse('users:coap-detail', kwargs={'pk': self.pk})

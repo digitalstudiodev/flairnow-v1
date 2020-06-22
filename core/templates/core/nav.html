@@ -16,9 +16,16 @@
                 <li class="nav-item">
                     <a href="{% url 'core:home' %}" class="nav-link">&nbsp;Home</a>
                 </li>
-                <li class="nav-item">
-                    <a href="{% url 'core:listings' %}" class="nav-link">&nbsp;Listings</a>
-                </li>
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton" href="#pk" role="button" aria-haspopup="true" aria-expanded="false">Opportunities</a>
+                    <ul class="dropdown-menu dropdown-info" aria-labelledby="dropdownMenuButton">
+                      <li class="dropdown-header">Categories</li>
+                      <a class="dropdown-item" href="{% url 'core:internships' %}">Internships</a>
+                      <a class="dropdown-item" href="#">Jobs</a>
+                      <a class="dropdown-item" href="#">Volunteering</a>
+                      <a class="dropdown-item" href="#">Study Abroad</a>
+                    </ul>
+                  </div>
                 {% if request.user.is_authenticated %}
                 <li class="nav-item">
                     <a href="{% url 'users:profile' %}" class="nav-link">&nbsp;Profile</a>

@@ -12,7 +12,7 @@ def home(request):
 
 class InternListView(ListView):
     model = Intern
-    template_name = 'core/listings.html'  
+    template_name = 'core/interns.html'  
     context_object_name = 'intern'
     ordering = ['-date_posted']
     paginate_by = 32
@@ -22,16 +22,18 @@ class InternDetailView(DetailView):
 
 class InternCreateView(LoginRequiredMixin, CreateView):
     model = Intern
-    fields = ['title', 'logo', 'location', 'company_name', 'link', 'tag', 'cover_image', 'description', 'requirements', 'duties', 'other']
+    fields = ['title', 'tag', 'description', 'requirements', 'duties', 'other']
 
     def form_valid(self, form):
+        form.instance.company = self.request.user.org
         return super().form_valid(form)
 
 class InternUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Intern
-    fields = ['title', 'logo', 'link', 'company_name', 'location', 'tag', 'cover_image', 'description', 'requirements', 'duties', 'other']
+    fields = ['title', 'tag', 'description', 'requirements', 'duties', 'other']
 
     def form_valid(self, form):
+        form.instance.company = self.request.user.org
         return super().form_valid(form)
 
     def test_func(self):
@@ -49,6 +51,3 @@ class InternDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if intern:
             return True
         return False
-
-
-
