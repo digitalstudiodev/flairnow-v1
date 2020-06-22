@@ -5,7 +5,8 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, LoginForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .models import User
+from .models import User, Org, Coap
+from core.models import Intern
 
 def register(request):
     form = UserRegisterForm()
@@ -71,3 +72,54 @@ def login_view(request):
 
 def base(request):
     return render(request, "users/base.html")
+
+
+class OrgDetailView(DetailView):
+    model = Org
+
+class OrgCreateView(LoginRequiredMixin, CreateView):
+    model = Org
+    fields = ['name', 'logo', 'cover_image', 'location', 'industry', 'website', 'description']
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
+class OrgUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Org
+    fields = ['name', 'logo', 'cover_image', 'location', 'industry', 'website', 'description']
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        org = self.get_object()
+        if org:
+            return True
+        return False
+
+class CoapDetailView(DetailView):
+    model = Coap
+
+class CoapCreateView(LoginRequiredMixin, CreateView):
+    model = Coap
+    fields = ['resume','sign']
+
+    def form_valid(self, form):
+        form.instance.student = self.request.user
+        return super().form_valid(form)
+
+class CoapUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Coap
+    fields = ['resume','sign']
+
+    def form_valid(self, form):
+        form.instance.student = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        coap = self.get_object()
+        if coap:
+            return True
+        return False
