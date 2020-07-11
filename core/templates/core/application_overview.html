@@ -1,0 +1,49 @@
+{% load static %}
+<!--
+=========================================================
+ Paper Kit 2 - v2.2.0
+=========================================================
+
+ Product Page: https://www.creative-tim.com/product/paper-kit-2
+ Copyright 2019 Creative Tim (https://www.creative-tim.com)
+ Licensed under MIT (https://github.com/creativetimofficial/paper-kit-2/blob/master/LICENSE.md)
+
+ Coded by Creative Tim
+
+=========================================================
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+    {% include 'core/head.html' %}
+
+<body class="landing-page sidebar-collapse">
+    <!--nav-->
+    {% include 'core/nav.html' %}
+    <!--header-->
+    <div class="page-header page-header-xs" data-parallax="true" style="background-image: url({{ object.company.cover_image.url }});">
+        <div class="filter"></div>
+    </div>
+    <!--content-->
+    <div class="section profile-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 ml-auto mr-auto text-center">
+                    {{ op }}
+                    <br />
+                    <a class="btn btn-outline-default btn-round" href="#"><i class="fa fa-share-square-o" aria-hidden="true"></i>&nbsp;Apply</a>
+                    <a class="btn btn-outline-default btn-round" href="#"><i class="fa fa-share-square-o" aria-hidden="true"></i>&nbsp;Organization Profile</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--footer-->
+    {% include 'core/footer.html' %}
+    <!--scripts-->
+    {% include 'core/scripts.html' %}
+</body>
+
+</html>

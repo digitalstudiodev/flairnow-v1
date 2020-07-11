@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from core.models import Intern
+from core.models import Intern, App
 
 # Create your views here.
 def dash(request):

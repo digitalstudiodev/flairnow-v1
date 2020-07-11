@@ -44,7 +44,7 @@ The above copyright notice and this permission notice shall be included in all c
             <div class="row">
                 <div class="col-md-6 ml-auto mr-auto text-center">
                 <br />
-                <a class="btn btn-outline-default btn-round" href="#"><i class="fa fa-share-square-o" aria-hidden="true"></i>&nbsp;Apply</a>
+                <a class="btn btn-outline-default btn-round" href="{{ object.get_apply_url }}"><i class="fa fa-share-square-o" aria-hidden="true"></i>&nbsp;Apply</a>
                 <a class="btn btn-outline-default btn-round" href="{% url 'users:org-detail' object.company.id %}"><i class="fa fa-share-square-o" aria-hidden="true"></i>&nbsp;Organization Profile</a>
                 
                 </div>

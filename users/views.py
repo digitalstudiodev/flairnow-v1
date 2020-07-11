@@ -6,7 +6,7 @@ from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, LoginFor
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import User, Org, Coap
-from core.models import Intern
+from core.models import Intern, App
 
 def register(request):
     form = UserRegisterForm()
@@ -21,7 +21,19 @@ def register(request):
 
 @login_required(login_url='users:login')
 def profile(request):
-    return render(request, 'users/profile.html')
+    try: 
+        if request.user.coap:
+            apps_pending = App.objects.all().filter(coap=request.user.coap, status="P")
+            apps_denied = App.objects.all().filter(coap=request.user.coap, status="D")
+            apps_accepted = App.objects.all().filter(coap=request.user.coap, status="A")
+    except:
+        pass
+    context = {
+        'apps_pending': apps_pending,
+        'apps_denied': apps_denied,
+        'apps_accepted': apps_accepted,
+    }
+    return render(request, 'users/profile.html', context)
 
 @login_required(login_url='users:login')
 def profile_update(request):
@@ -76,6 +88,13 @@ def base(request):
 
 class OrgDetailView(DetailView):
     model = Org
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['interns'] = Intern.objects.all().filter(company=self.object.id)
+        return context
 
 class OrgCreateView(LoginRequiredMixin, CreateView):
     model = Org

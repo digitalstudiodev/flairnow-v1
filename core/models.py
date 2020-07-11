@@ -3,6 +3,12 @@ from django.urls import reverse
 from django.utils import timezone
 from users.models import Org, User, Coap
 
+STATUS = (
+    ('P', 'Pending'),
+    ('D','Denied'),
+    ('A','Accepted')
+)
+
 
 class Intern(models.Model):
     title = models.CharField(max_length=100, verbose_name="Position Title")
@@ -19,14 +25,19 @@ class Intern(models.Model):
 
     def get_absolute_url(self):
         return reverse('core:intern-detail', kwargs={'pk': self.pk})
+    
+    def get_apply_url(self):
+        return reverse("core:apply-intern", kwargs={'pk': self.pk})
 
 class App(models.Model):
     coap = models.ForeignKey('users.Coap', on_delete=models.SET_NULL, blank=True, null=True)
-    company = models.ForeignKey('Intern', on_delete=models.SET_NULL, blank=True, null=True)
+    op = models.ForeignKey('Intern', on_delete=models.SET_NULL, blank=True, null=True)
+    org = models.ForeignKey('users.Org', on_delete=models.SET_NULL, blank=True, null=True)
     date_posted = models.DateTimeField(default=timezone.now)
+    status = models.CharField(choices=STATUS, default="P", max_length=10)
 
     def __str__(self):
-        return self.pk
+        return str(self.id)
 
     def get_absolute_url(self):
         return reverse('core:app-detail', kwargs={'pk': self.pk})
