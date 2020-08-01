@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'dash.apps.DashConfig',
     'crispy_forms',
-    'storages'
+    'storages',
 ]
 
 MIDDLEWARE = [
