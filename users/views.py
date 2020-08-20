@@ -5,14 +5,30 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, LoginForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .models import User, Org, Coap
+from .models import User, Org, Resume, Academic, Background, Contact
 from core.models import Intern, App
+from bootstrap_datepicker_plus import DatePickerInput
 
 def register(request):
     form = UserRegisterForm()
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
+            form.is_student = True
+            form.is_organization = False
+            form.save()
+            return redirect('users:login')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'users/register.html', {'form': form})
+
+def register(request):
+    form = UserRegisterForm()
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.is_student = False
+            form.is_organization = True
             form.save()
             return redirect('users:login')
     else:
@@ -21,17 +37,7 @@ def register(request):
 
 @login_required(login_url='users:login')
 def profile(request):
-    try: 
-        if request.user.coap:
-            apps_pending = App.objects.all().filter(coap=request.user.coap, status="P")
-            apps_denied = App.objects.all().filter(coap=request.user.coap, status="D")
-            apps_accepted = App.objects.all().filter(coap=request.user.coap, status="A")
-    except:
-        pass
     context = {
-        'apps_pending': apps_pending,
-        'apps_denied': apps_denied,
-        'apps_accepted': apps_accepted,
     }
     return render(request, 'users/profile.html', context)
 
@@ -118,20 +124,101 @@ class OrgUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             return True
         return False
 
-class CoapDetailView(DetailView):
-    model = Coap
+class ResumeDetailView(DetailView):
+    model = Resume
 
-class CoapCreateView(LoginRequiredMixin, CreateView):
-    model = Coap
-    fields = ['resume','sign']
+class ResumeCreateView(LoginRequiredMixin, CreateView):
+    model = Resume
+    fields = ['resume']
 
     def form_valid(self, form):
         form.instance.student = self.request.user
         return super().form_valid(form)
 
-class CoapUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = Coap
-    fields = ['resume','sign']
+class ResumeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Resume
+    fields = ['resume']
+
+    def form_valid(self, form):
+        form.instance.student = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        coap = self.get_object()
+        if coap:
+            return True
+        return False
+
+class AcademicDetailView(DetailView):
+    model = Academic
+
+class AcademicCreateView(LoginRequiredMixin, CreateView):
+    model = Academic
+    fields = ['college','current_grade_level','degree_in_pursuit','field','sat_score','act_score','gpa','expected_grad_year']
+
+    def form_valid(self, form):
+        form.instance.student = self.request.user
+        return super().form_valid(form)
+
+class AcademicUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Academic
+    fields = ['college','current_grade_level','degree_in_pursuit','field','sat_score','act_score','gpa','expected_grad_year']
+
+    def form_valid(self, form):
+        form.instance.student = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        coap = self.get_object()
+        if coap:
+            return True
+        return False
+
+class BackgroundDetailView(DetailView):
+    model = Background
+
+class BackgroundCreateView(LoginRequiredMixin, CreateView):
+    model = Background
+    fields = ['gender','sexual_orientation','race','citizenship','household_size','household_income','first_gen']
+
+    def form_valid(self, form):
+        form.instance.student = self.request.user
+        return super().form_valid(form)
+
+class BackgroundUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Background
+    fields = ['gender','sexual_orientation','race','citizenship','household_size','household_income','first_gen']
+
+    def form_valid(self, form):
+        form.instance.student = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        coap = self.get_object()
+        if coap:
+            return True
+        return False
+
+class ContactDetailView(DetailView):
+    model = Contact
+
+class ContactCreateView(LoginRequiredMixin, CreateView):
+    model = Contact
+    fields = ['phone_number', 'date_of_birth','primary_address','zip_code','city','state']
+    widgets = {
+            'date_of_birth': DatePickerInput(), # default date-format %m/%d/%Y will be used
+        }
+
+    def form_valid(self, form):
+        form.instance.student = self.request.user
+        return super().form_valid(form)
+
+class ContactUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Contact
+    fields = ['phone_number', 'date_of_birth','primary_address','zip_code','city','state']
+    widgets = {
+            'date_of_birth': DatePickerInput(), # default date-format %m/%d/%Y will be used
+        }
 
     def form_valid(self, form):
         form.instance.student = self.request.user

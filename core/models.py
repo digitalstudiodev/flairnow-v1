@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
-from users.models import Org, User, Coap
+from users.models import Org, User, Resume
 
 STATUS = (
     ('P', 'Pending'),
@@ -30,7 +30,7 @@ class Intern(models.Model):
         return reverse("core:apply-intern", kwargs={'pk': self.pk})
 
 class App(models.Model):
-    coap = models.ForeignKey('users.Coap', on_delete=models.SET_NULL, blank=True, null=True)
+    resume = models.ForeignKey('users.Resume', on_delete=models.SET_NULL, blank=True, null=True)
     op = models.ForeignKey('Intern', on_delete=models.SET_NULL, blank=True, null=True)
     org = models.ForeignKey('users.Org', on_delete=models.SET_NULL, blank=True, null=True)
     date_posted = models.DateTimeField(default=timezone.now)
