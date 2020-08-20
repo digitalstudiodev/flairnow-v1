@@ -9,6 +9,29 @@ class UserRegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email', 'password1', 'password2']
+    
+    def save(self, commit=True):
+        user = super().save(commit=commit)
+        user.is_student = True
+        user.is_organization = False
+        if commit:
+            user.save()
+        return user
+
+class OrgRegisterForm(UserCreationForm):
+    email = forms.EmailField(max_length=60)
+    
+    class Meta:
+        model = User
+        fields = ['org_name', 'email', 'password1', 'password2']
+    
+    def save(self, commit=True):
+        user = super().save(commit=commit)
+        user.is_student = False
+        user.is_organization = True
+        if commit:
+            user.save()
+        return user
 
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()

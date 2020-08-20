@@ -5,6 +5,70 @@ from django.urls import reverse
 from django.utils import timezone
 from multiselectfield import MultiSelectField
 
+ORGANIZATION_TYPES = (
+    ("LLC","Limited Liability Company"),
+    ("NPC","Non-Profit Corporation"),
+    ("HSS","High School"),
+    ("EDU","College or University"),
+    ("SDS","School District"),
+    ("TWN","City or Town"),
+    ("OTH","Other"),
+)
+
+US_STATES = (
+    ("AL","Alabama"),
+    ("AK","Alaska"),
+    ("AZ","Arizona"),
+    ("AR","Arkansas"),
+    ("CA","California"),
+    ("CO","Colorado"),
+    ("CT","Connecticut"),
+    ("DE","Delaware"),
+    ("FL","Florida"),
+    ("GA","Georgia"),
+    ("HI","Hawaii"),
+    ("ID","Idaho"),
+    ("IL","Illinois"),
+    ("IN","Indiana"),
+    ("IA","Iowa"),
+    ("KS","Kansas"),
+    ("KY","Kentucky"),
+    ("LA","Louisiana"),
+    ("ME","Maine"),
+    ("MD","Maryland"),
+    ("MA","Massachusetts"),
+    ("MI","Michigan"),
+    ("MN","Minnesota"),
+    ("MS","Mississippi"),
+    ("MO","Missouri"),
+    ("MT","Montana"),
+    ("NE","Nebraska"),
+    ("NV","Nevada"),
+    ("NH","New Hampshire"),
+    ("NJ","New Jersey"),
+    ("NM","New Mexico"),
+    ("NY","New York"),
+    ("NC","North Carolina"),
+    ("ND","North Dakota"),
+    ("OH","Ohio"),
+    ("OK","Oklahoma"),
+    ("OR","Oregon"),
+    ("PA","Pennsylvania"),
+    ("RI","Rhode Island"),
+    ("SC","South Carolina"),
+    ("SD","South Dakota"),
+    ("TN","Tennessee"),
+    ("TX","Texas"),
+    ("UT","Utah"),
+    ("VT","Vermont"),
+    ("VA","Virginia"),
+    ("WA","Washington"),
+    ("WV","West Virginia"),
+    ("WI","Wisconsin"),
+    ("WY","Wyoming"),
+    ("DC","District of Columbia"),
+)
+
 HOUSE_INCOME = (
     ("HI0","Less than $10,000"),
     ("HI1","Between $10,000 - $25,000"),
@@ -257,13 +321,14 @@ class User(AbstractBaseUser):
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
 
-    first_name = models.CharField(max_length=30, default="", null=False)
-    last_name = models.CharField(max_length=30, default="", null=False)
+    first_name = models.CharField(max_length=30, default=None, null=True, verbose_name="First Name")
+    last_name = models.CharField(max_length=30, default=None, null=True, verbose_name="Last Name")
+    org_name = models.CharField(max_length=30, default=None, null=True, verbose_name="Organization Name")
     is_student = models.BooleanField(default=True)
     is_organization = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'org_name']
 
     objects = Manager()
 
@@ -370,10 +435,45 @@ class Contact(models.Model):
     primary_address = models.CharField(max_length=1000, default=None, null=True, verbose_name="Primary Address")
     zip_code = models.CharField(max_length=1000, default=None, null=True, verbose_name="Zip Code")
     city = models.CharField(max_length=1000, default=None, null=True, verbose_name="City")
-    state = models.CharField(max_length=1000, default=None, null=True, verbose_name="State")
+    state = models.CharField(max_length=1000, choices=US_STATES, default=None, null=True, verbose_name="State")
     
     def __str__(self):
         return self.date_posted
 
     def get_absolute_url(self):
         return reverse('users:contact-detail', kwargs={'pk': self.pk})
+
+#organization contact information
+class OrganizationContact(models.Model):
+    organization = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Student")
+    date_posted = models.DateTimeField(default=timezone.now)
+    phone_number = models.CharField(max_length=10, default=None, null=True, verbose_name="Phone Number", help_text="Please enter in the following format: 9734568456")
+    primary_address = models.CharField(max_length=1000, default=None, null=True, verbose_name="Primary Address")
+    zip_code = models.CharField(max_length=1000, default=None, null=True, verbose_name="Zip Code")
+    city = models.CharField(max_length=1000, default=None, null=True, verbose_name="City")
+    state = models.CharField(max_length=1000, choices=US_STATES, default=None, null=True, verbose_name="State")
+    website_link = models.CharField(max_length=1000, default=None, null=True, verbose_name="Website Link")
+    facebook_link = models.CharField(max_length=1000, default=None, null=True, verbose_name="Facebook Link")
+    linkedin_link = models.CharField(max_length=1000, default=None, null=True, verbose_name="LinkedIn Link")
+    twitter_link = models.CharField(max_length=1000, default=None, null=True, verbose_name="Twitter Link")
+
+    def __str__(self):
+        return self.date_posted
+
+    def get_absolute_url(self):
+        return reverse('users:organizationcontact-detail', kwargs={'pk': self.pk})
+
+#organization background information
+class OrganizationBackground(models.Model):
+    organization = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Student")
+    date_posted = models.DateTimeField(default=timezone.now)
+    size = models.IntegerField(default=None, null=True, verbose_name="Number of Individuals")
+    industry = models.CharField(max_length=1000, choices=MAJORS, default=None, null=True, verbose_name="Industry")
+    type = models.CharField(max_length=1000, choices=ORGANIZATION_TYPES, default=None, null=True, verbose_name="Organization Type")
+
+
+    def __str__(self):
+        return self.date_posted
+
+    def get_absolute_url(self):
+        return reverse('users:organizationbackground-detail', kwargs={'pk': self.pk})

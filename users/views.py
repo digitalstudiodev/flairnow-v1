@@ -2,10 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, LoginForm
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, LoginForm, OrgRegisterForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .models import User, Org, Resume, Academic, Background, Contact
+from .models import User, Org, Resume, Academic, Background, Contact, OrganizationContact, OrganizationBackground
 from core.models import Intern, App
 from bootstrap_datepicker_plus import DatePickerInput
 
@@ -14,25 +14,21 @@ def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            form.is_student = True
-            form.is_organization = False
             form.save()
             return redirect('users:login')
     else:
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
 
-def register(request):
-    form = UserRegisterForm()
+def register_organization(request):
+    form = OrgRegisterForm()
     if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
+        form = OrgRegisterForm(request.POST)
         if form.is_valid():
-            form.is_student = False
-            form.is_organization = True
             form.save()
             return redirect('users:login')
     else:
-        form = UserRegisterForm()
+        form = OrgRegisterForm()
     return render(request, 'users/register.html', {'form': form})
 
 @login_required(login_url='users:login')
@@ -40,6 +36,12 @@ def profile(request):
     context = {
     }
     return render(request, 'users/profile.html', context)
+
+@login_required(login_url='users:login')
+def organization_profile(request):
+    context = {
+    }
+    return render(request, 'users/organization_profile.html', context)
 
 @login_required(login_url='users:login')
 def profile_update(request):
@@ -80,8 +82,12 @@ def login_view(request):
             password = request.POST['password']
             user = authenticate(email=email, password=password)
             if user:
-                login(request, user)
-                return redirect('users:profile')
+                if user.is_student:
+                    login(request, user)
+                    return redirect('users:profile')
+                elif user.is_organization:
+                    login(request, user)
+                    return redirect('users:organization-profile')
     else:
         form = LoginForm()
     context['form'] = form
@@ -222,6 +228,56 @@ class ContactUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def form_valid(self, form):
         form.instance.student = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        coap = self.get_object()
+        if coap:
+            return True
+        return False
+
+class OrganizationContactDetailView(DetailView):
+    model = OrganizationContact
+
+class OrganizationContactCreateView(LoginRequiredMixin, CreateView):
+    model = OrganizationContact
+    fields = ['phone_number', 'primary_address','zip_code','city','state', 'website_link', 'facebook_link', 'linkedin_link', 'twitter_link']
+
+    def form_valid(self, form):
+        form.instance.organization = self.request.user
+        return super().form_valid(form)
+
+class OrganizationContactUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = OrganizationContact
+    fields = ['phone_number', 'primary_address','zip_code','city','state', 'website_link', 'facebook_link', 'linkedin_link', 'twitter_link']
+
+    def form_valid(self, form):
+        form.instance.organization = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        coap = self.get_object()
+        if coap:
+            return True
+        return False
+
+class OrganizationBackgroundDetailView(DetailView):
+    model = OrganizationBackground
+
+class OrganizationBackgroundCreateView(LoginRequiredMixin, CreateView):
+    model = OrganizationBackground
+    fields = ['size', 'industry','type']
+
+    def form_valid(self, form):
+        form.instance.organization = self.request.user
+        return super().form_valid(form)
+
+class OrganizationBackgroundUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = OrganizationBackground
+    fields = ['size', 'industry','type']
+
+    def form_valid(self, form):
+        form.instance.organization = self.request.user
         return super().form_valid(form)
 
     def test_func(self):

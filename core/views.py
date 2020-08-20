@@ -9,9 +9,13 @@ from .models import App
 # Create your views here.
 def home(request):
     context = {
-        'intern': Intern.objects.order_by('-date_posted')[:16]
     }
     return render(request, "core/home.html", context)
+
+def browse(request):
+    context = {
+    }
+    return render(request, "core/browse.html", context)
 
 class InternListView(ListView):
     model = Intern

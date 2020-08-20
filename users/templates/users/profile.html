@@ -75,7 +75,11 @@
                                                 {% else %}
                                                 <a class="list-group-item text-dark" href="{% url 'users:academic-create' %}">Academic</a>
                                                 {% endif %}
+                                                {% if user.resume %}
                                                 <a class="list-group-item text-dark" href="{% url 'users:resume-detail' user.resume.id %}">Resume</a>
+                                                {% else %}
+                                                <a class="list-group-item text-dark" href="{% url 'users:resume-create' %}">Resume</a>
+                                                {% endif %}
                                             </div >
                                         </div>
                                     </div>

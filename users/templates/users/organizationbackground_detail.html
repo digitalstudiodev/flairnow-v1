@@ -27,28 +27,19 @@
                                     <div class="col-lg-6 m-auto">
                                         <div class="card rounded-lg text-dark">
                                             <div class="card-body">
-                                                <h3 class="title mx-auto ml-3 mb-5">Contact Infomation</h3>
+                                                <h3 class="title mx-auto ml-3 mb-5">Background Infomation</h3>
                                                 <ul class="fa-ul pricing-list">
                                                     <li class="pricing-list-item">
-                                                        <span class="fa-li"><i class="fas fa-phone text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">Phone Number:</span> {{ object.phone_number }}</span>
+                                                        <span class="fa-li"><i class="fas fa-users text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">Size:</span> {{ object.size  }}</span>
                                                     </li>
                                                     <li class="pricing-list-item">
-                                                        <span class="fa-li"><i class="fas fa-birthday-cake text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">Date of Birth:</span> {{ object.date_of_birth }}</span>
+                                                        <span class="fa-li"><i class="fas fa-globe-americas text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">Industry:</span> {{ object.get_industry_display }}</span>
                                                     </li>
                                                     <li class="pricing-list-item">
-                                                        <span class="fa-li"><i class="fas fa-map-marker-alt text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">Primary Address</span> {{ object.primary_address }}</span>
-                                                    </li>
-                                                    <li class="pricing-list-item">
-                                                        <span class="fa-li"><i class="fas fa-globe-americas text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">Zip Code:</span> {{ object.zip_code }}</span>
-                                                    </li>
-                                                    <li class="pricing-list-item">
-                                                        <span class="fa-li"><i class="fas fa-city text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">City:</span> {{ object.city  }}</span>
-                                                    </li>
-                                                    <li class="pricing-list-item">
-                                                        <span class="fa-li"><i class="fas fa-flag-usa text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">State:</span> {{ object.get_state_display }}</span>
+                                                        <span class="fa-li"><i class="fas fa-font text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">Type:</span> {{ object.get_type_display }}</span>
                                                     </li>
                                                 </ul>
-                                                <a class="btn btn-warning btn-marketing rounded-pill lift lift-sm my-3 text-white" href="{% url 'users:contact-update' object.id %}">Update</a>
+                                                <a class="btn btn-warning btn-marketing rounded-pill lift lift-sm my-3 text-white" href="{% url 'users:organizationbackground-update' object.id %}">Update</a>
                                             </div>
                                         </div>
                                     </div>

@@ -1,0 +1,267 @@
+{% load crispy_forms_tags %}
+{% load static %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Flair Now</title>
+        <link href="{% static 'flairnow_assets/css/styles.css' %}" rel="stylesheet" />
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+        <link rel="icon" type="image/x-icon" href="{% static 'flairnow_assets/assets/img/logo.png' %}" />
+        <script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div id="layoutDefault">
+            <div id="layoutDefault_content">
+                <main>
+                    {% include 'core/nav.html' %}
+                    <header class="page-header page-header-dark bg-warning" style="background-image: url({% static 'flairnow_assets/assets/img/pattern-shapes.png' %})">
+                        <div class="page-header-content">
+                            <div class="container">
+                                <!--<div class="row justify-content-center">
+                                    <div class="col-xl-8 col-lg-10 text-center">
+                                        <img class="mb-4 rounded-circle" src="{{ user.profile.image.url }}" style="width: 15rem;" />
+                                        <h1 class="page-header-title">{{ user.first_name }} {{ user.last_name }}</h1>
+                                        <a class="btn btn-info btn-marketing rounded-pill lift lift-sm my-3" href="{% url 'users:profile-update' %}">Update</a>
+                                    </div>
+                                </div>-->
+                            </div>
+                        </div>
+                        <div class="svg-border-rounded text-light">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
+                        </div>
+                    </header>
+                    <!--opportunity postings and browse by type-->
+                    <section class="bg-light py-10">
+                        <div class="container">
+                            <h2 class="mb-4" style="font-size: xx-large;">Recent postings</h2>
+                            <div class="row">
+                                <div class="col-xl-3 col-lg-4 col-md-6 mb-5">
+                                    <a class="card lift h-100" href="#!">
+                                        <div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">Type</div>
+                                        <img class="card-img-top" src="https://source.unsplash.com/tG36rvCeqng/800x500" alt="..." />
+                                        <div class="card-body p-3">
+                                            <div class="card-title small mb-0">Title</div>
+                                            <div class="text-xs text-gray-500">Category</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="mb-10">
+                                <a class="text-arrow-icon" href="#!">See more deals near you<i data-feather="arrow-right"></i></a>
+                            </div>
+                            <h2 class="mb-4" style="font-size: xx-large;">Browse Categories</h2>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-6 mb-5">
+                                    <a class="card lift border-bottom-lg border-red" href="#!"
+                                        ><div class="card-body text-center">
+                                            <div class="icon-stack icon-stack-xl bg-red text-white mb-2"><i class="fas fa-car"></i></div>
+                                            <div class="small text-gray-600">Cars</div>
+                                        </div></a
+                                    >
+                                </div>
+                                <div class="col-lg-3 col-md-6 mb-5">
+                                    <a class="card lift border-bottom-lg border-orange" href="#!"
+                                        ><div class="card-body text-center">
+                                            <div class="icon-stack icon-stack-xl bg-orange text-white mb-2"><i class="fas fa-home"></i></div>
+                                            <div class="small text-gray-600">Housing</div>
+                                        </div></a
+                                    >
+                                </div>
+                                <div class="col-lg-3 col-md-6 mb-5">
+                                    <a class="card lift border-bottom-lg border-yellow" href="#!"
+                                        ><div class="card-body text-center">
+                                            <div class="icon-stack icon-stack-xl bg-yellow text-white mb-2"><i class="fas fa-gift"></i></div>
+                                            <div class="small text-gray-600">Free</div>
+                                        </div></a
+                                    >
+                                </div>
+                                <div class="col-lg-3 col-md-6 mb-5">
+                                    <a class="card lift border-bottom-lg border-green" href="#!"
+                                        ><div class="card-body text-center">
+                                            <div class="icon-stack icon-stack-xl bg-green text-white mb-2"><i class="fas fa-mobile-alt"></i></div>
+                                            <div class="small text-gray-600">Tech</div>
+                                        </div></a
+                                    >
+                                </div>
+                                <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+                                    <a class="card lift border-bottom-lg border-cyan" href="#!"
+                                        ><div class="card-body text-center">
+                                            <div class="icon-stack icon-stack-xl bg-cyan text-white mb-2"><i class="fas fa-couch"></i></div>
+                                            <div class="small text-gray-600">Furniture</div>
+                                        </div></a
+                                    >
+                                </div>
+                                <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+                                    <a class="card lift border-bottom-lg border-blue" href="#!"
+                                        ><div class="card-body text-center">
+                                            <div class="icon-stack icon-stack-xl bg-blue text-white mb-2"><i class="fas fa-briefcase"></i></div>
+                                            <div class="small text-gray-600">Jobs</div>
+                                        </div></a
+                                    >
+                                </div>
+                                <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+                                    <a class="card lift border-bottom-lg border-purple" href="#!"
+                                        ><div class="card-body text-center">
+                                            <div class="icon-stack icon-stack-xl bg-purple text-white mb-2"><i class="fas fa-motorcycle"></i></div>
+                                            <div class="small text-gray-600">Leisure</div>
+                                        </div></a
+                                    >
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <a class="card lift border-bottom-lg border-pink" href="#!"
+                                        ><div class="card-body text-center">
+                                            <div class="icon-stack icon-stack-xl bg-pink text-white mb-2"><i class="fas fa-shopping-cart"></i></div>
+                                            <div class="small text-gray-600">Other</div>
+                                        </div></a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <hr class="my-0" />
+                    <!--browse by city -->
+                    <section class="bg-light py-10">
+                        <div class="container">
+                            <h2 class="mb-4" style="font-size: xx-large;">Browse by city</h2>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="mb-2"><a href="#!">Atlanta, GA</a></div>
+                                    <div class="mb-2"><a href="#!">Austin, TX</a></div>
+                                    <div class="mb-2"><a href="#!">Baltimore, MD</a></div>
+                                    <div class="mb-2"><a href="#!">Boston, MA</a></div>
+                                    <div class="mb-2"><a href="#!">Chicago, IL</a></div>
+                                    <div class="mb-2"><a href="#!">Cleveland, OH</a></div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="mb-2"><a href="#!">Columbus, OH</a></div>
+                                    <div class="mb-2"><a href="#!">Dallas, TX</a></div>
+                                    <div class="mb-2"><a href="#!">Denver, CO</a></div>
+                                    <div class="mb-2"><a href="#!">Detroit, MI</a></div>
+                                    <div class="mb-2"><a href="#!">Houston, TX</a></div>
+                                    <div class="mb-2"><a href="#!">Las Vegas, NV</a></div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="mb-2"><a href="#!">Los Angeles, CA</a></div>
+                                    <div class="mb-2"><a href="#!">Miami, FL</a></div>
+                                    <div class="mb-2"><a href="#!">Nashville, TN</a></div>
+                                    <div class="mb-2"><a href="#!">New York, NY</a></div>
+                                    <div class="mb-2"><a href="#!">Orlando, FL</a></div>
+                                    <div class="mb-2"><a href="#!">Philadelphia, PA</a></div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="mb-2"><a href="#!">Phoenix, AZ</a></div>
+                                    <div class="mb-2"><a href="#!">Portland, OR</a></div>
+                                    <div class="mb-2"><a href="#!">San Francisco, CA</a></div>
+                                    <div class="mb-2"><a href="#!">Seattle, WA</a></div>
+                                    <div class="mb-2"><a href="#!">Tampa, FL</a></div>
+                                    <div class="mb-2"><a href="#!">See more...</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!--cta for organizations and students-->
+                    <section class="bg-light py-10">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 mb-5">
+                                    <div class="card card-body bg-info lift">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <img src="{% static 'flairnow_assets/assets/img/post.png' %}" width="auto" height="auto" class="img-fluid"  alt="Post An Opportunity" />
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <h1 class="card-title font-weight-bold text-white">Register To Start Posting Opportunities</h1>
+                                                <p class="lead small mb-3 text-white">The process starts here</p>
+                                                <button class="btn btn-warning btn-marketing rounded-pill lift lift-sm text-white">Get Started</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 mb-5">
+                                    <div class="card card-body bg-warning lift">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <img src="{% static 'flairnow_assets/assets/img/browse.png' %}" width="auto" height="auto" class="img-fluid"  alt="Browse For Opportunities" />
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <h1 class="card-title font-weight-bold text-white">Register Today & Start Applying To Opportunities</h1>
+                                                <p class="lead small mb-3 text-white">The process starts here</p>
+                                                <button class="btn btn-info btn-info btn-marketing rounded-pill lift lift-sm text-white">Register</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </main>
+            </div>
+            <div id="layoutDefault_footer">
+                <footer class="footer pt-10 pb-5 mt-auto bg-light footer-light">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="footer-brand">Flair Now</div>
+                                <div class="mb-3">Craft Your Future, Today!</div>
+                                <div class="icon-list-social mb-5">
+                                    <a class="icon-list-social-link" href="javascript:void(0);">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                    <a class="icon-list-social-link" href="javascript:void(0);">
+                                        <i class="fab fa-facebook"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-6 mb-5 mb-lg-0 ml-auto">
+                                        <div class="text-uppercase-expanded text-xs mb-4">Flair Now</div>
+                                        <ul class="list-unstyled mb-0">
+                                            <li class="mb-2"><a href="javascript:void(0);">About</a></li>
+                                            <li class="mb-2"><a href="javascript:void(0);">Browse</a></li>
+                                            <li class="mb-2"><a href="javascript:void(0);">Partner Organizations</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6">
+                                        <div class="text-uppercase-expanded text-xs mb-4">Legal</div>
+                                        <ul class="list-unstyled mb-0">
+                                            <li class="mb-2"><a href="javascript:void(0);">Privacy Policy</a></li>
+                                            <li class="mb-2"><a href="javascript:void(0);">Terms and Conditions</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-5" />
+                        <div class="row align-items-center">
+                            <div class="col-md-6 small">Copyright &copy; <a href="{% url 'core:home' %}">Flair Now</a> 2020. Powered by <a href="https://digitalstudio.dev/">Digital Studio</a></div>
+                            <div class="col-md-6 text-md-right small">
+                                <a href="javascript:void(0);">Privacy Policy</a>
+                                &middot;
+                                <a href="javascript:void(0);">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="{% static 'flairnow_assets/js/scripts.js' %}"></script>
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script>
+            AOS.init({
+                disable: 'mobile',
+                duration: 600,
+                once: true
+            });
+        </script>
+    </body>
+</html>
