@@ -52,54 +52,7 @@
                     </header>
                 </main>
             </div>
-            <div id="layoutDefault_footer">
-                <footer class="footer pt-10 pb-5 mt-auto bg-light footer-light">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-3">
-                                <div class="footer-brand">Flair Now</div>
-                                <div class="mb-3">Craft Your Future, Today!</div>
-                                <div class="icon-list-social mb-5">
-                                    <a class="icon-list-social-link" href="javascript:void(0);">
-                                        <i class="fab fa-instagram"></i>
-                                    </a>
-                                    <a class="icon-list-social-link" href="javascript:void(0);">
-                                        <i class="fab fa-facebook"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-lg-9">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-6 mb-5 mb-lg-0 ml-auto">
-                                        <div class="text-uppercase-expanded text-xs mb-4">Flair Now</div>
-                                        <ul class="list-unstyled mb-0">
-                                            <li class="mb-2"><a href="javascript:void(0);">About</a></li>
-                                            <li class="mb-2"><a href="javascript:void(0);">Browse</a></li>
-                                            <li class="mb-2"><a href="javascript:void(0);">Partner Organizations</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6">
-                                        <div class="text-uppercase-expanded text-xs mb-4">Legal</div>
-                                        <ul class="list-unstyled mb-0">
-                                            <li class="mb-2"><a href="javascript:void(0);">Privacy Policy</a></li>
-                                            <li class="mb-2"><a href="javascript:void(0);">Terms and Conditions</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="my-5" />
-                        <div class="row align-items-center">
-                            <div class="col-md-6 small">Copyright &copy; <a href="{% url 'core:home' %}">Flair Now</a> 2020. Powered by <a href="https://digitalstudio.dev/">Digital Studio</a></div>
-                            <div class="col-md-6 text-md-right small">
-                                <a href="javascript:void(0);">Privacy Policy</a>
-                                &middot;
-                                <a href="javascript:void(0);">Terms &amp; Conditions</a>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
-            </div>
+            {% include 'core/footer.html' %}
         </div>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
