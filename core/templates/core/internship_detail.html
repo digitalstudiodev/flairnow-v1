@@ -31,7 +31,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="svg-border-rounded text-light">
+                        <div class="svg-border-rounded text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
                         </div>
                     </header>
@@ -58,7 +58,7 @@
                                     <p class="lead mb-4">
                                         {{ object.description }}
                                     </p>
-                                    <div class="card bg-light shadow-none">
+                                    <div class="card bg-white shadow-none">
                                         <div class="card-body align-items-center justify-content-between p-4">
                                             {% if object.organization == request.user %}
                                             <a class="btn btn-warning btn-marketing rounded-pill ml-2" href="{% url 'core:internship-update' object.id %}">Update</a>
