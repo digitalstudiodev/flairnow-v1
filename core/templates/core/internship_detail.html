@@ -25,8 +25,9 @@
                         <div class="page-header-content">
                             <div class="container">
                                 <div class="row justify-content-center">
-                                    <div class="col-xl-8 col-lg-10 text-center" data-aos="fade">
-                                        <!--<h1 class="page-header-title">Internships > {{ object.title }}</h1>-->
+                                    <div class="col-xl-8 col-lg-10 text-center">
+                                        <img class="mb-4 rounded-circle" src="{{ object.organization.profile.image.url }}" style="width: 15rem;" />
+                                        <h1 class="page-header-title">{{ object.organization.org_name }}</h1>
                                     </div>
                                 </div>
                             </div>
