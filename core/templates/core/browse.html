@@ -88,6 +88,7 @@
                     </section>
                     <hr class="my-0" />
                     <!--cta for organizations and students-->
+                    {% if  not user.is_authenticated %}
                     <section class="bg-white py-10">
                         <div class="container">
                             <div class="row">
@@ -125,6 +126,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
                         </div>
                     </section>
+                    {% endif %}
                 </main>
             </div>
             {% include 'core/footer.html' %}
