@@ -1,154 +1,153 @@
+{% load crispy_forms_tags %}
 {% load static %}
-<!--
-=========================================================
- Paper Kit 2 - v2.2.0
-=========================================================
-
- Product Page: https://www.creative-tim.com/product/paper-kit-2
- Copyright 2019 Creative Tim (https://www.creative-tim.com)
- Licensed under MIT (https://github.com/creativetimofficial/paper-kit-2/blob/master/LICENSE.md)
-
- Coded by Creative Tim
-
-=========================================================
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
-
+{% load static %}
 <!DOCTYPE html>
-
 <html lang="en">
-
-    {% include 'core/head.html' %}
-
-<body class="landing-page sidebar-collapse">
-    <!--nav-->
-    {% include 'core/nav.html' %}
-    <!--header-->
-    <div class="page-header page-header-xs" data-parallax="true" style="background-image: url({% static 'assets/img/main.jpg' %});">
-        <div class="filter"></div>
-    </div>
-    <!--content-->
-    <div class="section profile-content">
-        {% if messages %}
-        <div class="container py-5">
-        {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="border-radius: 2rem;">
-            {{ message }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        {% endfor %}
-        </div>
-        {% endif %}
-        <div class="container">
-            <div class="owner">
-                <div class="avatar">
-                <img src="{{ user.profile.image.url }}" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                </div>
-                <div class="name">
-                <h4 class="title">{{ user.first_name }} {{ user.last_name }}
-                    <br />
-                </h4>
-                <h6 class="description">{{ user.email }}</h6>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 ml-auto mr-auto text-center">
-                <span class="badge badge-pill badge-warning py-2 my-2">New Features Coming Soon!</span>
-                <br />
-                <!--<a class="btn btn-outline-default btn-round" href="{% url 'users:profile-update' %}"><i class="fa fa-cog"></i>&nbsp;Update</a>
-                {% if request.user.is_admin %}
-                <a class="btn btn-outline-default btn-round" href="{% url 'core:intern-create' %}"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Add Opportunity</a>
-                {% endif %}
-                {% if request.user.role == "2" %}
-                <a class="btn btn-outline-default btn-round" href="#"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Add Organization</a>
-                {% endif %}-->
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-8 m-auto">
-                    <h6 class="my-3 text-center">Options</h6>
-                    <div class="list-group shadow mb-5">
-                        <a class="list-group-item list-group-item-action d-flex align-items-center justify-content-between" href="{% url 'users:profile-update' %}">Update Profile</a>
-                        {% if request.user.role == "2" and request.user.org == NULL %}
-                        <a class="list-group-item list-group-item-action d-flex align-items-center justify-content-between" href="{% url 'users:org-create' %}">Register Organization</a>
-                        {% endif %}
-                        {% if request.user.role == "2" and request.user.org != NULL %}
-                        <a class="list-group-item list-group-item-action d-flex align-items-center justify-content-between" href="{% url 'users:org-detail' request.user.org.id %}">My Organization</a>
-                        <a class="list-group-item list-group-item-action d-flex align-items-center justify-content-between" href="{% url 'dash:dash' %}">Dashboard</a>
-                        {% endif %}
-                        {% if request.user.role == "1" and request.user.coap %}
-                        <a class="list-group-item list-group-item-action d-flex align-items-center justify-content-between" href="{% url 'users:coap-detail' request.user.coap.id %}">View Common Application</a>
-                        <a class="list-group-item list-group-item-action d-flex align-items-center justify-content-between" href="#">View Pending Applications</a>
-                        {% else %}
-                        <a class="list-group-item list-group-item-action d-flex align-items-center justify-content-between" href="{% url 'users:coap-create' %}">Common Application</a>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                {% if apps_pending %}
-                    <div class="col-12">
-                        <h6 class="my-3 text-center">Pending Applications</h6>
-                    </div>
-                    {% for a in apps_pending %}
-                    <div class="col-3 p-2">
-                        <a href="{% url 'core:intern-detail' a.op.id %}">
-                            <img src="{{ a.org.cover_image.url }}" class="img-rounded img-responsive" alt="Rounded Image">
-                            <div class="img-details">
-                                <div class="author">
-                                    <img src="{{ a.org.logo.url }}" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Flair Now</title>
+        <link href="{% static 'flairnow_assets/css/styles.css' %}" rel="stylesheet" />
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+        <link rel="icon" type="image/x-icon" href="{% static 'flairnow_assets/assets/img/logo.png' %}" />
+        <script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div id="layoutDefault">
+            <div id="layoutDefault_content">
+                <main>
+                    {% include 'core/nav.html' %}
+                    <header class="page-header page-header-dark bg-warning" style="background-image: url({% static 'flairnow_assets/assets/img/pattern-shapes.png' %})">
+                        <div class="page-header-content">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-xl-8 col-lg-10 text-center">
+                                        <img class="mb-4 rounded-circle" src="{{ user.profile.image.url }}" style="width: 15rem;" />
+                                        <h1 class="page-header-title">{{ user.first_name }} {{ user.last_name }}</h1>
+                                        <a class="btn btn-info btn-marketing rounded-pill lift lift-sm my-3" href="{% url 'users:profile-update' %}">Update</a>
+                                    </div>
                                 </div>
-                                <p class="text-dark text-center">{{ a.op.title }}</p>
                             </div>
-                        </a>
-                    </div>
-                    {% endfor %}
-                {% endif %}
-                {% if apps_denied %}
-                    <div class="col-12">
-                        <h6 class="my-3 text-center">Denied Applications</h6>
-                    </div>
-                    {% for a in apps_denied %}
-                    <div class="col-3 p-2">
-                        <a href="{% url 'core:intern-detail' a.op.id %}">
-                            <img src="{{ a.org.cover_image.url }}" class="img-rounded img-responsive" alt="Rounded Image">
-                            <div class="img-details">
-                                <div class="author">
-                                    <img src="{{ a.org.logo.url }}" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                        </div>
+                        <div class="svg-border-rounded text-light">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
+                        </div>
+                    </header>
+                    <section class="bg-light py-10">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-6 mb-5" data-aos="fade-up">
+                                    <div class="card text-center text-decoration-none h-100 lift" href="#!">
+                                        <div class="card-body py-5">
+                                            <h5 class="mb-3">Common Applications</h5>
+                                            <div class="list-group list-group-flush">
+                                                <a class="list-group-item text-dark" href="#">Internships</a>
+                                                <a class="list-group-item text-dark" href="#">Scholarships</a>
+                                                <a class="list-group-item text-dark" href="#">Fellowships</a>
+                                                <a class="list-group-item text-dark" href="#">Events</a>
+                                                <a class="list-group-item text-dark" href="#">Travel Programs</a>
+                                                <a class="list-group-item text-dark" href="#">Competitions</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <p class="text-dark text-center">{{ a.op.title }}</p>
-                            </div>
-                        </a>
-                    </div>
-                    {% endfor %}
-                {% endif %}
-                {% if apps_accepted %}
-                    <div class="col-12">
-                        <h6 class="my-3 text-center">Accepted Applications</h6>
-                    </div>
-                    {% for a in apps_accepted %}
-                    <div class="col-3 p-2">
-                        <a href="{% url 'core:intern-detail' a.op.id %}">
-                            <img src="{{ a.org.cover_image.url }}" class="img-rounded img-responsive" alt="Rounded Image">
-                            <div class="img-details">
-                                <div class="author">
-                                    <img src="{{ a.org.logo.url }}" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                                <div class="col-lg-4 col-md-6 mb-5" data-aos="fade-up" data-aos-delay="100">
+                                    <div class="card text-center text-decoration-none h-100 lift" href="#!">
+                                        <div class="card-body py-5">
+                                            <h5>Personal Information</h5>
+                                            <div class="list-group list-group-flush">
+                                                {% if user.contact %}
+                                                <a class="list-group-item text-dark" href="{% url 'users:contact-detail' user.contact.id %}">Contact</a>
+                                                {% else %}
+                                                <a class="list-group-item text-dark" href="{% url 'users:contact-create' %}">Contact</a>
+                                                {% endif %}
+                                                {% if user.background %}
+                                                <a class="list-group-item text-dark" href="{% url 'users:background-detail' user.background.id %}">Background</a>
+                                                {% else %}
+                                                <a class="list-group-item text-dark" href="{% url 'users:background-create' %}">Background</a>
+                                                {% endif %}
+                                                {% if user.academic %}
+                                                <a class="list-group-item text-dark" href="{% url 'users:academic-detail' user.academic.id %}">Academic</a>
+                                                {% else %}
+                                                <a class="list-group-item text-dark" href="{% url 'users:academic-create' %}">Academic</a>
+                                                {% endif %}
+                                                {% if user.resume %}
+                                                <a class="list-group-item text-dark" href="{% url 'users:resume-detail' user.resume.id %}">Resume</a>
+                                                {% else %}
+                                                <a class="list-group-item text-dark" href="{% url 'users:resume-create' %}">Resume</a>
+                                                {% endif %}
+                                            </div >
+                                        </div>
+                                    </div>
                                 </div>
-                                <p class="text-dark text-center">{{ a.op.title }}</p>
                             </div>
-                        </a>
+                        </div>
+                    </section>
+                </main>
+            </div>
+            <div id="layoutDefault_footer">
+                <footer class="footer pt-10 pb-5 mt-auto bg-light footer-light">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="footer-brand">Flair Now</div>
+                                <div class="mb-3">Craft Your Future, Today!</div>
+                                <div class="icon-list-social mb-5">
+                                    <a class="icon-list-social-link" href="javascript:void(0);">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                    <a class="icon-list-social-link" href="javascript:void(0);">
+                                        <i class="fab fa-facebook"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-6 mb-5 mb-lg-0 ml-auto">
+                                        <div class="text-uppercase-expanded text-xs mb-4">Flair Now</div>
+                                        <ul class="list-unstyled mb-0">
+                                            <li class="mb-2"><a href="javascript:void(0);">About</a></li>
+                                            <li class="mb-2"><a href="javascript:void(0);">Browse</a></li>
+                                            <li class="mb-2"><a href="javascript:void(0);">Partner Organizations</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6">
+                                        <div class="text-uppercase-expanded text-xs mb-4">Legal</div>
+                                        <ul class="list-unstyled mb-0">
+                                            <li class="mb-2"><a href="javascript:void(0);">Privacy Policy</a></li>
+                                            <li class="mb-2"><a href="javascript:void(0);">Terms and Conditions</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-5" />
+                        <div class="row align-items-center">
+                            <div class="col-md-6 small">Copyright &copy; <a href="{% url 'core:home' %}">Flair Now</a> 2020. Powered by <a href="https://digitalstudio.dev/">Digital Studio</a></div>
+                            <div class="col-md-6 text-md-right small">
+                                <a href="javascript:void(0);">Privacy Policy</a>
+                                &middot;
+                                <a href="javascript:void(0);">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
                     </div>
-                    {% endfor %}
-                {% endif %}
+                </footer>
             </div>
         </div>
-    </div>
-    <!--footer-->
-    {% include 'core/footer.html' %}
-    <!--scripts-->
-    {% include 'core/scripts.html' %}
-</body>
-
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="{% static 'flairnow_assets/js/scripts.js' %}"></script>
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script>
+            AOS.init({
+                disable: 'mobile',
+                duration: 600,
+                once: true
+            });
+        </script>
+    </body>
 </html>

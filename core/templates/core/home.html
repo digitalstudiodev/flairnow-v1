@@ -1,156 +1,371 @@
 {% load static %}
-<!--
-=========================================================
- Paper Kit 2 - v2.2.0
-=========================================================
-
- Product Page: https://www.creative-tim.com/product/paper-kit-2
- Copyright 2019 Creative Tim (https://www.creative-tim.com)
- Licensed under MIT (https://github.com/creativetimofficial/paper-kit-2/blob/master/LICENSE.md)
-
- Coded by Creative Tim
-
-=========================================================
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
-
 <!DOCTYPE html>
-
 <html lang="en">
-
-    {% include 'core/head.html' %}
-
-<body class="landing-page sidebar-collapse">
-    <!--nav-->
-    {% include 'core/nav.html' %}
-    <!--header-->
-    <div class="page-header" data-parallax="true" style="background-image: url({% static 'assets/img/main.jpg' %});">
-        <div class="filter"></div>
-        <div class="container">
-            <div class="motto text-center">
-                <h1>Craft Your Future Today!</h1>
-                <h3>
-                    By bridging the opportunity gap, we help individuals move to and through 
-                    the college process and career selection; thus, resulting in an increase 
-                    in upward mobility. We believe everyone no matter of their background could 
-                    climb the socio-economic ladder.
-                </h3>
-                <br />
-                <a href="https://www.youtube.com/watch?v=1s-t01mo0yY&feature=youtu.be" class="btn btn-outline-neutral btn-round" target="_blank"><i class="fa fa-play"></i>Watch video</a>
-                &nbsp;
-                <a href="{% url 'users:register' %}" class="btn btn-outline-neutral btn-round">Register</a>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Flair Now</title>
+        <link href="{% static 'flairnow_assets/css/styles.css' %}" rel="stylesheet" />
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+        <link rel="icon" type="image/x-icon" href="{% static 'flairnow_assets/assets/img/logo.png' %}" />
+        <script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div id="layoutDefault">
+            <div id="layoutDefault_content">
+                <main>
+                    {% include 'core/nav.html' %}
+                    <header class="page-header page-header-dark bg-warning" style="background-image: url({% static 'flairnow_assets/assets/img/pattern-shapes.png' %})">
+                        <div class="page-header-content">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-xl-8 col-lg-10 text-center" data-aos="fade">
+                                        <h1 class="page-header-title">Craft Your Future, Today!</h1>
+                                        <p class="page-header-text">
+                                            By bridging the opportunity gap, we help individuals move to and through the college process 
+                                            and career selection. We believe everyone no matter of their background could climb the socio-economic ladder.
+                                        </p>
+                                        <a class="btn btn-info btn-marketing rounded-pill lift lift-sm" href="{% url 'users:register' %}">Register</a><a class="btn btn-link btn-marketing rounded-pill" href="#features">Learn More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="svg-border-rounded text-light">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
+                        </div>
+                        <div class="container mt-3">
+                            <div class="row justify-content-center z-1">
+                                <div class="col-lg-8" data-aos="fade-up">
+                                    <div class="card lift mb-n15">
+                                        <div class="card-body p-2">
+                                            <div class="video overlay bg-img-cover rounded" style="background-image: url({% static 'flairnow_assets/assets/img/header_image.jpg' %})">
+                                                <a class="video-link" target="_blank" href="https://www.youtube.com/watch?v=1s-t01mo0yY&feature=youtu.be" data-lity=""><i class="fas fa-play"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+                    <!--features-->
+                    <section class="bg-light py-10" id="features">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-6">
+                                    <div class="text-center">
+                                        <div class="font-weight-bold text-capitalize text-dark mb-5" style="font-size: xx-large;">How do we help you with your Opportunities search?</div>                                    
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-6 mb-5" data-aos="fade-up">
+                                    <div class="card text-center text-decoration-none h-100 lift">
+                                        <div class="card-body py-5">
+                                            <div class="icon-stack icon-stack-lg bg-warning-soft text-white mb-4"><i data-feather="clipboard"></i></div>
+                                            <h5>Common Application for Internships & Scholarships</h5>
+                                            <p class="card-text small">
+                                                Use the common application to apply to any internship or scholarship.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 mb-5" data-aos="fade-up" data-aos-delay="100">
+                                    <div class="card text-center text-decoration-none h-100 lift">
+                                        <div class="card-body py-5">
+                                            <div class="icon-stack icon-stack-lg bg-warning-soft text-white mb-4"><i data-feather="settings"></i></div>
+                                            <h5>Personalized Profile Settings</h5>
+                                            <p class="card-text small">
+                                                Personalize your interests and other attributes to your profile.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 mb-5" data-aos="fade-up" data-aos-delay="150">
+                                    <div class="card text-center text-decoration-none h-100 lift">
+                                        <div class="card-body py-5">
+                                            <div class="icon-stack icon-stack-lg bg-warning-soft text-white mb-4"><i data-feather="user"></i></div>
+                                            <h5>Personalized Opportunities Matching</h5>
+                                            <p class="card-text small">
+                                                Get opportunities matched to you based on your interests.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 mb-5 mb-lg-0" data-aos="fade-up">
+                                    <div class="card text-center text-decoration-none h-100 lift">
+                                        <div class="card-body py-5">
+                                            <div class="icon-stack icon-stack-lg bg-warning-soft text-white mb-4"><i data-feather="mouse-pointer"></i></div>
+                                            <h5>Appy to Opportunities With One Click</h5>
+                                            <p class="card-text small">
+                                                Save time and effort by our one click application process.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 mb-5 mb-md-0" data-aos="fade-up" data-aos-delay="100">
+                                    <div class="card text-center text-decoration-none h-100 lift">
+                                        <div class="card-body py-5">
+                                            <div class="icon-stack icon-stack-lg bg-warning-soft text-white mb-4"><i data-feather="users"></i></div>
+                                            <h5>Partner Organizations That Have Your Interests In Mind</h5>
+                                            <p class="card-text small">
+                                                Our partner organizations provide resources for DACA, international, minority, low-income, and other underrepresented students.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="150">
+                                    <div class="card text-center text-decoration-none h-100 lift">
+                                        <div class="card-body py-5">
+                                            <div class="icon-stack icon-stack-lg bg-warning-soft text-white mb-4"><i data-feather="lock"></i></div>
+                                            <h5>Your Data is Protected</h5>
+                                            <p class="card-text small">
+                                                Your data is encrypted and is managed with security in mind.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!--opportunity postings and browse by type-->
+                    <section class="bg-light py-10">
+                        <div class="container">
+                            <h2 class="mb-4" style="font-size: xx-large;">Recent postings</h2>
+                            <div class="row">
+                                {% for internship in internships %}
+                                <div class="col-lg-3 col-md-6 mb-5">
+                                    <a class="card lift border-bottom-lg border-warning" href="{% url 'core:internship-detail' internship.id %}">
+                                        <div class="card-body text-center">
+                                            <div class="icon-stack icon-stack-xl bg-warning text-white mb-2"><img src="{{ internship.organization.profile.image.url }}" width="auto" height="50px" class="img-fluid m-auto rounded" alt="{{ internship.organization.org_name }} Logo" /></div>
+                                            <div class="small text-gray-600">{{ internship.title }}</div>
+                                            <p class="lead text-muted small">
+                                                {{ internship.number_of_positions }} Positions
+                                            </p>
+                                        </div>
+                                    </a>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <h2 class="mb-4" style="font-size: xx-large;">Browse Categories</h2>
+                            <div class="card-columns card-columns-portfolio">
+                                <a class="card card-portfolio" href="{% url 'core:internship' %}">
+                                    <img class="card-img-top img-fluid" src="{% static 'flairnow_assets/assets/img/internships.jpg' %}" alt="Internships" />
+                                    <div class="card-body"><div class="card-title">Internships</div></div>
+                                </a>
+                                <a class="card card-portfolio" href="#!">
+                                    <img class="card-img-top img-fluid" src="{% static 'flairnow_assets/assets/img/scholarships.jpg' %}" alt="Scholarships" />
+                                    <div class="card-body"><div class="card-title">Scholarships</div></div>
+                                </a>
+                                <a class="card card-portfolio" href="#!">
+                                    <img class="card-img-top img-fluid" src="{% static 'flairnow_assets/assets/img/fellowships.jpg' %}" alt="Fellowships" />
+                                    <div class="card-body"><div class="card-title">Fellowships</div></div>
+                                </a>
+                                <a class="card card-portfolio" href="#!">
+                                    <img class="card-img-top img-fluid" src="{% static 'flairnow_assets/assets/img/travel_programs.jpg' %}" alt="Travel Programs" />
+                                    <div class="card-body"><div class="card-title">Travel Programs</div></div>
+                                </a>
+                                <a class="card card-portfolio" href="#!">
+                                    <img class="card-img-top img-fluid" src="{% static 'flairnow_assets/assets/img/events.jpg' %}" alt="Events" />
+                                    <div class="card-body"><div class="card-title">Events</div></div>
+                                </a>
+                                <a class="card card-portfolio" href="#!">
+                                    <img class="card-img-top img-fluid" src="{% static 'flairnow_assets/assets/img/job.jpg' %}" alt="Competitions" />
+                                    <div class="card-body"><div class="card-title">Jobs</div></div>
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+                    <!--cta for organizations and students-->
+                    <section class="bg-light py-10">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 mb-5">
+                                    <div class="card card-body bg-info lift">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <img src="{% static 'flairnow_assets/assets/img/post.png' %}" width="auto" height="auto" class="img-fluid"  alt="Post An Opportunity" />
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <h1 class="card-title font-weight-bold text-white">Register To Start Posting Opportunities</h1>
+                                                <p class="lead small mb-3 text-white">The process starts here</p>
+                                                <button class="btn btn-warning btn-marketing rounded-pill lift lift-sm text-white">Get Started</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 mb-5">
+                                    <div class="card card-body bg-warning lift">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <img src="{% static 'flairnow_assets/assets/img/browse.png' %}" width="auto" height="auto" class="img-fluid"  alt="Browse For Opportunities" />
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <h1 class="card-title font-weight-bold text-white">Register Today & Start Applying To Opportunities</h1>
+                                                <p class="lead small mb-3 text-white">The process starts here</p>
+                                                <button class="btn btn-info btn-info btn-marketing rounded-pill lift lift-sm text-white">Register</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!--faqs-->
+                    <section class="bg-warning pb-10 pt-15" style="background-image: url({% static 'flairnow_assets/assets/img/pattern-shapes.png' %})">
+                        <div class="container">
+                            <div class="row mb-10 mt-5">
+                                <div class="col-lg-6 mb-5">
+                                    <div class="d-flex h-100">
+                                        <div class="icon-stack flex-shrink-0 bg-info text-white"><i class="fas fa-question"></i></div>
+                                        <div class="ml-4">
+                                            <h5 class="text-white">How likely am I to find a paid internships?</h5>
+                                            <p class="text-white-50">
+                                                We understand the value and need for internships and so we partner with organizations to ensure that they are paid.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-5">
+                                    <div class="d-flex h-100">
+                                        <div class="icon-stack flex-shrink-0 bg-info text-white"><i class="fas fa-question"></i></div>
+                                        <div class="ml-4">
+                                            <h5 class="text-white">I am a DACA student, will my information be secure?</h5>
+                                            <p class="text-white-50">
+                                                Yes, all of the information is enrypted and safe.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-5 mb-lg-0">
+                                    <div class="d-flex h-100">
+                                        <div class="icon-stack flex-shrink-0 bg-info text-white"><i class="fas fa-question"></i></div>
+                                        <div class="ml-4">
+                                            <h5 class="text-white">For the common application, do I really just fill out one application for all opportunities?</h5>
+                                            <p class="text-white-50">
+                                                We have a common application for various types of opportunities, for instance, to apply to all internships one would need to fill out only one application.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!--testimonials-->
+                    <!--<section class="bg-white py-10">
+                        <div class="container">
+                            <div class="row mb-10">
+                                <div class="col-lg-6 mb-5 mb-lg-0 divider-right">
+                                    <div class="testimonial p-lg-5">
+                                        <div class="avatar avatar-xl mb-3"><img class="avatar-img" src="https://source.unsplash.com/QAB-WJcbgJk/96x96" /></div>
+                                        <p class="testimonial-quote text-primary">"Working with the realtor's has been a true joy. They helped us purchase our home and made the whole process so easy!"</p>
+                                        <div class="testimonial-name">Valerie Luna</div>
+                                        <div class="testimonial-position">Jefferson, GA</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="testimonial p-lg-5">
+                                        <div class="avatar avatar-xl mb-3"><img class="avatar-img" src="https://source.unsplash.com/MTZTGvDsHFY/96x96" /></div>
+                                        <p class="testimonial-quote text-primary">"Selling a home has never been so easy. The real estate group helped me prepare my home, list it, and sell it, all within a few weeks!"</p>
+                                        <div class="testimonial-name">Destrian Barnes</div>
+                                        <div class="testimonial-position">Fayetville, NC</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>-->
+                    <!--banner-->
+                    <section class="bg-img-cover overlay overlay-info overlay-70 pt-15" style="background-image: url({% static 'flairnow_assets/assets/img/internships.jpg' %})">
+                        <div style="height: 35vh;"></div>
+                        <div class="svg-border-rounded text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
+                        </div>
+                    </section>
+                    <!--cta, newletter-->
+                    <!--<section class="bg-white pb-10">
+                        <div class="container">
+                            <div class="row align-items-center mt-5">
+                                <div class="col-lg-6">
+                                    <h4>Get the latest updates on opportunities</h4>
+                                    <p class="lead text-gray-500 mb-0">Stay in the loop with the latest updates and features added to our application!</p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="input-group mb-2">
+                                        <input class="form-control form-control-solid" type="text" placeholder="youremail@example.com" aria-label="Recipient's username" aria-describedby="button-addon2" />
+                                        <div class="input-group-append"><button class="btn btn-info" id="button-addon2" type="button">Sign up</button></div>
+                                    </div>
+                                    <div class="small text-gray-500">You can unsubscribe at any time.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="svg-border-rounded text-light">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
+                        </div>
+                    </section>-->
+                </main>
+            </div>
+            <div id="layoutDefault_footer">
+                <footer class="footer pt-10 pb-5 mt-auto bg-light footer-light">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="footer-brand">Flair Now</div>
+                                <div class="mb-3">Craft Your Future, Today!</div>
+                                <div class="icon-list-social mb-5">
+                                    <a class="icon-list-social-link" href="javascript:void(0);">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                    <a class="icon-list-social-link" href="javascript:void(0);">
+                                        <i class="fab fa-facebook"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-6 mb-5 mb-lg-0 ml-auto">
+                                        <div class="text-uppercase-expanded text-xs mb-4">Flair Now</div>
+                                        <ul class="list-unstyled mb-0">
+                                            <li class="mb-2"><a href="javascript:void(0);">About</a></li>
+                                            <li class="mb-2"><a href="javascript:void(0);">Browse</a></li>
+                                            <li class="mb-2"><a href="javascript:void(0);">Partner Organizations</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6">
+                                        <div class="text-uppercase-expanded text-xs mb-4">Legal</div>
+                                        <ul class="list-unstyled mb-0">
+                                            <li class="mb-2"><a href="javascript:void(0);">Privacy Policy</a></li>
+                                            <li class="mb-2"><a href="javascript:void(0);">Terms and Conditions</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-5" />
+                        <div class="row align-items-center">
+                            <div class="col-md-6 small">Copyright &copy; <a href="{% url 'core:home' %}">Flair Now</a> 2020. Powered by <a href="https://digitalstudio.dev/">Digital Studio</a></div>
+                            <div class="col-md-6 text-md-right small">
+                                <a href="javascript:void(0);">Privacy Policy</a>
+                                &middot;
+                                <a href="javascript:void(0);">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
             </div>
         </div>
-    </div>
-    <!--content-->
-    <div class="main">
-        <div class="section">
-            <div class="container">
-                <div class="row mb-5 align-items-center text-center">
-                    <div class="col-md-3">
-                        <div class="info">
-                            <div class="icon icon-danger">
-                                <i class="nc-icon nc-badge"></i>
-                            </div>
-                            <div class="description">
-                            <h4 class="info-title">Personalized Profile</h4>
-                            <p>
-                                Save time on applications by customizing your profile.
-                            </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="info">
-                            <div class="icon icon-danger">
-                                <i class="nc-icon nc-book-bookmark"></i>
-                            </div>
-                            <div class="description">
-                            <h4 class="info-title">Save Opportunities</h4>
-                            <p>
-                                Save a list of opportunities
-                            </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="info">
-                            <div class="icon icon-danger">
-                            <i class="nc-icon nc-chart-bar-32"></i>
-                            </div>
-                            <div class="description">
-                            <h4 class="info-title">Increase Offers</h4>
-                            <p>
-                                Get more opportunities by applying to more opportunities
-                            </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="info">
-                            <div class="icon icon-danger">
-                                <i class="nc-icon nc-briefcase-24"></i>
-                            </div>
-                            <div class="description">
-                            <h4 class="info-title">Start Your Career</h4>
-                            <p>
-                                Find positions at companies
-                            </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <h3 class="title text-center">Our Story</h3>
-                <div class="row">
-                    <div class="col-md-6">
-                        <img class="img-fluid img-rounded shadow" src="{% static 'assets/img/claudia.jpg' %}" alt="">
-                    </div>
-                    <div class="col-md-6">
-                        <p class="py-2">
-                            The idea of FlairNow came about when Claudia Saavedra was 16 years old. 
-                            As an immigrant, coming from a low-income household and the first in her 
-                            family to go to college, she had a difficult time understanding what was 
-                            needed to enroll in college what steps she needed to do to receive a full-time 
-                            job after college.  When she found out about her immigration status in the 
-                            United States during the beginning of her senior year of high school, she 
-                            realized that she could not apply to many opportunities and it took hours of 
-                            research to find what she did qualify for.
-                        </p>
-                        <p class="py-2">
-                            FlairNow started with a series of workshops created by Claudia during her lunch 
-                            period in high school where she provided a step by step process to apply to college 
-                            based on the hours of research she conducted.
-                        </p>
-                        <p class="py-2">
-                            The idea further progressed when she attended Rutgers University to the creation of an 
-                            online mentoring platform with in-person workshops. Here she was able to reach 400+ 
-                            students nationally and internationally. She focused on college and career mentoring as 
-                            well as social-emotional building.
-                        </p>
-                        <p class="py-2">
-                            She met her co-founder Jose Dominguez when they spoke on a panel to help underrepresented 
-                            students enroll in college and teamed up to build an application that matches individuals 
-                            to opportunities based on their profile.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--founders-->
-        {% include 'core/founders.html' %}
-        <!--listings_home-->
-        {% include 'core/interns_home.html' %}
-        <!--featuredin-->
-        {% include 'core/featuredin.html' %}
-        <!--cta-->
-        {% include 'core/cta.html' %}
-        <!--contactus-->
-        {% include 'core/contactus.html' %}
-    </div>
-    <!--footer-->
-    {% include 'core/footer.html' %}
-    <!--scripts-->
-    {% include 'core/scripts.html' %}
-</body>
-
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="{% static 'flairnow_assets/js/scripts.js' %}"></script>
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script>
+            AOS.init({
+                disable: 'mobile',
+                duration: 600,
+                once: true
+            });
+        </script>
+    </body>
 </html>

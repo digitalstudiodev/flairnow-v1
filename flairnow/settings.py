@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*','flairnow.herokuapp.com']
 
 
 # Application definition
@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'dash.apps.DashConfig',
     'crispy_forms',
     'storages',
+    'multiselectfield',
+    'bootstrap_datepicker_plus'
 ]
 
 MIDDLEWARE = [
@@ -125,6 +127,9 @@ USE_TZ = True
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}
 AUTH_USER_MODEL = 'users.User'
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
