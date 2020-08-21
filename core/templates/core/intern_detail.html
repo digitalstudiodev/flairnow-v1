@@ -80,7 +80,7 @@ The above copyright notice and this permission notice shall be included in all c
                             <a class="btn btn-outline-default btn-round" href="{% url 'core:internships' %}"><i class="fa fa-hand-o-left" aria-hidden="true"></i>&nbsp;Back to listings</a>
                         </div>
                         <div class="col-6">
-                            <a class="btn btn-outline-default btn-round" href="#"><i class="fa fa-share-square-o" aria-hidden="true"></i>&nbsp;Apply</a>
+                            <a class="btn btn-outline-default btn-round" href="{{ object.get_apply_url }}"><i class="fa fa-share-square-o" aria-hidden="true"></i>&nbsp;Apply</a>
                         </div>
                     </div>
                     <!--{% if request.user.is_admin %}

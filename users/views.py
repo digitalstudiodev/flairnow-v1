@@ -27,7 +27,9 @@ def profile(request):
             apps_denied = App.objects.all().filter(coap=request.user.coap, status="D")
             apps_accepted = App.objects.all().filter(coap=request.user.coap, status="A")
     except:
-        pass
+        apps_pending = []
+        apps_denied= []
+        apps_accepted= []
     context = {
         'apps_pending': apps_pending,
         'apps_denied': apps_denied,
