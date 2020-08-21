@@ -9,10 +9,10 @@
                 <li class="nav-item"><a class="nav-link" href="{% url 'core:home' %}">Contact</a></li>
             </ul>
             {% if user.is_authenticated and user.is_student %}
-            <a class="text-white" href="{% url 'users:profile' %}"><img src="{% static 'flairnow_assets/assets/img/user.svg' %}" width="auto" height="25px" alt="User Profile" /></a>
+            <a class="text-white" href="{% url 'users:profile' %}"><img class="mb-5" src="{% static 'flairnow_assets/assets/img/user.svg' %}" width="auto" height="25px" alt="User Profile" /></a>
             <a class="btn-info btn rounded-pill px-4 ml-lg-4" href="{% url 'users:logout' %}">Logout<i class="fas fa-arrow-right ml-1"></i></a>
             {% elif user.is_authenticated and user.is_organization %}
-            <a class="text-white" href="{% url 'users:organization-profile' %}"><img src="{% static 'flairnow_assets/assets/img/user.svg' %}" width="auto" height="25px" alt="User Profile" /></a>
+            <a class="text-white" href="{% url 'users:organization-profile' %}"><img class="mb-5" src="{% static 'flairnow_assets/assets/img/user.svg' %}" width="auto" height="25px" alt="User Profile" /></a>
             <a class="btn-info btn rounded-pill px-4 ml-lg-4" href="{% url 'users:logout' %}">Logout<i class="fas fa-arrow-right ml-1"></i></a>
             {% else %}
             <a class="btn-info btn rounded-pill px-4 ml-lg-4" href="{% url 'users:login' %}">Login<i class="fas fa-arrow-right ml-1"></i></a>
