@@ -1,43 +1,49 @@
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
-from users.models import Org, User, Resume
+from users.models import User, MAJORS, CURRENT_GRADE_LEVEL, DEGREES
 
 STATUS = (
-    ('P', 'Pending'),
-    ('D','Denied'),
-    ('A','Accepted')
+    ("O","Open"),
+    ("P","Pending"),
+    ("C","Closed"),
+)
+
+SALARY = (
+    ("S0","Less than $500"),
+    ("S1","Between $500 - $1000"),
+    ("S2","Between $1000 - $1500"),
+    ("S3","Between $1500 - $2000"),
+    ("S4","Between $2000 - $2500"),
+    ("S5","Between $2500 - $3000"),
+    ("S6","Between $3000 - $4000"),
+    ("S7","Between $4000 - $5000"),
 )
 
 
-class Intern(models.Model):
-    title = models.CharField(max_length=100, verbose_name="Position Title")
-    company = models.ForeignKey('users.Org', on_delete=models.SET_NULL, blank=True, null=True)
+class Internship(models.Model):
+    organization = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True)
+    ##basic information
+    title = models.CharField(max_length=1000, default=None, null=True, verbose_name="Position Title")
     date_posted = models.DateTimeField(default=timezone.now)
-    tag = models.CharField(max_length=100, default="", null=False)
-    description = models.TextField(verbose_name="Description", default="")
-    requirements = models.TextField(verbose_name="Requirements", default="", help_text="What is required for the position? Education, Experience, etc.")
-    duties = models.TextField(verbose_name="Reponsibilities", default="", help_text="What are the reponsibilities related to the position?")
-    other = models.TextField(verbose_name="Other", default="", help_text="Include other information such as if position is paid, whether the position is done remotely or in person, or any other additional information.")
+    industry = models.CharField(max_length=1000, choices=MAJORS, default=None, null=True)
+    start_date = models.DateTimeField(verbose_name="Start Date", default=None, null=True)
+    end_date = models.DateTimeField(verbose_name="End Date", default=None, null=True)
+    description = models.TextField(verbose_name="Description", default=None, null=True)
+    number_of_positions = models.IntegerField(default=None, null=True, verbose_name="Number of Available Positions")
+    ##education requirements
+    grade_level = models.CharField(max_length=1000, choices=CURRENT_GRADE_LEVEL, default=None, null=True, verbose_name="This internship is intented for which grade level?")
+    degree = models.CharField(max_length=1000, choices=DEGREES, default=None, null=True, verbose_name="What degree or level of knowledge is required?")
+    gpa = models.FloatField(verbose_name="GPA", default=None, null=True, help_text="Not Required")
+    ##financial information
+    paid = models.BooleanField(verbose_name="Is this intership paid?", default=None, null=True)
+    salary = models.CharField(verbose_name="Salary", default=None, null=True, help_text="Enter as the complete amount for duration of working period.", max_length=1000, choices=SALARY)
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('core:intern-detail', kwargs={'pk': self.pk})
+        return reverse('core:internship-detail', kwargs={'pk': self.pk})
     
     def get_apply_url(self):
         return reverse("core:apply-intern", kwargs={'pk': self.pk})
-
-class App(models.Model):
-    resume = models.ForeignKey('users.Resume', on_delete=models.SET_NULL, blank=True, null=True)
-    op = models.ForeignKey('Intern', on_delete=models.SET_NULL, blank=True, null=True)
-    org = models.ForeignKey('users.Org', on_delete=models.SET_NULL, blank=True, null=True)
-    date_posted = models.DateTimeField(default=timezone.now)
-    status = models.CharField(choices=STATUS, default="P", max_length=10)
-
-    def __str__(self):
-        return str(self.id)
-
-    def get_absolute_url(self):
-        return reverse('core:app-detail', kwargs={'pk': self.pk})

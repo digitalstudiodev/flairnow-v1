@@ -1,20 +1,29 @@
 from django.urls import path, include
-from .views import (register, register_organization, profile, organization_profile, profile_update, login_view, logout_view, base, OrgDetailView, OrgCreateView, OrgUpdateView, ResumeDetailView, ResumeCreateView, ResumeUpdateView, AcademicDetailView, AcademicCreateView, AcademicUpdateView, BackgroundDetailView, BackgroundCreateView, BackgroundUpdateView, ContactDetailView, ContactCreateView, ContactUpdateView, OrganizationContactDetailView, OrganizationContactCreateView, OrganizationContactUpdateView, OrganizationBackgroundDetailView, OrganizationBackgroundUpdateView, OrganizationBackgroundCreateView)
+from .views import (
+    register, register_organization, profile, 
+    organization_profile, profile_update, login_view, 
+    logout_view, ResumeDetailView, ResumeCreateView, 
+    ResumeUpdateView, AcademicDetailView, AcademicCreateView, 
+    AcademicUpdateView, BackgroundDetailView, BackgroundCreateView, 
+    BackgroundUpdateView, ContactDetailView, ContactCreateView, 
+    ContactUpdateView, OrganizationContactDetailView, OrganizationContactCreateView, 
+    OrganizationContactUpdateView, OrganizationBackgroundDetailView, OrganizationBackgroundUpdateView, 
+    OrganizationBackgroundCreateView
+    )
 
 app_name = 'users'
 
 urlpatterns = [
+    ##registration
     path('register/', register, name='register'),
     path('register-organization/', register_organization, name='register-organization'),
+    ##profiles
     path('profile/', profile, name='profile'),
     path('organization-profile/', organization_profile, name='organization-profile'),
     path('profile-update/', profile_update, name='profile-update'),
+    ##login + logout
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
-    ##organization
-    path('org/<int:pk>/', OrgDetailView.as_view(), name='org-detail'),
-    path('org/new/', OrgCreateView.as_view(), name='org-create'),
-    path('org/<int:pk>/update/', OrgUpdateView.as_view(), name='org-update'),
     ##student resume
     path('resume/<int:pk>/', ResumeDetailView.as_view(), name='resume-detail'),
     path('resume/new/', ResumeCreateView.as_view(), name='resume-create'),

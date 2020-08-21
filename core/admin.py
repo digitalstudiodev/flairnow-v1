@@ -1,5 +1,4 @@
 from django.contrib import admin
-from .models import Intern, App
+from .models import Internship
 
-admin.site.register(Intern)
-admin.site.register(App)
+admin.site.register(Internship)

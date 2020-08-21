@@ -1,16 +1,22 @@
 from django.contrib import admin
 from django.urls import path
-from .views import (home, browse, InternListView, InternDetailView, InternCreateView, InternUpdateView, InternDeleteView, apply_intern)
+from .views import (
+    home, browse, internship_info, internship_dash, InternshipListView, 
+    InternshipDetailView, InternshipCreateView, 
+    InternshipUpdateView, InternshipDeleteView
+    )
 
 app_name = 'core'
 
 urlpatterns = [
     path('', home, name="home"),
     path('browse', browse, name="browse"),
-    path('internships/', InternListView.as_view(), name="internships"),
-    path('intern/<int:pk>/', InternDetailView.as_view(), name='intern-detail'),
-    path('intern/new/', InternCreateView.as_view(), name='intern-create'),
-    path('intern/<int:pk>/update', InternUpdateView.as_view(), name='intern-update'),
-    path('intern/<int:pk>/delete', InternDeleteView.as_view(), name='intern-delete'),
-    path('apply-intern/<int:pk>/', apply_intern, name='apply-intern'),
+    path('internship-info', internship_info, name="internship-info"),
+    path('internship-dash', internship_dash, name="internship-dash"),
+    #internships
+    path('internship/', InternshipListView.as_view(), name="internship"),
+    path('internship/<int:pk>/', InternshipDetailView.as_view(), name='internship-detail'),
+    path('internship/new/', InternshipCreateView.as_view(), name='internship-create'),
+    path('internship/<int:pk>/update', InternshipUpdateView.as_view(), name='internship-update'),
+    path('internship/<int:pk>/delete', InternshipDeleteView.as_view(), name='internship-delete'),
 ]

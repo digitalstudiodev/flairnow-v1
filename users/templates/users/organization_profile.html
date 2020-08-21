@@ -45,15 +45,29 @@
                                         <div class="card-body py-5">
                                             <h5 class="mb-3">Organization Information</h5>
                                             <div class="list-group list-group-flush">
-                                                {% if user.contact %}
+                                                {% if user.organizationcontact %}
                                                 <a class="list-group-item text-dark" href="{% url 'users:organizationcontact-detail' user.organizationcontact.id %}">Contact</a>
                                                 {% else %}
                                                 <a class="list-group-item text-dark" href="{% url 'users:organizationcontact-create' %}">Contact</a>
                                                 {% endif %}
-                                                {% if user.background %}
+                                                {% if user.organizationbackground %}
                                                 <a class="list-group-item text-dark" href="{% url 'users:organizationbackground-detail' user.organizationbackground.id %}">Background</a>
                                                 {% else %}
                                                 <a class="list-group-item text-dark" href="{% url 'users:organizationbackground-create' %}">Background</a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 mb-5" data-aos="fade-up">
+                                    <div class="card text-center text-decoration-none h-100 lift" href="#!">
+                                        <div class="card-body py-5">
+                                            <h5 class="mb-3">Opportunities</h5>
+                                            <div class="list-group list-group-flush">
+                                                {% if internships %}
+                                                <a class="list-group-item text-dark" href="{% url 'core:internship-dash' %}">Internships</a>
+                                                {% else %}
+                                                <a class="list-group-item text-dark" href="{% url 'core:internship-info' %}">Internships</a>
                                                 {% endif %}
                                             </div>
                                         </div>

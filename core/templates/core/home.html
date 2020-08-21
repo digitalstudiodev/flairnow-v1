@@ -37,14 +37,20 @@
                         <div class="svg-border-rounded text-light">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
                         </div>
-                    </header>
-                    <section class="bg-light pb-10 pt-1">
-                        <div class="container">
-                            <div class="device-laptop text-gray-200 mt-n10" data-aos="fade-up">
-                                <svg class="device-container" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="83.911 298.53 426.962 243.838"><path d="M474.843 516.208V309.886c0-6.418-4.938-11.355-11.354-11.355H131.791c-6.417 0-11.354 4.938-11.354 11.355v206.816H83.911v13.326c4.938 7.896 31.098 12.34 40.969 12.34h345.024c10.366 0 36.526-4.936 40.969-12.34v-13.326h-36.03v-.494zM134.26 313.341h326.762v203.361H134.26V313.341z"></path></svg><img class="device-screenshot" src="{% static 'flairnow_assets/assets/img/app-desktop-demo-screenshot.jpg' %}" />
+                        <div class="container mt-3">
+                            <div class="row justify-content-center z-1">
+                                <div class="col-lg-8" data-aos="fade-up">
+                                    <div class="card lift mb-n15">
+                                        <div class="card-body p-2">
+                                            <div class="video overlay bg-img-cover rounded" style="background-image: url({% static 'flairnow_assets/assets/img/header_image.jpg' %})">
+                                                <a class="video-link" target="_blank" href="https://www.youtube.com/watch?v=1s-t01mo0yY&feature=youtu.be" data-lity=""><i class="fas fa-play"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </section>
+                    </header>
                     <!--features-->
                     <section class="bg-light py-10" id="features">
                         <div class="container">
@@ -130,237 +136,46 @@
                         <div class="container">
                             <h2 class="mb-4" style="font-size: xx-large;">Recent postings</h2>
                             <div class="row">
-                                <div class="col-xl-3 col-lg-4 col-md-6 mb-5">
-                                    <a class="card lift h-100" href="#!"
-                                        ><div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">$115</div>
-                                        <img class="card-img-top" src="https://source.unsplash.com/tG36rvCeqng/800x500" alt="..." />
-                                        <div class="card-body p-3">
-                                            <div class="card-title small mb-0">Gray Bicycle</div>
-                                            <div class="text-xs text-gray-500">Readcaster, CO &middot; 2 days ago</div>
-                                        </div></a
-                                    >
+                                {% for internship in internships %}
+                                <div class="col-lg-3 col-md-6 mb-5">
+                                    <a class="card lift border-bottom-lg border-warning" href="{% url 'core:internship-detail' internship.id %}">
+                                        <div class="card-body text-center">
+                                            <div class="icon-stack icon-stack-xl bg-warning text-white mb-2"><img src="{{ internship.organization.profile.image.url }}" width="auto" height="50px" class="img-fluid m-auto rounded" alt="{{ internship.organization.org_name }} Logo" /></div>
+                                            <div class="small text-gray-600">{{ internship.title }}</div>
+                                            <p class="lead text-muted small">
+                                                {{ internship.number_of_positions }} Positions
+                                            </p>
+                                        </div>
+                                    </a>
                                 </div>
-                                <div class="col-xl-3 col-lg-4 col-md-6 mb-5">
-                                    <a class="card lift h-100" href="#!"
-                                        ><div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">$29</div>
-                                        <img class="card-img-top" src="https://source.unsplash.com/nHOz7sp5nHE/800x500" alt="..." />
-                                        <div class="card-body p-3">
-                                            <div class="card-title small mb-0">Hanimex Camera</div>
-                                            <div class="text-xs text-gray-500">Waterlow, CO &middot; 3 days ago</div>
-                                        </div></a
-                                    >
-                                </div>
-                                <div class="col-xl-3 col-lg-4 col-md-6 mb-5">
-                                    <a class="card lift h-100" href="#!"
-                                        ><div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">$999</div>
-                                        <img class="card-img-top" src="https://source.unsplash.com/GkFQEOubrCo/800x500" alt="..." />
-                                        <div class="card-body p-3">
-                                            <div class="card-title small mb-0">Macbook Pro</div>
-                                            <div class="text-xs text-gray-500">Waterlow, CO &middot; 4 hours ago</div>
-                                        </div></a
-                                    >
-                                </div>
-                                <div class="col-xl-3 col-lg-4 col-md-6 mb-5">
-                                    <a class="card lift h-100" href="#!"
-                                        ><div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">$19</div>
-                                        <img class="card-img-top" src="https://source.unsplash.com/MCUOp3o4dgk/800x500" alt="..." />
-                                        <div class="card-body p-3">
-                                            <div class="card-title small mb-0">Assorted Skin Care</div>
-                                            <div class="text-xs text-gray-500">Waterlow, CO &middot; 29 minutes ago</div>
-                                        </div></a
-                                    >
-                                </div>
-                                <div class="col-xl-3 col-lg-4 col-md-6 mb-5">
-                                    <a class="card lift h-100" href="#!"
-                                        ><div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">$59</div>
-                                        <img class="card-img-top" src="https://source.unsplash.com/w9IHmVSNBfU/800x500" alt="..." />
-                                        <div class="card-body p-3">
-                                            <div class="card-title small mb-0">Brown Ukulele</div>
-                                            <div class="text-xs text-gray-500">Readcaster, CO &middot; 3 days ago</div>
-                                        </div></a
-                                    >
-                                </div>
-                                <div class="col-xl-3 col-lg-4 col-md-6 mb-5">
-                                    <a class="card lift h-100" href="#!"
-                                        ><div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">$249</div>
-                                        <img class="card-img-top" src="https://source.unsplash.com/bpg-ngqrPc8/800x500" alt="..." />
-                                        <div class="card-body p-3">
-                                            <div class="card-title small mb-0">Leather Sofa</div>
-                                            <div class="text-xs text-gray-500">Readcaster, CO &middot; 2 hours ago</div>
-                                        </div></a
-                                    >
-                                </div>
-                                <div class="col-xl-3 col-lg-4 col-md-6 mb-5">
-                                    <a class="card lift h-100" href="#!"
-                                        ><div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">$219</div>
-                                        <img class="card-img-top" src="https://source.unsplash.com/fZuleEfeA1Q/800x500" alt="..." />
-                                        <div class="card-body p-3">
-                                            <div class="card-title small mb-0">Green Suede Sofa</div>
-                                            <div class="text-xs text-gray-500">Waterlow, CO &middot; 2 days ago</div>
-                                        </div></a
-                                    >
-                                </div>
-                                <div class="col-xl-3 col-lg-4 col-md-6 mb-5">
-                                    <a class="card lift h-100" href="#!"
-                                        ><div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">$89</div>
-                                        <img class="card-img-top" src="https://source.unsplash.com/rjhAiP3cj9E/800x500" alt="..." />
-                                        <div class="card-body p-3">
-                                            <div class="card-title small mb-0">Metal Chairs</div>
-                                            <div class="text-xs text-gray-500">Readcaster, CO &middot; 5 days ago</div>
-                                        </div></a
-                                    >
-                                </div>
-                                <div class="col-xl-3 col-lg-4 col-md-6 mb-5">
-                                    <a class="card lift h-100" href="#!"
-                                        ><div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">$89</div>
-                                        <img class="card-img-top" src="https://source.unsplash.com/5ba6j8d_oXY/800x500" alt="..." />
-                                        <div class="card-body p-3">
-                                            <div class="card-title small mb-0">Wireless Earbuds</div>
-                                            <div class="text-xs text-gray-500">Readcaster, CO &middot; 1 month ago</div>
-                                        </div></a
-                                    >
-                                </div>
-                                <div class="col-xl-3 col-lg-4 col-md-6 mb-5">
-                                    <a class="card lift h-100" href="#!"
-                                        ><div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">$34,999</div>
-                                        <img class="card-img-top" src="https://source.unsplash.com/ESoE_buQvNQ/800x500" alt="..." />
-                                        <div class="card-body p-3">
-                                            <div class="card-title small mb-0">Muscle Car</div>
-                                            <div class="text-xs text-gray-500">Waterlow, CO &middot; 1 week ago</div>
-                                        </div></a
-                                    >
-                                </div>
-                                <div class="col-xl-3 col-lg-4 col-md-6 mb-5">
-                                    <a class="card lift h-100" href="#!"
-                                        ><div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">$69</div>
-                                        <img class="card-img-top" src="https://source.unsplash.com/zuE9jsaVHuA/800x500" alt="..." />
-                                        <div class="card-body p-3">
-                                            <div class="card-title small mb-0">Hardwood Dresser</div>
-                                            <div class="text-xs text-gray-500">Waterlow, CO &middot; 2 weeks ago</div>
-                                        </div></a
-                                    >
-                                </div>
-                                <div class="col-xl-3 col-lg-4 col-md-6 mb-5">
-                                    <a class="card lift h-100" href="#!"
-                                        ><div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">$9,999</div>
-                                        <img class="card-img-top" src="https://source.unsplash.com/WuRsjF4iZK0/800x500" alt="..." />
-                                        <div class="card-body p-3">
-                                            <div class="card-title small mb-0">Classic Motorcycle</div>
-                                            <div class="text-xs text-gray-500">Readcaster, CO &middot; 1 week ago</div>
-                                        </div></a
-                                    >
-                                </div>
-                            </div>
-                            <div class="mb-10">
-                                <a class="text-arrow-icon" href="#!">See more deals near you<i data-feather="arrow-right"></i></a>
+                                {% endfor %}
                             </div>
                             <h2 class="mb-4" style="font-size: xx-large;">Browse Categories</h2>
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6 mb-5">
-                                    <a class="card lift border-bottom-lg border-red" href="#!"
-                                        ><div class="card-body text-center">
-                                            <div class="icon-stack icon-stack-xl bg-red text-white mb-2"><i class="fas fa-car"></i></div>
-                                            <div class="small text-gray-600">Cars</div>
-                                        </div></a
-                                    >
-                                </div>
-                                <div class="col-lg-3 col-md-6 mb-5">
-                                    <a class="card lift border-bottom-lg border-orange" href="#!"
-                                        ><div class="card-body text-center">
-                                            <div class="icon-stack icon-stack-xl bg-orange text-white mb-2"><i class="fas fa-home"></i></div>
-                                            <div class="small text-gray-600">Housing</div>
-                                        </div></a
-                                    >
-                                </div>
-                                <div class="col-lg-3 col-md-6 mb-5">
-                                    <a class="card lift border-bottom-lg border-yellow" href="#!"
-                                        ><div class="card-body text-center">
-                                            <div class="icon-stack icon-stack-xl bg-yellow text-white mb-2"><i class="fas fa-gift"></i></div>
-                                            <div class="small text-gray-600">Free</div>
-                                        </div></a
-                                    >
-                                </div>
-                                <div class="col-lg-3 col-md-6 mb-5">
-                                    <a class="card lift border-bottom-lg border-green" href="#!"
-                                        ><div class="card-body text-center">
-                                            <div class="icon-stack icon-stack-xl bg-green text-white mb-2"><i class="fas fa-mobile-alt"></i></div>
-                                            <div class="small text-gray-600">Tech</div>
-                                        </div></a
-                                    >
-                                </div>
-                                <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
-                                    <a class="card lift border-bottom-lg border-cyan" href="#!"
-                                        ><div class="card-body text-center">
-                                            <div class="icon-stack icon-stack-xl bg-cyan text-white mb-2"><i class="fas fa-couch"></i></div>
-                                            <div class="small text-gray-600">Furniture</div>
-                                        </div></a
-                                    >
-                                </div>
-                                <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
-                                    <a class="card lift border-bottom-lg border-blue" href="#!"
-                                        ><div class="card-body text-center">
-                                            <div class="icon-stack icon-stack-xl bg-blue text-white mb-2"><i class="fas fa-briefcase"></i></div>
-                                            <div class="small text-gray-600">Jobs</div>
-                                        </div></a
-                                    >
-                                </div>
-                                <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
-                                    <a class="card lift border-bottom-lg border-purple" href="#!"
-                                        ><div class="card-body text-center">
-                                            <div class="icon-stack icon-stack-xl bg-purple text-white mb-2"><i class="fas fa-motorcycle"></i></div>
-                                            <div class="small text-gray-600">Leisure</div>
-                                        </div></a
-                                    >
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <a class="card lift border-bottom-lg border-pink" href="#!"
-                                        ><div class="card-body text-center">
-                                            <div class="icon-stack icon-stack-xl bg-pink text-white mb-2"><i class="fas fa-shopping-cart"></i></div>
-                                            <div class="small text-gray-600">Other</div>
-                                        </div></a
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <hr class="my-0" />
-                    <!--browse by city -->
-                    <section class="bg-light py-10">
-                        <div class="container">
-                            <h2 class="mb-4" style="font-size: xx-large;">Browse by city</h2>
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="mb-2"><a href="#!">Atlanta, GA</a></div>
-                                    <div class="mb-2"><a href="#!">Austin, TX</a></div>
-                                    <div class="mb-2"><a href="#!">Baltimore, MD</a></div>
-                                    <div class="mb-2"><a href="#!">Boston, MA</a></div>
-                                    <div class="mb-2"><a href="#!">Chicago, IL</a></div>
-                                    <div class="mb-2"><a href="#!">Cleveland, OH</a></div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="mb-2"><a href="#!">Columbus, OH</a></div>
-                                    <div class="mb-2"><a href="#!">Dallas, TX</a></div>
-                                    <div class="mb-2"><a href="#!">Denver, CO</a></div>
-                                    <div class="mb-2"><a href="#!">Detroit, MI</a></div>
-                                    <div class="mb-2"><a href="#!">Houston, TX</a></div>
-                                    <div class="mb-2"><a href="#!">Las Vegas, NV</a></div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="mb-2"><a href="#!">Los Angeles, CA</a></div>
-                                    <div class="mb-2"><a href="#!">Miami, FL</a></div>
-                                    <div class="mb-2"><a href="#!">Nashville, TN</a></div>
-                                    <div class="mb-2"><a href="#!">New York, NY</a></div>
-                                    <div class="mb-2"><a href="#!">Orlando, FL</a></div>
-                                    <div class="mb-2"><a href="#!">Philadelphia, PA</a></div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="mb-2"><a href="#!">Phoenix, AZ</a></div>
-                                    <div class="mb-2"><a href="#!">Portland, OR</a></div>
-                                    <div class="mb-2"><a href="#!">San Francisco, CA</a></div>
-                                    <div class="mb-2"><a href="#!">Seattle, WA</a></div>
-                                    <div class="mb-2"><a href="#!">Tampa, FL</a></div>
-                                    <div class="mb-2"><a href="#!">See more...</a></div>
-                                </div>
+                            <div class="card-columns card-columns-portfolio">
+                                <a class="card card-portfolio" href="{% url 'core:internship' %}">
+                                    <img class="card-img-top img-fluid" src="{% static 'flairnow_assets/assets/img/internships.jpg' %}" alt="Internships" />
+                                    <div class="card-body"><div class="card-title">Internships</div></div>
+                                </a>
+                                <a class="card card-portfolio" href="#!">
+                                    <img class="card-img-top img-fluid" src="{% static 'flairnow_assets/assets/img/scholarships.jpg' %}" alt="Scholarships" />
+                                    <div class="card-body"><div class="card-title">Scholarships</div></div>
+                                </a>
+                                <a class="card card-portfolio" href="#!">
+                                    <img class="card-img-top img-fluid" src="{% static 'flairnow_assets/assets/img/fellowships.jpg' %}" alt="Fellowships" />
+                                    <div class="card-body"><div class="card-title">Fellowships</div></div>
+                                </a>
+                                <a class="card card-portfolio" href="#!">
+                                    <img class="card-img-top img-fluid" src="{% static 'flairnow_assets/assets/img/travel_programs.jpg' %}" alt="Travel Programs" />
+                                    <div class="card-body"><div class="card-title">Travel Programs</div></div>
+                                </a>
+                                <a class="card card-portfolio" href="#!">
+                                    <img class="card-img-top img-fluid" src="{% static 'flairnow_assets/assets/img/events.jpg' %}" alt="Events" />
+                                    <div class="card-body"><div class="card-title">Events</div></div>
+                                </a>
+                                <a class="card card-portfolio" href="#!">
+                                    <img class="card-img-top img-fluid" src="{% static 'flairnow_assets/assets/img/job.jpg' %}" alt="Competitions" />
+                                    <div class="card-body"><div class="card-title">Jobs</div></div>
+                                </a>
                             </div>
                         </div>
                     </section>
@@ -440,7 +255,7 @@
                         </div>
                     </section>
                     <!--testimonials-->
-                    <section class="bg-white py-10">
+                    <!--<section class="bg-white py-10">
                         <div class="container">
                             <div class="row mb-10">
                                 <div class="col-lg-6 mb-5 mb-lg-0 divider-right">
@@ -461,9 +276,9 @@
                                 </div>
                             </div>
                         </div>
-                    </section>
+                    </section>-->
                     <!--banner-->
-                    <section class="bg-img-cover overlay overlay-info overlay-70 pt-15" style="background-image: url({% static 'flairnow_assets/assets/img/cta.jpg' %})">
+                    <section class="bg-img-cover overlay overlay-info overlay-70 pt-15" style="background-image: url({% static 'flairnow_assets/assets/img/internships.jpg' %})">
                         <div style="height: 35vh;"></div>
                         <div class="svg-border-rounded text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>

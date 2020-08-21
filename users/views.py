@@ -5,8 +5,8 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, LoginForm, OrgRegisterForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .models import User, Org, Resume, Academic, Background, Contact, OrganizationContact, OrganizationBackground
-from core.models import Intern, App
+from .models import User, Resume, Academic, Background, Contact, OrganizationContact, OrganizationBackground
+from core.models import Internship
 from bootstrap_datepicker_plus import DatePickerInput
 
 def register(request):
@@ -40,6 +40,7 @@ def profile(request):
 @login_required(login_url='users:login')
 def organization_profile(request):
     context = {
+        'internships': Internship.objects.filter(organization=request.user)
     }
     return render(request, 'users/organization_profile.html', context)
 
@@ -93,42 +94,6 @@ def login_view(request):
     context['form'] = form
 
     return render(request, "users/login.html", context)
-
-def base(request):
-    return render(request, "users/base.html")
-
-
-class OrgDetailView(DetailView):
-    model = Org
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super().get_context_data(**kwargs)
-        # Add in a QuerySet of all the books
-        context['interns'] = Intern.objects.all().filter(company=self.object.id)
-        return context
-
-class OrgCreateView(LoginRequiredMixin, CreateView):
-    model = Org
-    fields = ['name', 'logo', 'cover_image', 'location', 'industry', 'website', 'description']
-
-    def form_valid(self, form):
-        form.instance.owner = self.request.user
-        return super().form_valid(form)
-
-class OrgUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = Org
-    fields = ['name', 'logo', 'cover_image', 'location', 'industry', 'website', 'description']
-
-    def form_valid(self, form):
-        form.instance.owner = self.request.user
-        return super().form_valid(form)
-
-    def test_func(self):
-        org = self.get_object()
-        if org:
-            return True
-        return False
 
 class ResumeDetailView(DetailView):
     model = Resume

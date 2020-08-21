@@ -279,17 +279,20 @@ MAJORS = (
 )
 
 class Manager(BaseUserManager):
-    def create_user(self, first_name, last_name, email, password=None):
+    def create_user(self, first_name, last_name, org_name, email, password=None):
         if not email:
             raise ValueError("Users must have an email address")
         if not first_name:
             raise ValueError("Users must have a first name")
         if not last_name:
             raise ValueError("Users must have a last name")
+        if not org_name:
+            raise ValueError("Users must have an organization name")
 
         user = self.model(
             first_name=first_name,
             last_name=last_name,
+            org_name=org_name,
             email=self.normalize_email(email),
             password=password,
         )
@@ -298,10 +301,11 @@ class Manager(BaseUserManager):
         user.save(using=self._db)
         return user
     
-    def create_superuser(self, first_name, last_name, email, password):
+    def create_superuser(self, first_name, last_name, org_name, email, password):
         user = self.create_user(
             first_name=first_name,
             last_name=last_name,
+            org_name=org_name,
             email=self.normalize_email(email),
             password=password,
         )
@@ -359,23 +363,6 @@ class Profile(models.Model):
             img.thumbnail(output_size)
             img.save(self.image.path)
     '''
-
-class Org(models.Model):
-    owner = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Owner")
-    date_posted = models.DateTimeField(default=timezone.now)
-    name = models.CharField(max_length=100, default="", null=False, verbose_name="Organization Name")
-    logo = models.ImageField(default='default_logo.png', upload_to='logo_pics', verbose_name="Logo")
-    cover_image = models.ImageField(default='default_cover.png', upload_to='cover_pics', verbose_name="Cover Image")
-    location = models.CharField(max_length=300, verbose_name="Location", default="", null=False)
-    industry = models.CharField(max_length=30, verbose_name="Industry", default="", null=False)
-    website = models.CharField(max_length=300, verbose_name="Website (URL):", default="", null=False)
-    description = models.TextField(verbose_name="Description")
-
-    def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return reverse('users:org-detail', kwargs={'pk': self.pk})
 
 ##student resume
 class Resume(models.Model):
@@ -458,7 +445,7 @@ class OrganizationContact(models.Model):
     twitter_link = models.CharField(max_length=1000, default=None, null=True, verbose_name="Twitter Link")
 
     def __str__(self):
-        return self.date_posted
+        return self.phone_number
 
     def get_absolute_url(self):
         return reverse('users:organizationcontact-detail', kwargs={'pk': self.pk})
