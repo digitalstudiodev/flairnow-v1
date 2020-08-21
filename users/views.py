@@ -7,7 +7,6 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import User, Resume, Academic, Background, Contact, OrganizationContact, OrganizationBackground
 from core.models import Internship
-from bootstrap_datepicker_plus import DatePickerInput
 
 def register(request):
     form = UserRegisterForm()
@@ -33,18 +32,6 @@ def register_organization(request):
 
 @login_required(login_url='users:login')
 def profile(request):
-<<<<<<< HEAD
-    try: 
-        if request.user.coap:
-            apps_pending = App.objects.all().filter(coap=request.user.coap, status="P")
-            apps_denied = App.objects.all().filter(coap=request.user.coap, status="D")
-            apps_accepted = App.objects.all().filter(coap=request.user.coap, status="A")
-    except:
-        apps_pending = []
-        apps_denied= []
-        apps_accepted= []
-=======
->>>>>>> 35faf49a7f25533f7493ec019f619b4c5bc8e72d
     context = {
     }
     return render(request, 'users/profile.html', context)
@@ -188,9 +175,6 @@ class ContactDetailView(DetailView):
 class ContactCreateView(LoginRequiredMixin, CreateView):
     model = Contact
     fields = ['phone_number', 'date_of_birth','primary_address','zip_code','city','state']
-    widgets = {
-            'date_of_birth': DatePickerInput(), # default date-format %m/%d/%Y will be used
-        }
 
     def form_valid(self, form):
         form.instance.student = self.request.user
@@ -199,9 +183,6 @@ class ContactCreateView(LoginRequiredMixin, CreateView):
 class ContactUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Contact
     fields = ['phone_number', 'date_of_birth','primary_address','zip_code','city','state']
-    widgets = {
-            'date_of_birth': DatePickerInput(), # default date-format %m/%d/%Y will be used
-        }
 
     def form_valid(self, form):
         form.instance.student = self.request.user
