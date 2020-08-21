@@ -53,7 +53,10 @@ def profile_update(request):
             u_form.save()
             p_form.save()
             messages.success(request, f'Your account has been updated!')
-            return redirect('users:profile')
+            if request.user.is_student:
+                return redirect('users:profile')
+            elif request.user.is_organization:
+                return redirect('users:organization-profile')
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
