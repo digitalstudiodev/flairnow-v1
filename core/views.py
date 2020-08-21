@@ -54,7 +54,7 @@ class InternshipCreateView(LoginRequiredMixin, CreateView):
         ##education requirements
         'grade_level','degree','gpa',
         ##financial information
-        'paid','salary'
+        'salary'
         ]
 
     def form_valid(self, form):
@@ -69,7 +69,7 @@ class InternshipUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         ##education requirements
         'grade_level','degree','gpa',
         ##financial information
-        'paid','salary'
+        'salary'
         ]
 
     def form_valid(self, form):
