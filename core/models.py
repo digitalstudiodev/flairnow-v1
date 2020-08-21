@@ -10,6 +10,7 @@ STATUS = (
 )
 
 SALARY = (
+    ("UP","Unpaid"),
     ("S0","Less than $500"),
     ("S1","Between $500 - $1000"),
     ("S2","Between $1000 - $1500"),
@@ -36,7 +37,6 @@ class Internship(models.Model):
     degree = models.CharField(max_length=1000, choices=DEGREES, default=None, null=True, verbose_name="What degree or level of knowledge is required?")
     gpa = models.FloatField(verbose_name="GPA", default=None, null=True, help_text="Not Required")
     ##financial information
-    paid = models.BooleanField(verbose_name="Is this intership paid?", default=None, null=True)
     salary = models.CharField(verbose_name="Salary", default=None, null=True, help_text="Enter as the complete amount for duration of working period.", max_length=1000, choices=SALARY)
 
     def __str__(self):
