@@ -12,6 +12,21 @@ def home(request):
     }
     return render(request, "core/home.html", context)
 
+def about(request):
+    context = {
+    }
+    return render(request, "core/about.html", context)
+
+def contact(request):
+    context = {
+    }
+    return render(request, "core/contact.html", context)
+
+def partner_contract(request):
+    context = {
+    }
+    return render(request, "core/partner_contract.html", context)
+
 def browse(request):
     context = {
         'internships': Internship.objects.all()[0:8]

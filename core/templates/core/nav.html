@@ -4,15 +4,15 @@
         <a class="text-white navbar-brand" href="{% url 'core:home' %}"><img class="img-fluid" src="{% static 'flairnow_assets/assets/img/logo.svg' %}" width="auto" height="50px" alt="Flair Now Logo" />&nbsp;&nbsp;Flair Now</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i data-feather="menu"></i></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto mr-lg-5">
-                <li class="nav-item"><a class="nav-link" href="{% url 'core:home' %}">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'core:about' %}">About</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'core:browse' %}">Browse</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'core:home' %}">Contact</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'core:contact' %}">Contact</a></li>
             </ul>
             {% if user.is_authenticated and user.is_student %}
-            <a class="text-white" href="{% url 'users:profile' %}"><img class="mb-5" src="{% static 'flairnow_assets/assets/img/user.svg' %}" width="auto" height="25px" alt="User Profile" /></a>
+            <a class="text-white" href="{% url 'users:profile' %}"><img class="m-2" src="{% static 'flairnow_assets/assets/img/user.svg' %}" width="auto" height="25px" alt="User Profile" /></a>
             <a class="btn-info btn rounded-pill px-4 ml-lg-4" href="{% url 'users:logout' %}">Logout<i class="fas fa-arrow-right ml-1"></i></a>
             {% elif user.is_authenticated and user.is_organization %}
-            <a class="text-white" href="{% url 'users:organization-profile' %}"><img class="mb-5" src="{% static 'flairnow_assets/assets/img/user.svg' %}" width="auto" height="25px" alt="User Profile" /></a>
+            <a class="text-white" href="{% url 'users:organization-profile' %}"><img class="m-2" src="{% static 'flairnow_assets/assets/img/user.svg' %}" width="auto" height="25px" alt="User Profile" /></a>
             <a class="btn-info btn rounded-pill px-4 ml-lg-4" href="{% url 'users:logout' %}">Logout<i class="fas fa-arrow-right ml-1"></i></a>
             {% else %}
             <a class="btn-info btn rounded-pill px-4 ml-lg-4" href="{% url 'users:login' %}">Login<i class="fas fa-arrow-right ml-1"></i></a>

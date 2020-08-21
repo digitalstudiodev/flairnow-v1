@@ -27,7 +27,7 @@
                               <div class="row align-items-center">
                                 <div class="col-lg-6 m-auto">
                                     <div class="card rounded-lg text-dark">
-                                        <div class="card-header py-4 text-dark">Register and Personalize Your Profile</div>
+                                        <div class="card-header py-4 text-dark">Register and Get Started!</div>
                                         <div class="card-body">
                                           <form class="register-form" method="POST">
                                             {% csrf_token %}
@@ -35,7 +35,7 @@
                                               If you already have an account please <a href="{% url 'users:login' %}">login</a>
                                             </p>
                                             {{ form|crispy }}
-                                            <button class="btn btn-info btn-block btn-round rounded-pill" type="Submit">Register</button>
+                                            <button class="btn btn-marketing btn-info btn-block btn-round rounded-pill" type="Submit">Register</button>
                                           </form>
                                         </div>
                                     </div>
