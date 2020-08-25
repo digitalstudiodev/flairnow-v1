@@ -77,105 +77,13 @@
                         </div>
                     </section>
                     <!--cta for organizations and students-->
-                    {% if  not user.is_authenticated %}
-                    <section class="bg-white py-10">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6 mb-5">
-                                    <div class="card card-body bg-info lift">
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <img src="{% static 'flairnow_assets/assets/img/post.png' %}" width="auto" height="auto" class="img-fluid"  alt="Post An Opportunity" />
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <h1 class="card-title font-weight-bold text-white">Register To Start Posting Opportunities</h1>
-                                                <p class="lead small mb-3 text-white">The process starts here</p>
-                                                <a class="btn btn-warning btn-marketing rounded-pill lift lift-sm text-white" href="{% url 'core:partner-contract' %}">Get Started</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 mb-5">
-                                    <div class="card card-body bg-warning lift">
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <img src="{% static 'flairnow_assets/assets/img/browse.png' %}" width="auto" height="auto" class="img-fluid"  alt="Browse For Opportunities" />
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <h1 class="card-title font-weight-bold text-white">Register Today & Start Applying To Opportunities</h1>
-                                                <p class="lead small mb-3 text-white">The process starts here</p>
-                                                <a class="btn btn-info btn-info btn-marketing rounded-pill lift lift-sm text-white" href="{% url 'users:register' %}">Register</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    {% endif %}
+                    {% include 'core/cta_register.html' %}
                     <!--faqs-->
-                    <section class="bg-warning pb-10 pt-15" style="background-image: url({% static 'flairnow_assets/assets/img/pattern-shapes.png' %})">
-                        <div class="container">
-                            <div class="row mb-10 mt-5">
-                                <div class="col-lg-6 mb-5">
-                                    <div class="d-flex h-100">
-                                        <div class="icon-stack flex-shrink-0 bg-info text-white"><i class="fas fa-question"></i></div>
-                                        <div class="ml-4">
-                                            <h5 class="text-white">How likely am I to find a paid internships?</h5>
-                                            <p class="text-white-50">
-                                                We understand the value and need for internships and so we partner with organizations to ensure that they are paid.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-5">
-                                    <div class="d-flex h-100">
-                                        <div class="icon-stack flex-shrink-0 bg-info text-white"><i class="fas fa-question"></i></div>
-                                        <div class="ml-4">
-                                            <h5 class="text-white">I am a DACA student, will my information be secure?</h5>
-                                            <p class="text-white-50">
-                                                Yes, all of the information is enrypted and safe.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-5 mb-lg-0">
-                                    <div class="d-flex h-100">
-                                        <div class="icon-stack flex-shrink-0 bg-info text-white"><i class="fas fa-question"></i></div>
-                                        <div class="ml-4">
-                                            <h5 class="text-white">For the common application, do I really just fill out one application for all opportunities?</h5>
-                                            <p class="text-white-50">
-                                                We have a common application for various types of opportunities, for instance, to apply to all internships one would need to fill out only one application.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
+                    {% include 'core/faqs.html' %}
                     <!--testimonials-->
-                    <section class="bg-white py-10">
-                        <div class="container">
-                            <div class="row mb-10">
-                                <div class="col-lg-6 mb-5 mb-lg-0 divider-right">
-                                    <div class="testimonial p-lg-5">
-                                        <div class="avatar avatar-xl mb-3"><img class="avatar-img" src="https://source.unsplash.com/QAB-WJcbgJk/96x96" /></div>
-                                        <p class="testimonial-quote text-primary">"Working with the realtor's has been a true joy. They helped us purchase our home and made the whole process so easy!"</p>
-                                        <div class="testimonial-name">Valerie Luna</div>
-                                        <div class="testimonial-position">Jefferson, GA</div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="testimonial p-lg-5">
-                                        <div class="avatar avatar-xl mb-3"><img class="avatar-img" src="https://source.unsplash.com/MTZTGvDsHFY/96x96" /></div>
-                                        <p class="testimonial-quote text-primary">"Selling a home has never been so easy. The real estate group helped me prepare my home, list it, and sell it, all within a few weeks!"</p>
-                                        <div class="testimonial-name">Destrian Barnes</div>
-                                        <div class="testimonial-position">Fayetville, NC</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
+                    {% include 'core/testimonials.html' %}
+                    <!--cta newsletter-->
+                    {% include 'core/cta_newsletter.html' %}
                 </main>
             </div>
             {% include 'core/footer.html' %}

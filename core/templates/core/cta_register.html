@@ -1,0 +1,38 @@
+{% load static %}
+<!--cta for organizations and students-->
+{% if  not user.is_authenticated %}
+<section class="bg-white py-10">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 mb-5">
+                <div class="card card-body bg-info lift">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <img src="{% static 'flairnow_assets/assets/img/post.png' %}" width="auto" height="auto" class="img-fluid"  alt="Post An Opportunity" />
+                        </div>
+                        <div class="col-lg-6">
+                            <h1 class="card-title font-weight-bold text-white">Register To Start Posting Opportunities</h1>
+                            <p class="lead small mb-3 text-white">The process starts here</p>
+                            <a class="btn btn-warning btn-marketing rounded-pill lift lift-sm text-white" href="{% url 'core:partner-contract' %}">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-5">
+                <div class="card card-body bg-warning lift">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <img src="{% static 'flairnow_assets/assets/img/browse.png' %}" width="auto" height="auto" class="img-fluid"  alt="Browse For Opportunities" />
+                        </div>
+                        <div class="col-lg-6">
+                            <h1 class="card-title font-weight-bold text-white">Register Today & Start Applying To Opportunities</h1>
+                            <p class="lead small mb-3 text-white">The process starts here</p>
+                            <a class="btn btn-info btn-info btn-marketing rounded-pill lift lift-sm text-white" href="{% url 'users:register' %}">Register</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
