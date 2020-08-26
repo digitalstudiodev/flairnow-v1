@@ -1,7 +1,7 @@
 {% load static %}
 <!--cta for organizations and students-->
 {% if  not user.is_authenticated %}
-<section class="bg-white py-10">
+<section class="bg-white p-2">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-6 mb-5">
@@ -27,7 +27,7 @@
                         <div class="col-lg-6">
                             <h1 class="card-title font-weight-bold text-white">Register Today & Start Applying To Opportunities</h1>
                             <p class="lead small mb-3 text-white">The process starts here</p>
-                            <a class="btn btn-info btn-info btn-marketing rounded-pill lift lift-sm text-white" href="{% url 'users:register' %}">Register</a>
+                            <a class="btn btn-info btn-marketing rounded-pill lift lift-sm text-white" href="{% url 'users:register' %}">Register</a>
                         </div>
                     </div>
                 </div>

@@ -4,7 +4,7 @@ from .views import (
     home, browse, about, contact, partner_contract,
     internship_info, internship_dash, InternshipListView, 
     InternshipDetailView, InternshipCreateView, 
-    InternshipUpdateView, InternshipDeleteView
+    InternshipUpdateView, InternshipDeleteView, InternshipApplicationCreateView
     )
 
 app_name = 'core'
@@ -23,4 +23,5 @@ urlpatterns = [
     path('internship/new/', InternshipCreateView.as_view(), name='internship-create'),
     path('internship/<int:pk>/update', InternshipUpdateView.as_view(), name='internship-update'),
     path('internship/<int:pk>/delete', InternshipDeleteView.as_view(), name='internship-delete'),
+    path('internship/<int:internships>/apply', InternshipApplicationCreateView.as_view(), name='internship-application-create'),
 ]

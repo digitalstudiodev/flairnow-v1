@@ -38,6 +38,7 @@
                     </header>
                     <section class="bg-white py-10">
                         <div class="container mt-10">
+                            {% include 'core/messages.html' %}
                             <div class="row">
                                 <div class="col-lg-4">
                                     <ul class="list-group list-group-flush list-group-careers">
@@ -63,8 +64,13 @@
                                             {% if object.organization == request.user %}
                                             <a class="btn btn-warning btn-marketing rounded-pill ml-2" href="{% url 'core:internship-update' object.id %}">Update</a>
                                             <a class="btn btn-danger btn-marketing rounded-pill ml-2" href="{% url 'core:internship-delete' object.id %}">Delete</a>
-                                            {% else %}
-                                            <a class="btn btn-info btn-marketing rounded-pill ml-2" href="#!">Apply Now</a>
+                                            {% endif %}
+                                            {% if user.is_student and user.interncommonapp %}
+                                            <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'core:internship-application-create' internships=object.id %}">Apply Now</a>
+                                            {% elif user.is_student and not user.interncommonapp %}
+                                            Fill out the Internship Common Application <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:internship-common-application-create' %}">Apply</a>
+                                            {% elif not user.is_authenticated %}
+                                            <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:login' %}">Apply</a>
                                             {% endif %}
                                         </div>
                                     </div>

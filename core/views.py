@@ -5,6 +5,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.core.paginator import Paginator
+from .models import InternshipApplication
+from django.views.generic.edit import FormMixin
+from django.urls import reverse
 
 def home(request):
     context = {
@@ -106,3 +109,27 @@ class InternshipDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if intern:
             return True
         return False
+
+class InternshipApplicationCreateView(LoginRequiredMixin, CreateView):
+    model = InternshipApplication
+    success_url = "/users/profile/"
+    fields = ['sure']
+
+
+    def form_valid(self, form):
+        internships = self.kwargs["internships"]
+        form.instance.student = self.request.user
+        form.instance.internship = Internship.objects.all().filter(id=internships)[0]
+        match = InternshipApplication.objects.all().filter(internship=form.instance.internship, student=form.instance.student)
+        if match:
+            messages.warning(self.request,f"You have already applied to this internship. Check on the status below.")
+            return redirect("users:profile")
+        else:
+            form.instance.status = "P"
+            messages.success(self.request,f"Congrats you have successfullly applied to this internship!")
+            return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        context = super(InternshipApplicationCreateView, self).get_context_data(**kwargs)
+        context['internship'] = Internship.objects.all().filter(id=self.kwargs["internships"])[0]
+        return context

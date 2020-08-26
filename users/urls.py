@@ -8,7 +8,7 @@ from .views import (
     BackgroundUpdateView, ContactDetailView, ContactCreateView, 
     ContactUpdateView, OrganizationContactDetailView, OrganizationContactCreateView, 
     OrganizationContactUpdateView, OrganizationBackgroundDetailView, OrganizationBackgroundUpdateView, 
-    OrganizationBackgroundCreateView
+    OrganizationBackgroundCreateView, InternCommonAppDetailView, InternCommonAppUpdateView, InternCommonAppCreateView
     )
 
 app_name = 'users'
@@ -48,4 +48,8 @@ urlpatterns = [
     path('organization-background/<int:pk>/', OrganizationBackgroundDetailView.as_view(), name='organizationbackground-detail'),
     path('organization-background/new/', OrganizationBackgroundCreateView.as_view(), name='organizationbackground-create'),
     path('organization-background/<int:pk>/update/', OrganizationBackgroundUpdateView.as_view(), name='organizationbackground-update'),
+    ##student internship application
+    path('internship-common-application/<int:pk>/', InternCommonAppDetailView.as_view(), name='internship-common-application-detail'),
+    path('internship-common-application/new/', InternCommonAppCreateView.as_view(), name='internship-common-application-create'),
+    path('internship-common-application/<int:pk>/update/', InternCommonAppUpdateView.as_view(), name='internship-common-application-update'),
 ]

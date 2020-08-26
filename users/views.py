@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, LoginForm, OrgRegisterForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .models import User, Resume, Academic, Background, Contact, OrganizationContact, OrganizationBackground
+from .models import User, Resume, Academic, Background, Contact, OrganizationContact, OrganizationBackground, InternCommonApp
 from core.models import Internship
 
 def register(request):
@@ -239,6 +239,31 @@ class OrganizationBackgroundUpdateView(LoginRequiredMixin, UserPassesTestMixin, 
 
     def form_valid(self, form):
         form.instance.organization = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        coap = self.get_object()
+        if coap:
+            return True
+        return False
+
+class InternCommonAppDetailView(DetailView):
+    model = InternCommonApp
+
+class InternCommonAppCreateView(LoginRequiredMixin, CreateView):
+    model = InternCommonApp
+    fields = ['q1', 'q2','q3']
+
+    def form_valid(self, form):
+        form.instance.student = self.request.user
+        return super().form_valid(form)
+
+class InternCommonAppUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = InternCommonApp
+    fields = ['q1', 'q2','q3']
+
+    def form_valid(self, form):
+        form.instance.student = self.request.user
         return super().form_valid(form)
 
     def test_func(self):

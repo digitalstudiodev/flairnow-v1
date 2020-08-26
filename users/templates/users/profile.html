@@ -39,13 +39,18 @@
                     </header>
                     <section class="bg-light py-10">
                         <div class="container">
+                            {% include 'core/messages.html' %}
                             <div class="row">
                                 <div class="col-lg-4 col-md-6 mb-5" data-aos="fade-up">
                                     <div class="card text-center text-decoration-none h-100 lift" href="#!">
                                         <div class="card-body py-5">
                                             <h5 class="mb-3">Common Applications</h5>
                                             <div class="list-group list-group-flush">
-                                                <a class="list-group-item text-dark" href="#">Internships</a>
+                                                {% if user.interncommonapp %}
+                                                <a class="list-group-item text-dark" href="{% url 'users:internship-common-application-detail' user.interncommonapp.id %}">Internships</a>
+                                                {% else %}
+                                                <a class="list-group-item text-dark" href="{% url 'users:internship-common-application-create' %}">Internships</a>
+                                                {% endif %}
                                                 <a class="list-group-item text-dark" href="#">Scholarships</a>
                                                 <a class="list-group-item text-dark" href="#">Fellowships</a>
                                                 <a class="list-group-item text-dark" href="#">Events</a>

@@ -3,6 +3,10 @@ from django.urls import reverse
 from django.utils import timezone
 from users.models import User, MAJORS, CURRENT_GRADE_LEVEL, DEGREES
 
+BINARY = (
+    ("Y","Yes"),
+)
+
 STATUS = (
     ("O","Open"),
     ("P","Pending"),
@@ -19,6 +23,13 @@ SALARY = (
     ("S5","Between $2500 - $3000"),
     ("S6","Between $3000 - $4000"),
     ("S7","Between $4000 - $5000"),
+)
+
+STATUS = (
+    ("P","Pending"),
+    ("A","Accepted"),
+    ("D","Denied"),
+    ("W","Wait List")
 )
 
 
@@ -47,3 +58,17 @@ class Internship(models.Model):
     
     def get_apply_url(self):
         return reverse("core:apply-intern", kwargs={'pk': self.pk})
+
+##Application
+class InternshipApplication(models.Model):
+    date_posted = models.DateTimeField(default=timezone.now)
+    internship = models.ForeignKey(Internship, on_delete=models.SET_NULL, default=None, null=True)
+    student = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True)
+    status = models.CharField(max_length=1000, choices=STATUS, default="P", null=True)
+    sure = models.CharField(max_length=1000, verbose_name="Are you sure?", choices=BINARY, default=None, null=True)
+
+    def __str__(self):
+        return str(self.date_posted)
+    
+    def get_absolute_url(self):
+        return reverse('core:internship-detail', kwargs={'pk': self.internship.id})

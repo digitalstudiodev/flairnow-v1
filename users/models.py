@@ -395,7 +395,7 @@ class Academic(models.Model):
     def get_absolute_url(self):
         return reverse('users:academic-detail', kwargs={'pk': self.pk})
 
-#student background information
+##student background information
 class Background(models.Model):
     student = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Student")
     date_posted = models.DateTimeField(default=timezone.now)
@@ -413,7 +413,7 @@ class Background(models.Model):
     def get_absolute_url(self):
         return reverse('users:background-detail', kwargs={'pk': self.pk})
 
-#student contact information
+##student contact information
 class Contact(models.Model):
     student = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Student")
     date_posted = models.DateTimeField(default=timezone.now)
@@ -430,9 +430,9 @@ class Contact(models.Model):
     def get_absolute_url(self):
         return reverse('users:contact-detail', kwargs={'pk': self.pk})
 
-#organization contact information
+##organization contact information
 class OrganizationContact(models.Model):
-    organization = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Student")
+    organization = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Organization")
     date_posted = models.DateTimeField(default=timezone.now)
     phone_number = models.CharField(max_length=10, default=None, null=True, verbose_name="Phone Number", help_text="Please enter in the following format: 9734568456")
     primary_address = models.CharField(max_length=1000, default=None, null=True, verbose_name="Primary Address")
@@ -450,9 +450,9 @@ class OrganizationContact(models.Model):
     def get_absolute_url(self):
         return reverse('users:organizationcontact-detail', kwargs={'pk': self.pk})
 
-#organization background information
+##organization background information
 class OrganizationBackground(models.Model):
-    organization = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Student")
+    organization = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Organization")
     date_posted = models.DateTimeField(default=timezone.now)
     size = models.IntegerField(default=None, null=True, verbose_name="Number of Individuals")
     industry = models.CharField(max_length=1000, choices=MAJORS, default=None, null=True, verbose_name="Industry")
@@ -464,3 +464,17 @@ class OrganizationBackground(models.Model):
 
     def get_absolute_url(self):
         return reverse('users:organizationbackground-detail', kwargs={'pk': self.pk})
+
+##internship common application
+class InternCommonApp(models.Model):
+    student = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Student")
+    date_posted = models.DateTimeField(default=timezone.now)
+    q1 = models.TextField(max_length=1000, verbose_name="Tell Us About a Situation Where You Took Initiative or Took on a Leadership Role.", help_text="Max Length (1000 characters)")
+    q2 = models.TextField(max_length=1000, verbose_name="What’s the Best Team You’ve Ever Been a Part of, and Why?/What’s Your Ideal Team?", help_text="Max Length (1000 characters)")
+    q3 = models.TextField(max_length=1000, verbose_name="Why Are You Interested in This Internship/Company/Industry, and What Skills or Experiences Do You Hope to Gain?", help_text="Max Length (1000 characters)")
+
+    def __str__(self):
+        return self.date_posted
+
+    def get_absolute_url(self):
+        return reverse('users:internship-common-application-detail', kwargs={'pk': self.pk})
