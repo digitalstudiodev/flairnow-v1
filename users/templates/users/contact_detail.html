@@ -48,7 +48,7 @@
                                                         <span class="fa-li"><i class="fas fa-flag-usa text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">State:</span> {{ object.get_state_display }}</span>
                                                     </li>
                                                 </ul>
-                                                <a class="btn btn-warning btn-marketing rounded-pill lift lift-sm my-3 text-white" href="{% url 'users:contact-update' object.id %}">Update</a>
+                                                <a class="btn btn-warning btn-marketing rounded-pill lift lift-sm my-3 text-white" href="{% url 'users:contact-update' object.id %}">Update</a><a class="btn btn-link btn-marketing rounded-pill" href="{% url 'users:profile' %}">Profile</a>
                                             </div>
                                         </div>
                                     </div>
