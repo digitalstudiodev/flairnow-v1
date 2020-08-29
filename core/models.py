@@ -1,11 +1,8 @@
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
-from users.models import User, MAJORS, CURRENT_GRADE_LEVEL, DEGREES
+from users.models import User, MAJORS, CURRENT_GRADE_LEVEL, DEGREES, BINARY
 
-BINARY = (
-    ("Y","Yes"),
-)
 
 STATUS = (
     ("O","Open"),

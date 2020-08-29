@@ -5,6 +5,70 @@ from django.urls import reverse
 from django.utils import timezone
 from multiselectfield import MultiSelectField
 
+BINARY = (
+    ("Y","Yes"),
+    ("N","No"),
+)
+
+GPA = (
+    ("N","I don't have a GPA"),
+    ("G0","Below 1.0"),
+    ("G1","Between 1.0 and 1.5"),
+    ("G2","Between 1.5 and 2.0"),
+    ("G3","Between 2.0 and 2.5"),
+    ("G4","Between 2.5 and 3.0"),
+    ("G5","Between 3.0 and 3.5"),
+    ("G6","Between 3.5 and 4.0"),
+    ("P","Prefer Not To Say"),
+)
+
+ACT_SCORES = (
+    ("N","Did not take the ACT"),
+    ("A0","Below 5"),
+    ("A1","Between 5 and 7"),
+    ("A2","Between 7 and 9"),
+    ("A3","Between 9 and 11"),
+    ("A4","Between 11 and 13"),
+    ("A5","Between 13 and 15"),
+    ("A6","Between 15 and 17"),
+    ("A7","Between 17 and 19"),
+    ("A8","Between 19 and 21"),
+    ("A9","Between 21 and 23"),
+    ("A10","Between 23 and 25"),
+    ("A11","Between 25 and 27"),
+    ("A12","Between 27 and 29"),
+    ("A13","Between 29 and 31"),
+    ("P","Prefer Not To Say"),
+)
+
+SAT_SCORES = (
+    ("N","Did not take the SAT"),
+    ("S0","Below 500"),
+    ("S1","Between 500 and 550"),
+    ("S2","Between 550 and 600"),
+    ("S3","Between 600 and 650"),
+    ("S4","Between 650 and 700"),
+    ("S5","Between 700 and 750"),
+    ("S6","Between 750 and 800"),
+    ("S7","Between 800 and 850"),
+    ("S8","Between 850 and 900"),
+    ("S9","Between 900 and 950"),
+    ("S10","Between 950 and 1000"),
+    ("S11","Between 1000 and 1050"),
+    ("S12","Between 1050 and 1100"),
+    ("S13","Between 1100 and 1150"),
+    ("S14","Between 1150 and 1200"),
+    ("S15","Between 1200 and 1250"),
+    ("S16","Between 1250 and 1300"),
+    ("S17","Between 1300 and 1350"),
+    ("S18","Between 1350 and 1400"),
+    ("S19","Between 1400 and 1450"),
+    ("S20","Between 1450 and 1500"),
+    ("S21","Between 1500 and 1550"),
+    ("S22","Between 1550 and 1600"),
+    ("P","Prefer Not To Say"),
+)
+
 ORGANIZATION_TYPES = (
     ("LLC","Limited Liability Company"),
     ("NPC","Non-Profit Corporation"),
@@ -77,6 +141,7 @@ HOUSE_INCOME = (
     ("HI4","Between $100,000 - $150,000"),
     ("HI5","Between $150,000 - $200,000"),
     ("HI6","Over $200,000"),
+    ("P","Prefer Not To Say"),
 )
 
 HOUSE_SIZE = (
@@ -84,6 +149,7 @@ HOUSE_SIZE = (
     ("HS1","Midsize (3-5)"),
     ("HS2","Large (Over 5)"),
     ("HS3","X-Large (Over 10)"),
+    ("P","Prefer Not To Say"),
 )
 
 CITIZENSHIP = (
@@ -97,7 +163,8 @@ RACE = (
     ("R2","Black or African American"),
     ("R3","Hispanic or Latino"),
     ("R4","Native Hawaiian or Other Pacific Islander"),
-    ("R5","White")
+    ("R5","White"),
+    ("P","Prefer Not To Say"),
 )
 
 SEX = (
@@ -168,6 +235,7 @@ YEARS = (
     ('2038',"2038"),
     ('2039','2039'),
     ('2040',"2040"),
+    ("P","Prefer Not To Say"),
 )
 
 CURRENT_GRADE_LEVEL = (
@@ -183,6 +251,7 @@ CURRENT_GRADE_LEVEL = (
     ("L9","Five Year or More Undergraduate"),
     ("L10","Graduate Student"),
     ("L11","Vocational Education"),
+    ("P","Prefer Not To Say"),
 )
 
 DEGREES = (
@@ -191,6 +260,7 @@ DEGREES = (
     ("L2","Bachelor's Degree"),
     ("L3","Master's Degree"),
     ("L4","Doctoral Degree"),
+    ("P","Prefer Not To Say"),
 )
 
 #based from https://www.collegemajors101.com/ with over 150 majors listed
@@ -384,9 +454,9 @@ class Academic(models.Model):
     current_grade_level = models.CharField(max_length=1000, choices=CURRENT_GRADE_LEVEL, default=None, null=True, verbose_name="Current Grade Level")
     degree_in_pursuit = models.CharField(max_length=1000, choices=DEGREES, default=None, null=True, verbose_name="Degree You Are Currently Pursuing")
     field = models.CharField(max_length=1000, choices=MAJORS, default=None, null=True, verbose_name="Current Major or Field")
-    sat_score = models.IntegerField(verbose_name="SAT Score", default=None, null=True)
-    act_score = models.IntegerField(verbose_name="ACT Score", default=None, null=True)
-    gpa = models.FloatField(verbose_name="GPA", default=None, null=True)
+    sat_score = models.CharField(max_length=1000, choices=SAT_SCORES, verbose_name="SAT Score", default=None, null=True)
+    act_score = models.CharField(max_length=1000, choices=ACT_SCORES, verbose_name="ACT Score", default=None, null=True)
+    gpa = models.CharField(max_length=1000, choices=GPA, verbose_name="GPA", default=None, null=True)
     expected_grad_year = models.CharField(max_length=1000, choices=YEARS, default=None, null=True, verbose_name="Expected Graudation Year")
     
     def __str__(self):
@@ -405,7 +475,7 @@ class Background(models.Model):
     citizenship = models.CharField(max_length=1000, choices=CITIZENSHIP, default=None, null=True, verbose_name="Citizenship")
     household_size = models.CharField(max_length=1000, choices=HOUSE_SIZE, default=None, null=True, verbose_name="Household Size")
     household_income = models.CharField(max_length=1000, choices=HOUSE_INCOME, default=None, null=True, verbose_name="Household Income")
-    first_gen = models.BooleanField(null=True, verbose_name="Are you the first in your family to go to college?")
+    first_gen = models.CharField(max_length=1000, choices=BINARY, default=None, null=True, verbose_name="Are you the first in your family to go to college?")
     
     def __str__(self):
         return self.date_posted
@@ -417,11 +487,11 @@ class Background(models.Model):
 class Contact(models.Model):
     student = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Student")
     date_posted = models.DateTimeField(default=timezone.now)
-    phone_number = models.CharField(max_length=10, default=None, null=True, verbose_name="Phone Number", help_text="Please enter in the following format: 9734568456")
-    date_of_birth = models.CharField(max_length=10, default=None, null=True, verbose_name="Date of Birth", help_text="Please enter in the following format: MM/DD/YYY")
-    primary_address = models.CharField(max_length=1000, default=None, null=True, verbose_name="Primary Address")
-    zip_code = models.CharField(max_length=1000, default=None, null=True, verbose_name="Zip Code")
-    city = models.CharField(max_length=1000, default=None, null=True, verbose_name="City")
+    phone_number = models.CharField(max_length=10, default="", null=True, verbose_name="Phone Number", help_text="Please enter in the following format: 9734568456, with no spaces or special characters.")
+    date_of_birth = models.CharField(max_length=10, default="", null=True, verbose_name="Date of Birth", help_text="Please enter in the following format: MM/DD/YYY or MM-DD-YYY")
+    primary_address = models.CharField(max_length=1000, default="", null=True, verbose_name="Primary Address")
+    zip_code = models.CharField(max_length=1000, default="", null=True, verbose_name="Zip Code")
+    city = models.CharField(max_length=1000, default="", null=True, verbose_name="City")
     state = models.CharField(max_length=1000, choices=US_STATES, default=None, null=True, verbose_name="State")
     
     def __str__(self):
@@ -434,15 +504,15 @@ class Contact(models.Model):
 class OrganizationContact(models.Model):
     organization = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Organization")
     date_posted = models.DateTimeField(default=timezone.now)
-    phone_number = models.CharField(max_length=10, default=None, null=True, verbose_name="Phone Number", help_text="Please enter in the following format: 9734568456")
-    primary_address = models.CharField(max_length=1000, default=None, null=True, verbose_name="Primary Address")
-    zip_code = models.CharField(max_length=1000, default=None, null=True, verbose_name="Zip Code")
+    phone_number = models.CharField(max_length=10, default="", null=True, verbose_name="Phone Number", help_text="Please enter in the following format: 9734568456")
+    primary_address = models.CharField(max_length=1000, default="", null=True, verbose_name="Primary Address")
+    zip_code = models.CharField(max_length=1000, default="", null=True, verbose_name="Zip Code")
     city = models.CharField(max_length=1000, default=None, null=True, verbose_name="City")
     state = models.CharField(max_length=1000, choices=US_STATES, default=None, null=True, verbose_name="State")
-    website_link = models.CharField(max_length=1000, default=None, null=True, verbose_name="Website Link")
-    facebook_link = models.CharField(max_length=1000, default=None, null=True, verbose_name="Facebook Link")
-    linkedin_link = models.CharField(max_length=1000, default=None, null=True, verbose_name="LinkedIn Link")
-    twitter_link = models.CharField(max_length=1000, default=None, null=True, verbose_name="Twitter Link")
+    website_link = models.CharField(max_length=1000, default="", null=True, verbose_name="Website Link")
+    facebook_link = models.CharField(max_length=1000, default="", null=True, verbose_name="Facebook Link")
+    linkedin_link = models.CharField(max_length=1000, default="", null=True, verbose_name="LinkedIn Link")
+    twitter_link = models.CharField(max_length=1000, default="", null=True, verbose_name="Twitter Link")
 
     def __str__(self):
         return self.phone_number
