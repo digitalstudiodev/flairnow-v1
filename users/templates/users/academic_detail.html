@@ -42,13 +42,13 @@
                                                         <span class="fa-li"><i class="fas fa-globe-americas text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">Current Major or Field:</span> {{ object.get_field_display }}</span>
                                                     </li>
                                                     <li class="pricing-list-item">
-                                                        <span class="fa-li"><i class="fas fa-chart-bar text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">SAT Score:</span> {{ object.sat_score }}</span>
+                                                        <span class="fa-li"><i class="fas fa-chart-bar text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">SAT Score:</span> {{ object.get_sat_score_display }}</span>
                                                     </li>
                                                     <li class="pricing-list-item">
-                                                        <span class="fa-li"><i class="fas fa-chart-bar text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">ACT Score:</span> {{ object.act_score }}</span>
+                                                        <span class="fa-li"><i class="fas fa-chart-bar text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">ACT Score:</span> {{ object.get_act_score_display }}</span>
                                                     </li>
                                                     <li class="pricing-list-item">
-                                                        <span class="fa-li"><i class="far fa-star text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">GPA:</span> {{ object.gpa }}</span>
+                                                        <span class="fa-li"><i class="far fa-star text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">GPA:</span> {{ object.get_gpa_display }}</span>
                                                     </li>
                                                     <li class="pricing-list-item">
                                                         <span class="fa-li"><i class="fas fa-glass-cheers text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">Expected Graudation Year:</span> {{ object.expected_grad_year }}</span>

@@ -48,7 +48,7 @@
                                                         <span class="fa-li"><i class="fas fa-money-check-alt text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">Household Income:</span> {{ object.get_household_income_display }}</span>
                                                     </li>
                                                     <li class="pricing-list-item">
-                                                        <span class="fa-li"><i class="fas fa-user-graduate text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">First- Generation College Student:</span> {{ object.first_gen }}</span>
+                                                        <span class="fa-li"><i class="fas fa-user-graduate text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">First- Generation College Student:</span> {{ object.get_first_gen_display }}</span>
                                                     </li>
                                                 </ul>
                                                 <a class="btn btn-warning btn-marketing rounded-pill lift lift-sm my-3 text-white" href="{% url 'users:background-update' object.id %}">Update</a>
