@@ -154,6 +154,10 @@ HOUSE_SIZE = (
 
 CITIZENSHIP = (
     ("C0","U.S. Citizen"),
+    ("C1","U.S. Permanent Resident"),
+    ("C2","DACA"),
+    ("C3","TPS"),
+    ("OTH","Other"),
     ("P","Prefer Not To Say"),
 )
 
