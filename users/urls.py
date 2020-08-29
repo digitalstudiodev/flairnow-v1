@@ -8,8 +8,9 @@ from .views import (
     BackgroundUpdateView, ContactDetailView, ContactCreateView, 
     ContactUpdateView, OrganizationContactDetailView, OrganizationContactCreateView, 
     OrganizationContactUpdateView, OrganizationBackgroundDetailView, OrganizationBackgroundUpdateView, 
-    OrganizationBackgroundCreateView, InternCommonAppDetailView, InternCommonAppUpdateView, InternCommonAppCreateView
-    )
+    OrganizationBackgroundCreateView, InternCommonAppDetailView, InternCommonAppUpdateView, InternCommonAppCreateView,
+    ScholarCommonAppDetailView, ScholarCommonAppCreateView, ScholarCommonAppUpdateView
+)
 
 app_name = 'users'
 
@@ -52,4 +53,8 @@ urlpatterns = [
     path('internship-common-application/<int:pk>/', InternCommonAppDetailView.as_view(), name='internship-common-application-detail'),
     path('internship-common-application/new/', InternCommonAppCreateView.as_view(), name='internship-common-application-create'),
     path('internship-common-application/<int:pk>/update/', InternCommonAppUpdateView.as_view(), name='internship-common-application-update'),
+    ##student scholarship application
+    path('scholarship-common-application/<int:pk>/', ScholarCommonAppDetailView.as_view(), name='scholarship-common-application-detail'),
+    path('scholarship-common-application/new/', ScholarCommonAppCreateView.as_view(), name='scholarship-common-application-create'),
+    path('scholarship-common-application/<int:pk>/update/', ScholarCommonAppUpdateView.as_view(), name='scholarship-common-application-update'),
 ]

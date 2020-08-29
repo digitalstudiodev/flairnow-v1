@@ -14,15 +14,6 @@
         <link rel="icon" type="image/x-icon" href="{% static 'flairnow_assets/assets/img/logo.png' %}" />
         <script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" crossorigin="anonymous"></script>
-        <style>
-            h4 {
-                font-size: small;
-                font-weight: bold;
-            }
-            p {
-                font-size: small;
-            }
-        </style>
     </head>
     <body>
         <div id="layoutDefault">
@@ -32,22 +23,20 @@
                     <header class="page-header page-header-dark bg-warning" style="background-image: url({% static 'flairnow_assets/assets/img/pattern-shapes.png' %})">
                         <div class="page-header-content">
                             <div class="container">
-                                <div class="row align-items-center">
-                                    <div class="col-lg-8 m-auto">
-                                        <div class="card rounded-lg text-dark">
-                                            <div class="card-body">
-                                                <h3 class="title mx-auto ml-3 mb-5">Internship Common Application</h3>
-                                                <h4>Tell Us About a Situation Where You Took Initiative or Took on a Leadership Role.</h4>
-                                                <p>{{ object.q1 }}</p>
-                                                <h4>What’s the Best Team You’ve Ever Been a Part of, and Why?/What’s Your Ideal Team?</h4>
-                                                <p>{{ object.q2 }}</p>
-                                                <h4>Why Are You Interested in This Internship/Company/Industry, and What Skills or Experiences Do You Hope to Gain?</h4>
-                                                <p>{{ object.q3 }}</p>
-                                                <a class="btn btn-warning btn-marketing rounded-pill lift lift-sm my-3 text-white" href="{% url 'users:internship-common-application-update' object.id %}">Update</a><a class="btn btn-marketing text-dark" href="{% url 'users:profile' %}">Profile</a>
-                                            </div>
+                              <div class="row align-items-center">
+                                <div class="col-lg-8 m-auto">
+                                    <div class="card rounded-lg text-dark">
+                                        <div class="card-header py-4 text-dark">Scholarship Common Application</div>
+                                        <div class="card-body">
+                                          <form class="register-form" method="POST">
+                                            {% csrf_token %}
+                                            {{ form|crispy }}
+                                            <button class="btn btn-marketing btn-info btn-block btn-round rounded-pill" type="Submit">Save</button>
+                                          </form>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                             </div>
                         </div>
                         <div class="svg-border-rounded text-light">

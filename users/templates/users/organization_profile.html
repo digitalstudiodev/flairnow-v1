@@ -70,6 +70,11 @@
                                                 {% else %}
                                                 <a class="list-group-item text-dark" href="{% url 'core:internship-info' %}">Internships</a>
                                                 {% endif %}
+                                                {% if scholarships %}
+                                                <a class="list-group-item text-dark" href="{% url 'core:scholarship-dash' %}">Scholarships</a>
+                                                {% else %}
+                                                <a class="list-group-item text-dark" href="{% url 'core:scholarship-info' %}">Scholarships</a>
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>

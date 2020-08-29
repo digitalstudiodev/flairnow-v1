@@ -51,11 +51,15 @@
                                                 {% else %}
                                                 <a class="list-group-item text-dark" href="{% url 'users:internship-common-application-create' %}">Internships</a>
                                                 {% endif %}
-                                                <a class="list-group-item text-dark" href="#">Scholarships</a>
-                                                <a class="list-group-item text-dark" href="#">Fellowships</a>
+                                                {% if user.scholarcommonapp %}
+                                                <a class="list-group-item text-dark" href="{% url 'users:scholarship-common-application-detail' user.scholarcommonapp.id %}">Scholarships</a>
+                                                {% else %}
+                                                <a class="list-group-item text-dark" href="{% url 'users:scholarship-common-application-create' %}">Scholarships</a>
+                                                {% endif %}
+                                                <!--<a class="list-group-item text-dark" href="#">Fellowships</a>
                                                 <a class="list-group-item text-dark" href="#">Events</a>
                                                 <a class="list-group-item text-dark" href="#">Travel Programs</a>
-                                                <a class="list-group-item text-dark" href="#">Competitions</a>
+                                                <a class="list-group-item text-dark" href="#">Competitions</a>-->
                                             </div>
                                         </div>
                                     </div>

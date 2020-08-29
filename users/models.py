@@ -548,3 +548,17 @@ class InternCommonApp(models.Model):
 
     def get_absolute_url(self):
         return reverse('users:internship-common-application-detail', kwargs={'pk': self.pk})
+
+##scholarship common application
+class ScholarCommonApp(models.Model):
+    student = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Student")
+    date_posted = models.DateTimeField(default=timezone.now)
+    q1 = models.TextField(max_length=1000, verbose_name="Tell us about yourself.", help_text="Max Length (1000 characters)")
+    q2 = models.TextField(max_length=1000, verbose_name="What is your greatest strength/weakness?", help_text="Max Length (1000 characters)")
+    q3 = models.TextField(max_length=1000, verbose_name="Who has been a role model for you?", help_text="Max Length (1000 characters)")
+
+    def __str__(self):
+        return self.date_posted
+
+    def get_absolute_url(self):
+        return reverse('users:scholarship-common-application-detail', kwargs={'pk': self.pk})

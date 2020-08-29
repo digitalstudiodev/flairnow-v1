@@ -4,20 +4,30 @@
     <div class="container">
         <h2 class="mb-4" style="font-size: xx-large;">Recent Postings</h2>
         <div class="row">
-            {% for internship in internships %}
+            {% for item in opportunities %}
             <div class="col-lg-3 col-md-6 mb-5">
-                <a class="card lift border-bottom-lg border-warning" href="{% url 'core:internship-detail' internship.id %}">
+                {% if item.type == "IN" %}
+                <a class="card lift border-bottom-lg border-warning" href="{% url 'core:internship-detail' item.id %}">
                     <div class="card-body text-center">
-                        <!--<div class="icon-stack icon-stack-xl bg-warning text-white mb-2">
-                            <img src="{{ internship.organization.profile.image.url }}" width="auto" height="50px" class="img-fluid m-auto rounded-circle"" alt="{{ internship.organization.org_name }} Logo" />
-                        </div>-->
-                        <img src="{{ internship.organization.profile.image.url }}" width="auto" height="100px" class="m-auto rounded-circle"" alt="{{ internship.organization.org_name }} Logo" />
-                        <div class="small text-gray-600">{{ internship.title }}</div>
-                        <p class="lead text-muted small">
-                            {{ internship.number_of_positions }} Positions
+                        <img src="{{ item.organization.profile.image.url }}" width="auto" height="100px" class="m-auto rounded-circle"" alt="{{ item.organization.org_name }} Logo" />
+                        <div class="small text-gray-600">{{ item.title }}</div>
+                        <p class="text-muted">
+                            {{ item.get_salary_display }}
                         </p>
                     </div>
                 </a>
+                {% endif %}
+                {% if item.type == "SC" %}
+                <a class="card lift border-bottom-lg border-warning" href="{% url 'core:scholarship-detail' item.id %}">
+                    <div class="card-body text-center">
+                        <img src="{{ item.organization.profile.image.url }}" width="auto" height="100px" class="m-auto rounded-circle"" alt="{{ item.organization.org_name }} Logo" />
+                        <div class="small text-gray-600">{{ item.title }}</div>
+                        <p class="text-muted">
+                            {{ item.get_amount_display }}
+                        </p>
+                    </div>
+                </a>
+                {% endif %}
             </div>
             {% endfor %}
         </div>
@@ -27,11 +37,11 @@
                 <img class="card-img-top img-fluid" src="{% static 'flairnow_assets/assets/img/internships.jpg' %}" alt="Internships" />
                 <div class="card-body"><div class="card-title">Internships</div></div>
             </a>
-            <a class="card card-portfolio" href="#!">
+            <a class="card card-portfolio" href="{% url 'core:scholarship' %}">
                 <img class="card-img-top img-fluid" src="{% static 'flairnow_assets/assets/img/scholarships.jpg' %}" alt="Scholarships" />
                 <div class="card-body"><div class="card-title">Scholarships</div></div>
             </a>
-            <a class="card card-portfolio" href="#!">
+            <!--<a class="card card-portfolio" href="#!">
                 <img class="card-img-top img-fluid" src="{% static 'flairnow_assets/assets/img/fellowships.jpg' %}" alt="Fellowships" />
                 <div class="card-body"><div class="card-title">Fellowships</div></div>
             </a>
@@ -46,7 +56,7 @@
             <a class="card card-portfolio" href="#!">
                 <img class="card-img-top img-fluid" src="{% static 'flairnow_assets/assets/img/job.jpg' %}" alt="Competitions" />
                 <div class="card-body"><div class="card-title">Jobs</div></div>
-            </a>
+            </a>-->
         </div>
     </div>
 </section>

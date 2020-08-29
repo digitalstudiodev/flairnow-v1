@@ -42,16 +42,11 @@
                             <div class="row">
                                 <div class="col-lg-4">
                                     <ul class="list-group list-group-flush list-group-careers">
-                                        <!--<li class="list-group-item pt-0">
-                                            <a class="small" href="page-careers-overview.html"><i class="fas fa-arrow-left mr-1"></i>Back to Careers</a>
-                                        </li>-->
-                                        <li class="list-group-item">Industry <span class="font-weight-bold">{{ object.get_industry_display }}</span><i class="fas fa-globe fa-fw text-gray-400"></i></li>
-                                        <li class="list-group-item">Start Date <span class="font-weight-bold">{{ object.start_date }}</span><i class="fas fa-clock fa-fw text-gray-400"></i></li>
-                                        <li class="list-group-item">End Date <span class="font-weight-bold">{{ object.end_date }}</span><i class="fas fa-clock fa-fw text-gray-400"></i></li>
+                                        <li class="list-group-item">Field <span class="font-weight-bold">{{ object.get_field_display }}</span><i class="fas fa-globe fa-fw text-gray-400"></i></li>
                                         <li class="list-group-item">Grade Level <span class="font-weight-bold">{{ object.get_grade_level_display }}</span><i class="fas fa-bars text-gray-400"></i></li>
                                         <li class="list-group-item">GPA <span class="font-weight-bold">{{ object.get_gpa_display }}</span><i class="fas fa-star text-gray-400"></i></li>
                                         <li class="list-group-item">Degree Minimum <span class="font-weight-bold">{{ object.get_degree_display }}</span><i class="fas fa-graduation-cap text-gray-400"></i></li>
-                                        <li class="list-group-item">Salary <span class="font-weight-bold">{{ object.get_salary_display }}</span><i class="fas fa-money-bill-wave-alt text-gray-400"></i></li>
+                                        <li class="list-group-item">Scholarship Amount <span class="font-weight-bold">{{ object.get_amount_display }}</span><i class="fas fa-money-bill-wave-alt text-gray-400"></i></li>
                                     </ul>
                                 </div>
                                 <div class="col-lg-8">
@@ -62,13 +57,13 @@
                                     <div class="card bg-white shadow-none">
                                         <div class="card-body align-items-center justify-content-between p-4">
                                             {% if object.organization == request.user %}
-                                            <a class="btn btn-warning btn-marketing rounded-pill ml-2" href="{% url 'core:internship-update' object.id %}">Update</a>
-                                            <a class="btn btn-danger btn-marketing rounded-pill ml-2" href="{% url 'core:internship-delete' object.id %}">Delete</a>
+                                            <a class="btn btn-warning btn-marketing rounded-pill ml-2" href="{% url 'core:scholarship-update' object.id %}">Update</a>
+                                            <a class="btn btn-danger btn-marketing rounded-pill ml-2" href="{% url 'core:scholarship-delete' object.id %}">Delete</a>
                                             {% endif %}
                                             {% if user.is_student and user.interncommonapp %}
-                                            <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'core:internship-application-create' internships=object.id %}">Apply</a>
+                                            <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'core:scholarship-application-create' scholarships=object.id %}">Apply</a>
                                             {% elif user.is_student and not user.interncommonapp %}
-                                            Fill out the Internship Common Application <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:internship-common-application-create' %}">Complete</a>
+                                            Fill out the Scholarship Common Application <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:internship-common-application-create' %}">Complete</a>
                                             {% elif not user.is_authenticated %}
                                             <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:login' %}">Apply</a>
                                             {% endif %}
