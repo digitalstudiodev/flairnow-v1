@@ -1,4 +1,5 @@
 {% load static %}
+{% if  not user.is_authenticated %}
 <section class="bg-warning pb-10 pt-15" style="background-image: url({% static 'flairnow_assets/assets/img/pattern-shapes.png' %})">
     <div class="container">
         <div class="row justify-content-center">
@@ -13,9 +14,10 @@
                 <div class="d-flex h-100">
                     <div class="icon-stack flex-shrink-0 bg-info text-white"><i class="fas fa-question"></i></div>
                     <div class="ml-4">
-                        <h5 class="text-white">How likely am I to find a paid internships?</h5>
+                        <h5 class="text-white">What do I use Flair Now for?</h5>
                         <p class="text-white">
-                            We understand the value and need for internships and so we partner with organizations to ensure that they are paid.
+                            We are an opportunities platform that you can us to apply and get matched to 
+                            multiple scholarships and internships through one common application. 
                         </p>
                     </div>
                 </div>
@@ -24,9 +26,23 @@
                 <div class="d-flex h-100">
                     <div class="icon-stack flex-shrink-0 bg-info text-white"><i class="fas fa-question"></i></div>
                     <div class="ml-4">
-                        <h5 class="text-white">I am a DACA student, will my information be secure?</h5>
+                        <h5 class="text-white">Why is signing up for Flair Now important?</h5>
                         <p class="text-white">
-                            Yes, all of the information is enrypted and safe.
+                            Building your path towards your future whether you have it figured out or are 
+                            still exploring begins today, not tomorrow. We want to make it easier to find 
+                            opportunities in your area and based on your background.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-5">
+                <div class="d-flex h-100">
+                    <div class="icon-stack flex-shrink-0 bg-info text-white"><i class="fas fa-question"></i></div>
+                    <div class="ml-4">
+                        <h5 class="text-white">How likely am I to find paid internships?</h5>
+                        <p class="text-white">
+                            We understand the value and importance of paid internships, which is why we allow you to browse 
+                            through opportunities that fit your needs.
                         </p>
                     </div>
                 </div>
@@ -37,7 +53,10 @@
                     <div class="ml-4">
                         <h5 class="text-white">For the common application, do I really just fill out one application for all opportunities?</h5>
                         <p class="text-white">
-                            We have a common application for various types of opportunities, for instance, to apply to all internships one would need to fill out only one application.
+                            We understand that when applying to scholarships and opportunities, it gets cumbersome to manually fill out 
+                            the same information for different opportunities. The universal application seamlessly helps you apply and 
+                            get matched to multiple opportunities at once.We have a common application for various types of opportunities, 
+                            for instance, to apply to all internships one would need to fill out only one application.
                         </p>
                     </div>
                 </div>
@@ -45,3 +64,4 @@
         </div>
     </div>
 </section>
+{% endif %}

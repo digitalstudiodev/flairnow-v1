@@ -4,8 +4,8 @@
         <a class="text-white navbar-brand" href="{% url 'core:home' %}"><img class="img-fluid" src="{% static 'flairnow_assets/assets/img/logo.svg' %}" width="auto" height="50px" alt="Flair Now Logo" />&nbsp;&nbsp;Flair Now</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i data-feather="menu"></i></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto mr-lg-5">
+                {% if  not user.is_authenticated %}
                 <li class="nav-item"><a class="nav-link" href="{% url 'core:about' %}">About</a></li>
-                {% if not user.is_authenticated %}
                 <li class="nav-item dropdown dropdown-xl no-caret">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownDemos" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         How It Works
@@ -17,7 +17,7 @@
                                 <div class="d-flex h-100 w-100 align-items-center justify-content-center">
                                     <div class="text-white text-center z-1">
                                         <div class="mb-3 font-weight-bold">Creating Opportunities Together!</div>
-                                        <a class="btn btn-white btn-sm text-primary rounded-pill" href="{% url 'core:browse' %}">View All</a>
+                                        <a class="btn btn-white btn-sm text-primary rounded-pill" href="{% url 'core:browse' %}">Browse</a>
                                     </div>
                                 </div>
                             </div>
@@ -26,7 +26,7 @@
                                     <div class="col-lg-12 m-auto">
                                         <h6 class="dropdown-header text-dark">For Students</h6>
                                         <a class="dropdown-item" href="#">Features</a>
-                                        <a class="dropdown-item" href="#">Privacy & Security</a>
+                                        <a class="dropdown-item" href="#">Privacy</a>
 
                                         <div class="dropdown-divider border-0"></div>
 
