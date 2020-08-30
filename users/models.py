@@ -464,7 +464,7 @@ class Academic(models.Model):
     expected_grad_year = models.CharField(max_length=1000, choices=YEARS, default=None, null=True, verbose_name="Expected Graudation Year")
     
     def __str__(self):
-        return self.date_posted
+        return str(self.date_posted)
 
     def get_absolute_url(self):
         return reverse('users:academic-detail', kwargs={'pk': self.pk})
@@ -482,7 +482,7 @@ class Background(models.Model):
     first_gen = models.CharField(max_length=1000, choices=BINARY, default=None, null=True, verbose_name="Are you the first in your family to go to college?")
     
     def __str__(self):
-        return self.date_posted
+        return str(self.date_posted)
 
     def get_absolute_url(self):
         return reverse('users:background-detail', kwargs={'pk': self.pk})
@@ -499,7 +499,7 @@ class Contact(models.Model):
     state = models.CharField(max_length=1000, choices=US_STATES, default=None, null=True, verbose_name="State")
     
     def __str__(self):
-        return self.date_posted
+        return str(self.date_posted)
 
     def get_absolute_url(self):
         return reverse('users:contact-detail', kwargs={'pk': self.pk})
@@ -534,7 +534,7 @@ class OrganizationBackground(models.Model):
 
 
     def __str__(self):
-        return self.date_posted
+        return str(self.date_posted)
 
     def get_absolute_url(self):
         return reverse('users:organizationbackground-detail', kwargs={'pk': self.pk})
@@ -548,7 +548,7 @@ class InternCommonApp(models.Model):
     q3 = models.TextField(max_length=1000, verbose_name="Why Are You Interested in This Internship/Company/Industry, and What Skills or Experiences Do You Hope to Gain?", help_text="Max Length (1000 characters)")
 
     def __str__(self):
-        return self.date_posted
+        return str(self.date_posted)
 
     def get_absolute_url(self):
         return reverse('users:internship-common-application-detail', kwargs={'pk': self.pk})
@@ -562,7 +562,7 @@ class ScholarCommonApp(models.Model):
     q3 = models.TextField(max_length=1000, verbose_name="Who has been a role model for you?", help_text="Max Length (1000 characters)")
 
     def __str__(self):
-        return self.date_posted
+        return str(self.date_posted)
 
     def get_absolute_url(self):
         return reverse('users:scholarship-common-application-detail', kwargs={'pk': self.pk})
