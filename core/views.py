@@ -154,7 +154,7 @@ class InternshipDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        applicants = InternshipApplication.objects.all().filter(internship=self.object.id)
+        applicants = InternshipApplication.objects.all().filter(internship=self.object.id)[0:24]
         context['applicants'] = applicants
         return context
 
@@ -245,6 +245,13 @@ class InternshipApplicationCreateView(LoginRequiredMixin, CreateView):
         context = super(InternshipApplicationCreateView, self).get_context_data(**kwargs)
         context['internship'] = Internship.objects.all().filter(id=self.kwargs["internships"])[0]
         return context
+
+##internship application detail view
+"""
+this is the internship application detail view. 
+"""
+class InternshipApplicationDetailView(LoginRequiredMixin, DetailView):
+    model = InternshipApplication
 
 ##scholarships list view
 """
