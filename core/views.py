@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from .models import Internship, Scholarship, InternshipApplication, ScholarshipApplication
+from users.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -42,6 +43,30 @@ def contact(request):
     context = {
     }
     return render(request, "core/contact.html", context)
+
+##features organization
+"""
+this is the features orgaanizations view. this present information about the features that organizations get to utilize.
+"""
+def features_organization(request):
+    user_count = User.objects.all().filter(is_student=True).count()
+    context = {
+        'user_count': user_count
+    }
+    return render(request, "core/features_organization.html", context)
+
+##features student
+"""
+this is the features student view. this present information about the features that students get to utilize.
+"""
+def features_student(request):
+    org_count = User.objects.all().filter(is_organization=True).count()
+    orgs = User.objects.all().filter(is_organization=True)[0:8]
+    context = {
+        'org_count': org_count,
+        'orgs': orgs,
+    }
+    return render(request, "core/features_student.html", context)
 
 ##partner contract
 """

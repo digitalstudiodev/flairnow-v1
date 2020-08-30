@@ -2,7 +2,8 @@ from django.contrib import admin
 from django.urls import path
 from .views import (
     home, browse, about, contact, partner_contract,
-    internship_info, internship_dash, scholarship_info, InternshipListView, 
+    internship_info, internship_dash, scholarship_info, features_organization, 
+    features_student, InternshipListView, 
     InternshipDetailView, InternshipCreateView, 
     InternshipUpdateView, InternshipDeleteView, InternshipApplicationCreateView,
     ScholarshipListView, ScholarshipDetailView, ScholarshipCreateView, ScholarshipUpdateView,
@@ -16,6 +17,8 @@ urlpatterns = [
     path('browse', browse, name="browse"),
     path('about', about, name="about"),
     path('contact', contact, name="contact"),
+    path('features-organization', features_organization, name="features-organization"),
+    path('features-student', features_student, name="features-student"),
     path('partner-contract', partner_contract, name="partner-contract"),
     path('internship-info', internship_info, name="internship-info"),
     path('scholarship-info', scholarship_info, name="scholarship-info"),

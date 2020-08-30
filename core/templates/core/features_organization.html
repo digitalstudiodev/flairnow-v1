@@ -1,0 +1,208 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Flair Now</title>
+        <link href="{% static 'flairnow_assets/css/styles.css' %}" rel="stylesheet" />
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+        <link rel="icon" type="image/x-icon" href="{% static 'flairnow_assets/assets/img/logo.png' %}" />
+        <script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div id="layoutDefault">
+            <div id="layoutDefault_content">
+                <main>
+                    {% include 'core/nav.html' %}
+                    <header class="page-header page-header-dark bg-warning" style="background-image: url({% static 'flairnow_assets/assets/img/pattern-shapes.png' %})">
+                        <div class="page-header-content">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-xl-8 col-lg-10 text-center" data-aos="fade">
+                                        <h1 class="page-header-title">Creating Opportunities Together!</h1>
+                                        <p class="page-header-text-white">
+                                            We aggregated a diverse pool of students that are proactively seeking to apply to your opportunities. 
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="svg-border-rounded text-light">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
+                        </div>
+                    </header>
+                    <!--main tags-->
+                    <section class="bg-white py-10">
+                        <div class="container">
+                            <div class="row text-center">
+                                <div class="col-lg-4 mb-5 mb-lg-0">
+                                    <div class="icon-stack icon-stack-xl bg-warning text-white mb-4">
+                                        <i data-feather="user"></i>
+                                    </div>
+                                    <h3>Built for Students</h3>
+                                    <p class="mb-0">
+                                        Our model is extremely focused on the students that register for our platform. We partner with organizations that 
+                                        aim to assist our target users and provide value to them as they progress through their educational and career journey.
+                                    </p>
+                                </div>
+                                <div class="col-lg-4 mb-5 mb-lg-0">
+                                    <div class="icon-stack icon-stack-xl bg-warning text-white mb-4">
+                                        <i data-feather="mouse-pointer"></i>
+                                    </div>
+                                    <h3>Simple Opportunity Management</h3>
+                                    <p class="mb-0">
+                                        We provide an easy to use platform for organizations to get started providing opportunities such as internships and scholarships. Organizations are able 
+                                        to fully manage and award their opportunities.
+                                    </p>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="icon-stack icon-stack-xl bg-warning text-white mb-4">
+                                        <i data-feather="thumbs-up"></i>
+                                    </div>
+                                    <h3>Complete Support</h3>
+                                    <p class="mb-0">
+                                        We provide any further assistance that organizations may need to better assist our target users. We will provide additional tools and 
+                                        take one-on-one feedback to improve your experience. 
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!--features-->
+                    <section class="bg-white py-10">
+                        <div class="container">
+                            <div class="row align-items-center justify-content-center">
+                                <div class="col-lg-6">
+                                    <div class="mb-5">
+                                        <h1>Easily Create and Manage Scholarships</h1>
+                                        <p class="lead">
+                                            We’ve aggregated thousands of students who are ready to apply to your scholarship right now.
+                                        </p>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-4">
+                                            <h5>Easy Application Creation</h5>
+                                            <p class="mb-2 small">
+                                                We simplify the process for you by creating a simple and effective application for internships and scholarships. 
+                                                Fill out your organizations background and contact information, set your eligibility requirements 
+                                                (i.e. background, test scores, grade point average), and submit to make available to applicants. 
+                                            </p>
+                                        </div>
+                                        <div class="col-md-6 mb-4">
+                                            <h5>Get Matched With A Diverse Student Pool</h5>
+                                            <p class="mb-2 small mb-0">
+                                                We match students to your opportunities based on the fields you fill out within the applications. Your opportunity will 
+                                                attract and be suggest to the students that are best to fill them. Student applications all you to view their common application, 
+                                                as well as their academic information and resume.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-9 col-lg-6" data-aos="slide-left">
+                                    <div class="mb-4">
+                                        <div class="content-skewed content-skewed-left"><img class="img-fluid content-skewed-item shadow-lg rounded-lg" src="{% static 'flairnow_assets/assets/img/profile_shot.png' %}" /></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!--organization faqs-->
+                    <section class="bg-warning pb-10 pt-15" style="background-image: url({% static 'flairnow_assets/assets/img/pattern-shapes.png' %})">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-6">
+                                    <div class="text-center">
+                                        <div class="font-weight-bold text-capitalize text-white mb-5" style="font-size: xx-large;">FAQs?</div>                                    
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-10 mt-5">
+                                <div class="col-lg-6 mb-5">
+                                    <div class="d-flex h-100">
+                                        <div class="icon-stack flex-shrink-0 bg-info text-white"><i class="fas fa-question"></i></div>
+                                        <div class="ml-4">
+                                            <h5 class="text-white">What do I use Flair Now for?</h5>
+                                            <p class="text-white">
+                                                We are an opportunities platform that you can us to apply and get matched to 
+                                                multiple scholarships and internships through one common application. 
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-5">
+                                    <div class="d-flex h-100">
+                                        <div class="icon-stack flex-shrink-0 bg-info text-white"><i class="fas fa-question"></i></div>
+                                        <div class="ml-4">
+                                            <h5 class="text-white">Why is signing up for Flair Now important?</h5>
+                                            <p class="text-white">
+                                                Building your path towards your future whether you have it figured out or are 
+                                                still exploring begins today, not tomorrow. We want to make it easier to find 
+                                                opportunities in your area and based on your background.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-5">
+                                    <div class="d-flex h-100">
+                                        <div class="icon-stack flex-shrink-0 bg-info text-white"><i class="fas fa-question"></i></div>
+                                        <div class="ml-4">
+                                            <h5 class="text-white">How likely am I to find paid internships?</h5>
+                                            <p class="text-white">
+                                                We understand the value and importance of paid internships, which is why we allow you to browse 
+                                                through opportunities that fit your needs.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-5 mb-lg-0">
+                                    <div class="d-flex h-100">
+                                        <div class="icon-stack flex-shrink-0 bg-info text-white"><i class="fas fa-question"></i></div>
+                                        <div class="ml-4">
+                                            <h5 class="text-white">For the common application, do I really just fill out one application for all opportunities?</h5>
+                                            <p class="text-white">
+                                                We understand that when applying to scholarships and opportunities, it gets cumbersome to manually fill out 
+                                                the same information for different opportunities. The universal application seamlessly helps you apply and 
+                                                get matched to multiple opportunities at once.We have a common application for various types of opportunities, 
+                                                for instance, to apply to all internships one would need to fill out only one application.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center text-center">
+                                <div class="col-lg-8">
+                                    <h1 class="text-white mb-5">Start Providing Opportunites Today!</h1>
+
+                                    <a class="btn btn-info btn-marketing rounded-pill lift lift-sm" href="{% url 'core:partner-contract' %}">Get Started</a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!--testimonials-->
+                    {% include 'core/testimonials.html' %}
+                    <!--banner-->
+                    {% include 'core/banner.html' %}
+                    <!--cta, newletter-->
+                    {% include 'core/cta_newsletter.html' %}
+                </main>
+            </div>
+            {% include 'core/footer.html' %}
+        </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="{% static 'flairnow_assets/js/scripts.js' %}"></script>
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script>
+            AOS.init({
+                disable: 'mobile',
+                duration: 600,
+                once: true
+            });
+        </script>
+    </body>
+</html>

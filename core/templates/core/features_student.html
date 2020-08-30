@@ -24,16 +24,10 @@
                             <div class="container">
                                 <div class="row justify-content-center">
                                     <div class="col-xl-8 col-lg-10 text-center" data-aos="fade">
-                                        <h1 class="page-header-title">Craft Your Future, Today!</h1>
+                                        <h1 class="page-header-title">Opportunities For You!</h1>
                                         <p class="page-header-text-white">
-                                            By bridging the opportunity gap, we help individuals move to and through the college process 
-                                            and career selection. We believe everyone no matter of their background could climb the socio-economic ladder.
+                                            We aggregated a pool organizations that are proactively seeking to assist and provide to our target users with various opportunities. 
                                         </p>
-                                        {% if not user.is_authenticated %}
-                                        <a class="btn btn-info btn-marketing rounded-pill lift lift-sm" href="{% url 'users:register' %}">Register</a><a class="btn btn-link btn-marketing rounded-pill" href="#features">Learn More</a>
-                                        {% else %}
-                                        <a class="btn btn-info btn-marketing rounded-pill lift lift-sm" href="{% url 'core:browse' %}">Browse</a><a class="btn btn-link btn-marketing rounded-pill" href="{% url 'users:profile' %}">Profile</a>
-                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -41,26 +35,32 @@
                         <div class="svg-border-rounded text-light">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
                         </div>
-                        <div class="container mt-3">
-                            <div class="row justify-content-center z-1">
-                                <div class="col-lg-8" data-aos="fade-up">
-                                    <div class="card lift mb-n15">
-                                        <div class="card-body p-2">
-                                            <div class="video overlay bg-img-cover rounded" style="background-image: url({% static 'flairnow_assets/assets/img/header_image.jpg' %})">
-                                                <a class="video-link" target="_blank" href="https://www.youtube.com/watch?v=1s-t01mo0yY&feature=youtu.be" data-lity=""><i class="fas fa-play"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </header>
                     <!--features-->
                     {% include 'core/features.html' %}
-                    <!--opportunity postings and browse by type-->
-                    {% include 'core/browse_section.html' %}
-                    <!--cta for organizations and students-->
-                    {% include 'core/cta_register.html' %}
+                    <!--partner organizations-->
+                    <section class="bg-white py-10">
+                        <div class="container">
+                            <h2 class="mb-4" style="font-size: xx-large;">Our Partner Organizations</h2>
+                            <div class="row">
+                                {% for item in orgs %}
+                                <div class="col-lg-3 col-md-6 mb-5">
+                                    <div class="card lift border-bottom-lg border-warning">
+                                        {% if item.organizationbackground %}
+                                        <div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">
+                                            {{ item.organizationbackground.get_industry_display }}
+                                        </div>
+                                        {% endif %}
+                                        <div class="card-body text-center">
+                                            <img src="{{ item.profile.image.url }}" width="auto" height="100px" class="m-auto rounded-circle"" alt="{{ item.organization.org_name }} Logo" />
+                                            <div class="small text-gray-600">{{ item.org_name }}</div>
+                                        </div>
+                                    </a>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </section>
                     <!--faqs-->
                     {% include 'core/faqs.html' %}
                     <!--testimonials-->
