@@ -152,6 +152,12 @@ and it provides access to update and delete the internship for the organizations
 class InternshipDetailView(DetailView):
     model = Internship
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        applicants = InternshipApplication.objects.all().filter(internship=self.object.id)
+        context['applicants'] = applicants
+        return context
+
 ##internship create view
 """
 this is form that organizations fill out to create a internship. 
