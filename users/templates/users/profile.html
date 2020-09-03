@@ -96,6 +96,47 @@
                             </div>
                         </div>
                     </section>
+                    {% if applications %}
+                    <section class="bg-white py-10">
+                        <div class="container">
+                            <h2 class="mb-4" style="font-size: xx-large;">Applications</h2>
+                            <div class="row">
+                                {% for item in applications %}
+                                <div class="col-lg-3 col-md-6 mb-5">
+                                    {% if item.type == "IN" %}
+                                    <a class="card lift border-bottom-lg border-warning" href="{% url 'core:internship-application-detail' item.id %}">
+                                        <div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">{{ item.internship.get_industry_display }}</div>
+                                        <div class="card-body text-center">
+                                            <img src="{{ item.internship.organization.profile.image.url }}" width="auto" height="100px" class="m-auto rounded-circle"" alt="{{ item.internship.organization.org_name }} Logo" />
+                                            <div class="small text-gray-600">{{ item.internship.title }}</div>
+                                            <p class="text-muted">
+                                                {{ item.internship.get_salary_display }}
+                                            </p>
+                                            <span class="badge badge-info rounded-pill px-4 py-2">{{ item.get_type_display }}</span>
+                                            <span class="badge badge-dark rounded-pill px-4 py-2">{{ item.get_status_display }}</span>
+                                        </div>
+                                    </a>
+                                    {% endif %}
+                                    {% if item.type == "SC" %}
+                                    <a class="card lift border-bottom-lg border-warning" href="{% url 'core:scholarship-detail' item.scholarship.id %}">
+                                        <div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">{{ item.scholarship.get_field_display }}</div>
+                                        <div class="card-body text-center">
+                                            <img src="{{ item.scholarship.organization.profile.image.url }}" width="auto" height="100px" class="m-auto rounded-circle"" alt="{{ item.scholarship.organization.org_name }} Logo" />
+                                            <div class="small text-gray-600">{{ item.scholarship.title }}</div>
+                                            <p class="text-muted">
+                                                {{ item.scholarship.get_amount_display }}
+                                            </p>
+                                            <span class="badge badge-info rounded-pill px-4 py-2">{{ item.get_type_display }}</span>
+                                            <span class="badge badge-dark rounded-pill px-4 py-2">{{ item.get_status_display }}</span>
+                                        </div>
+                                    </a>
+                                    {% endif %}
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </section>
+                    {% endif %}
                 </main>
             </div>
             {% include 'core/footer.html' %}

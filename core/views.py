@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from .models import Internship, Scholarship, InternshipApplication, ScholarshipApplication
-from users.models import User
+from users.models import User, InternCommonApp
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -252,6 +252,38 @@ this is the internship application detail view.
 """
 class InternshipApplicationDetailView(LoginRequiredMixin, DetailView):
     model = InternshipApplication
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        q1 = InternCommonApp.objects.all()[0]._meta.get_field('q1').verbose_name
+        q2 = InternCommonApp.objects.all()[0]._meta.get_field('q2').verbose_name
+        q3 = InternCommonApp.objects.all()[0]._meta.get_field('q3').verbose_name
+        context['q1'] = q1
+        context['q2'] = q2
+        context['q3'] = q3
+        return context
+
+##internship application update view
+"""
+this is form that organizations fill out to update a scholarship. 
+"""
+class InternshipApplicationUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = InternshipApplication
+    fields = [
+        'status', 
+        ]
+    template_name_suffix = '_org_update_form'
+
+    def form_valid(self, form):
+        form.instance.internship.organization = self.request.user
+        messages.success(self.request, f"You have updated the internship application.")
+        return super().form_valid(form)
+
+    def test_func(self):
+        internship = self.get_object()
+        if internship:
+            return True
+        return False
 
 ##scholarships list view
 """

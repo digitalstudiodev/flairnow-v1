@@ -27,9 +27,10 @@
                                 <div class="col-lg-8 m-auto">
                                     <div class="card rounded-lg text-dark">
                                         <div class="card-header py-4 text-dark">
-                                            Internship Application Review
+                                            Internship Application Update Status
                                         </div>
                                         <div class="card-body">
+                                            {% if user.is_student %}
                                             <h1>{{ internship.title }}</h1>
                                             <ul class="list-group list-group-flush list-group-careers">
                                                 <li class="list-group-item">Industry <span class="font-weight-bold">{{ internship.get_industry_display }}</span><i class="fas fa-globe fa-fw text-gray-400"></i></li>
@@ -96,11 +97,12 @@
                                                 </li>
 
                                             </ul>
-                                            <form class="register-form" method="POST">
-                                                {% csrf_token %}
-                                                {{ form|crispy }}
-                                                <button class="btn btn-info btn-block btn-round rounded-pill" type="Submit">Save</button>
-                                            </form>
+                                            {% endif %}
+                                          <form class="register-form" method="POST">
+                                            {% csrf_token %}
+                                            {{ form|crispy }}
+                                            <button class="btn btn-info btn-block btn-round rounded-pill" type="Submit">Save</button>
+                                          </form>
                                         </div>
                                     </div>
                                 </div>

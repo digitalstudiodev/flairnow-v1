@@ -5,7 +5,7 @@ from .views import (
     internship_info, internship_dash, scholarship_info, features_organization, 
     features_student, InternshipListView, 
     InternshipDetailView, InternshipCreateView, 
-    InternshipUpdateView, InternshipDeleteView, InternshipApplicationCreateView, InternshipApplicationDetailView,
+    InternshipUpdateView, InternshipDeleteView, InternshipApplicationCreateView, InternshipApplicationDetailView, InternshipApplicationUpdateView,
     ScholarshipListView, ScholarshipDetailView, ScholarshipCreateView, ScholarshipUpdateView,
     ScholarshipDeleteView, ScholarshipApplicationCreateView
     )
@@ -31,6 +31,7 @@ urlpatterns = [
     path('internship/<int:pk>/delete', InternshipDeleteView.as_view(), name='internship-delete'),
     path('internship/<int:internships>/apply', InternshipApplicationCreateView.as_view(), name='internship-application-create'),
     path('internship-application/<int:pk>/', InternshipApplicationDetailView.as_view(), name='internship-application-detail'),
+    path('internship-application/<int:pk>/update', InternshipApplicationUpdateView.as_view(), name='internship-application-update'),
     ##scholarships
     path('scholarship/', ScholarshipListView.as_view(), name="scholarship"),
     path('scholarship/<int:pk>/', ScholarshipDetailView.as_view(), name='scholarship-detail'),

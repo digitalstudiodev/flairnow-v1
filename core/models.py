@@ -82,6 +82,7 @@ applying.
 """
 class InternshipApplication(models.Model):
     date_posted = models.DateTimeField(default=timezone.now)
+    type = models.CharField(max_length=1000, choices=TYPES, default="IN", null=True, verbose_name="Application Type")
     internship = models.ForeignKey(Internship, on_delete=models.SET_NULL, default=None, null=True)
     student = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True)
     status = models.CharField(max_length=1000, choices=STATUS, default="P", null=True)
@@ -91,7 +92,7 @@ class InternshipApplication(models.Model):
         return str(self.date_posted)
     
     def get_absolute_url(self):
-        return reverse('core:internship-detail', kwargs={'pk': self.internship.id})
+        return reverse('core:internship-application-detail', kwargs={'pk': self.id})
 
 ##scholarship
 """
@@ -129,6 +130,7 @@ applying.
 """
 class ScholarshipApplication(models.Model):
     date_posted = models.DateTimeField(default=timezone.now)
+    type = models.CharField(max_length=1000, choices=TYPES, default="SC", null=True, verbose_name="Application Type")
     scholarship = models.ForeignKey(Scholarship, on_delete=models.SET_NULL, default=None, null=True)
     student = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True)
     status = models.CharField(max_length=1000, choices=STATUS, default="P", null=True)

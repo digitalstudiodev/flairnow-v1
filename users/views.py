@@ -6,7 +6,8 @@ from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, LoginFor
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import User, Resume, Academic, Background, Contact, OrganizationContact, OrganizationBackground, InternCommonApp, ScholarCommonApp
-from core.models import Internship, Scholarship
+from core.models import Internship, Scholarship, InternshipApplication, ScholarshipApplication
+from itertools import chain
 
 def register(request):
     form = UserRegisterForm()
@@ -32,14 +33,21 @@ def register_organization(request):
 
 @login_required(login_url='users:login')
 def profile(request):
+    internship_applications = InternshipApplication.objects.all().filter(student=request.user)
+    scholarship_applications = ScholarshipApplication.objects.all().filter(student=request.user)
+    applications = sorted(
+        chain(internship_applications, scholarship_applications),
+        key=lambda instance: instance.date_posted
+    )
     context = {
+        'applications': applications
     }
     return render(request, 'users/profile.html', context)
 
 @login_required(login_url='users:login')
 def organization_profile(request):
     context = {
-        'internships': Internship.objects.filter(organization=request.user)
+        'internships': Internship.objects.filter(organization=request.user),
     }
     return render(request, 'users/organization_profile.html', context)
 
@@ -250,6 +258,16 @@ class OrganizationBackgroundUpdateView(LoginRequiredMixin, UserPassesTestMixin, 
 class InternCommonAppDetailView(DetailView):
     model = InternCommonApp
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        q1 = InternCommonApp.objects.all()[0]._meta.get_field('q1').verbose_name
+        q2 = InternCommonApp.objects.all()[0]._meta.get_field('q2').verbose_name
+        q3 = InternCommonApp.objects.all()[0]._meta.get_field('q3').verbose_name
+        context['q1'] = q1
+        context['q2'] = q2
+        context['q3'] = q3
+        return context
+
 class InternCommonAppCreateView(LoginRequiredMixin, CreateView):
     model = InternCommonApp
     fields = ['q1', 'q2','q3']
@@ -274,6 +292,16 @@ class InternCommonAppUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateV
 
 class ScholarCommonAppDetailView(DetailView):
     model = ScholarCommonApp
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        q1 = ScholarCommonApp.objects.all()[0]._meta.get_field('q1').verbose_name
+        q2 = ScholarCommonApp.objects.all()[0]._meta.get_field('q2').verbose_name
+        q3 = ScholarCommonApp.objects.all()[0]._meta.get_field('q3').verbose_name
+        context['q1'] = q1
+        context['q2'] = q2
+        context['q3'] = q3
+        return context
 
 class ScholarCommonAppCreateView(LoginRequiredMixin, CreateView):
     model = ScholarCommonApp

@@ -543,9 +543,9 @@ class OrganizationBackground(models.Model):
 class InternCommonApp(models.Model):
     student = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Student")
     date_posted = models.DateTimeField(default=timezone.now)
-    q1 = models.TextField(max_length=1000, verbose_name="Tell Us About a Situation Where You Took Initiative or Took on a Leadership Role.", help_text="Max Length (1000 characters)")
+    q1 = models.TextField(max_length=1000, verbose_name="Tell us a bit about yourself.", help_text="Max Length (1000 characters)")
     q2 = models.TextField(max_length=1000, verbose_name="What’s the Best Team You’ve Ever Been a Part of, and Why?/What’s Your Ideal Team?", help_text="Max Length (1000 characters)")
-    q3 = models.TextField(max_length=1000, verbose_name="Why Are You Interested in This Internship/Company/Industry, and What Skills or Experiences Do You Hope to Gain?", help_text="Max Length (1000 characters)")
+    q3 = models.TextField(max_length=1000, verbose_name="What are your strengths?", help_text="Max Length (1000 characters)")
 
     def __str__(self):
         return str(self.date_posted)
