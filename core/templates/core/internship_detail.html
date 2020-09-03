@@ -74,6 +74,7 @@
                                 </div>
                             </div>
                             {% if object.organization == request.user and applicants %}
+                                {% if applicants %}
                                 <h2 class="mb-4" style="font-size: xx-large;">Applicants</h2>
                                 <div class="row">
                                     {% for item in applicants %}
@@ -86,11 +87,12 @@
                                             </a>
                                         </div>
                                     {% endfor %}
+                                </div>  
+                                {% else %}
+                                <div class="alert alert-warning my-5" style="border-radius: 2rem;">
+                                    No Applicants Currently
                                 </div>
-                            {% else %}
-                            <div class="alert alert-warning my-5" style="border-radius: 2rem;">
-                                No Applicants Currently
-                            </div>
+                                {% endif %}                          
                             {% endif %}
                         </div>
                         <div class="svg-border-rounded text-light">
