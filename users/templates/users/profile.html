@@ -104,7 +104,7 @@
                                 {% for item in applications %}
                                 <div class="col-lg-3 col-md-6 mb-5">
                                     {% if item.type == "IN" %}
-                                    <a class="card lift border-bottom-lg border-warning" href="{% url 'core:internship-application-detail' item.id %}">
+                                    <a class="card lift border-bottom-lg border-warning" href="{% url 'core:internship-detail' item.internship.id %}">
                                         <div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">{{ item.internship.get_industry_display }}</div>
                                         <div class="card-body text-center">
                                             <img src="{{ item.internship.organization.profile.image.url }}" width="auto" height="100px" class="m-auto rounded-circle"" alt="{{ item.internship.organization.org_name }} Logo" />
