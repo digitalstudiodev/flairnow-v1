@@ -35,7 +35,9 @@
                                             <span class="badge badge-dark rounded-pill p-2">{{ object.get_status_display }}</span>
                                         </p>
                                         <a class="btn btn-info btn-marketing rounded-pill lift lift-sm my-3 mx-2" href="{% url 'core:internship-application-update' object.id %}">Update</a>
+                                        {% if object.student.resume %}
                                         <a class="btn btn-dark btn-marketing rounded-pill lift lift-sm my-3 mx-2" href="{{ object.student.resume.resume.url }}" target="_blank">View Resume</a>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 {% endif %}
