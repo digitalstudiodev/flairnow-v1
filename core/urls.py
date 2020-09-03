@@ -2,12 +2,12 @@ from django.contrib import admin
 from django.urls import path
 from .views import (
     home, browse, about, contact, partner_contract,
-    internship_info, internship_dash, scholarship_info, features_organization, 
+    internship_info, internship_dash, scholarship_dash, scholarship_info, features_organization, 
     features_student, InternshipListView, 
     InternshipDetailView, InternshipCreateView, 
     InternshipUpdateView, InternshipDeleteView, InternshipApplicationCreateView, InternshipApplicationDetailView, InternshipApplicationUpdateView,
     ScholarshipListView, ScholarshipDetailView, ScholarshipCreateView, ScholarshipUpdateView,
-    ScholarshipDeleteView, ScholarshipApplicationCreateView
+    ScholarshipDeleteView, ScholarshipApplicationCreateView, ScholarshipApplicationDetailView, ScholarshipApplicationUpdateView
     )
 
 app_name = 'core'
@@ -23,6 +23,7 @@ urlpatterns = [
     path('internship-info', internship_info, name="internship-info"),
     path('scholarship-info', scholarship_info, name="scholarship-info"),
     path('internship-dash', internship_dash, name="internship-dash"),
+    path('scholarship-dash', scholarship_dash, name="scholarship-dash"),
     ##internships
     path('internship/', InternshipListView.as_view(), name="internship"),
     path('internship/<int:pk>/', InternshipDetailView.as_view(), name='internship-detail'),
@@ -39,4 +40,6 @@ urlpatterns = [
     path('scholarship/<int:pk>/update', ScholarshipUpdateView.as_view(), name='scholarship-update'),
     path('scholarship/<int:pk>/delete', ScholarshipDeleteView.as_view(), name='scholarship-delete'),
     path('scholarship/<int:scholarships>/apply', ScholarshipApplicationCreateView.as_view(), name='scholarship-application-create'),
+    path('scholarship-application/<int:pk>/', ScholarshipApplicationDetailView.as_view(), name='scholarship-application-detail'),
+    path('scholarship-application/<int:pk>/update', ScholarshipApplicationUpdateView.as_view(), name='scholarship-application-update'),
 ]

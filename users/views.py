@@ -48,6 +48,7 @@ def profile(request):
 def organization_profile(request):
     context = {
         'internships': Internship.objects.filter(organization=request.user),
+        'scholarships': Scholarship.objects.filter(organization=request.user),
     }
     return render(request, 'users/organization_profile.html', context)
 

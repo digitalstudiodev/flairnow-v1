@@ -140,4 +140,4 @@ class ScholarshipApplication(models.Model):
         return str(self.date_posted)
     
     def get_absolute_url(self):
-        return reverse('core:scholarship-detail', kwargs={'pk': self.scholarship.id})
+        return reverse('core:scholarship-application-detail', kwargs={'pk': self.id})

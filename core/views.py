@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from .models import Internship, Scholarship, InternshipApplication, ScholarshipApplication
-from users.models import User, InternCommonApp
+from users.models import User, InternCommonApp, ScholarCommonApp
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -132,6 +132,25 @@ def internship_dash(request):
 
     }
     return render(request, "core/internship_dash.html", context)
+
+##scholarship dash for organizations
+"""
+this is the view that organizations access when they have scholarships to manage. organizations 
+see a list of all of their scholarships and can go into the detail view for each if they choose to make 
+any updates or delete them.
+"""
+def scholarship_dash(request):
+    page_number = request.GET.get('page')
+    paginator = Paginator(Scholarship.objects.filter(organization=request.user), 5)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'scholarships': Scholarship.objects.filter(organization=request.user),
+        'page_obj': page_obj
+
+    }
+    return render(request, "core/scholarship_dash.html", context)
 
 ##internships list view
 """
@@ -304,6 +323,12 @@ and it provides access to update and delete the scholarship for the organization
 class ScholarshipDetailView(DetailView):
     model = Scholarship
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        applicants = ScholarshipApplication.objects.all().filter(scholarship=self.object.id)[0:24]
+        context['applicants'] = applicants
+        return context
+
 ##scholarship create view
 """
 this is form that organizations fill out to create a scholarship. 
@@ -392,3 +417,42 @@ class ScholarshipApplicationCreateView(LoginRequiredMixin, CreateView):
         context = super(ScholarshipApplicationCreateView, self).get_context_data(**kwargs)
         context['scholarship'] = Scholarship.objects.all().filter(id=self.kwargs["scholarships"])[0]
         return context
+
+##scholarship application detail view
+"""
+this is the scholarship application detail view. 
+"""
+class ScholarshipApplicationDetailView(LoginRequiredMixin, DetailView):
+    model = ScholarshipApplication
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        q1 = ScholarCommonApp.objects.all()[0]._meta.get_field('q1').verbose_name
+        q2 = ScholarCommonApp.objects.all()[0]._meta.get_field('q2').verbose_name
+        q3 = ScholarCommonApp.objects.all()[0]._meta.get_field('q3').verbose_name
+        context['q1'] = q1
+        context['q2'] = q2
+        context['q3'] = q3
+        return context
+
+##scholarship application update view
+"""
+this is form that organizations fill out to update a scholarship. 
+"""
+class ScholarshipApplicationUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = ScholarshipApplication
+    fields = [
+        'status', 
+        ]
+    template_name_suffix = '_org_update_form'
+
+    def form_valid(self, form):
+        form.instance.scholarship.organization = self.request.user
+        messages.success(self.request, f"You have updated the scholarship application.")
+        return super().form_valid(form)
+
+    def test_func(self):
+        scholarship = self.get_object()
+        if scholarship:
+            return True
+        return False
