@@ -43,8 +43,10 @@
                                 <div class="col-lg-10">
                                     {% for scholarship in page_obj %}
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <h2 class="mb-0"><a href="{% url 'core:scholarship-detail' scholarship.id %}">{{ scholarship.title }}</a></h2>
-                                        <div class="badge badge-primary-soft text-primary badge-marketing">{{ scholarship.number_of_appliants }} Applicants</div>
+                                        <h2 class="mb-0"><a href="{% url 'core:scholarship-detail' scholarship.id %}" class="btn-link text-dark">{{ scholarship.title }}</a></h2>
+                                        <div class="badge badge-info text-white badge-marketing">
+                                            {{ scholarship.get_amount_display }}
+                                        </div>
                                     </div>
                                     <hr class="mb-0" />
                                     <ul class="list-group list-group-flush list-group-careers text-dark">
@@ -53,8 +55,8 @@
                                             <div class="small">{{ scholarship.get_field_display }}</div>
                                         </li>
                                         <li class="list-group-item">
-                                            Amount
-                                            <div class="small">{{ scholarship.get_amount_display }}</div>
+                                            Grade Level
+                                            <div class="small">{{ scholarship.get_grade_level_display }}</div>
                                         </li>
                                     </ul>
                                     {% endfor %}
@@ -67,7 +69,7 @@
                                         <a class="page-link" href="{{ page_obj.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">«</span></a>
                                     </li>
                                     {% endif %}
-                                    <li class="page-item active"><div class="page-link current" href="#!">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</div></li>
+                                    <li class="page-item"><div class="page-link current text-warning" href="#!">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</div></li>
                                     {% if page_obj.has_next %}
                                     <li class="page-item">
                                         <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next"><span aria-hidden="true">»</span></a>
