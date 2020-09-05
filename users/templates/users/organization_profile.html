@@ -83,6 +83,13 @@
                                                         <div class="list-group-item text-dark text-muted" href="#">Scholarships</div>
                                                     {% endif %}
                                                 {% endif %}
+                                                {% if request.user.is_admin %}
+                                                    {% if not externalopps %}
+                                                    <a class="list-group-item text-dark" href="{% url 'core:external-opportunity-create' %}">External</a>
+                                                    {% else %}
+                                                    <a class="list-group-item text-dark" href="{% url 'core:external-opportunity-dash' %}">External</a>
+                                                    {% endif %}
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>

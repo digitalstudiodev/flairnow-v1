@@ -3,11 +3,12 @@ from django.urls import path
 from .views import (
     home, browse, about, contact, partner_contract,
     internship_info, internship_dash, scholarship_dash, scholarship_info, features_organization, 
-    features_student, InternshipListView, 
+    features_student, externalopp_dash, InternshipListView, 
     InternshipDetailView, InternshipCreateView, 
     InternshipUpdateView, InternshipDeleteView, InternshipApplicationCreateView, InternshipApplicationDetailView, InternshipApplicationUpdateView,
     ScholarshipListView, ScholarshipDetailView, ScholarshipCreateView, ScholarshipUpdateView,
-    ScholarshipDeleteView, ScholarshipApplicationCreateView, ScholarshipApplicationDetailView, ScholarshipApplicationUpdateView
+    ScholarshipDeleteView, ScholarshipApplicationCreateView, ScholarshipApplicationUpdateView, ScholarshipApplicationDetailView,
+    ExternalOppCreateView, ExternalOppUpdateView, ExternalOppDeleteView
     )
 
 app_name = 'core'
@@ -42,4 +43,9 @@ urlpatterns = [
     path('scholarship/<int:scholarships>/apply', ScholarshipApplicationCreateView.as_view(), name='scholarship-application-create'),
     path('scholarship-application/<int:pk>/', ScholarshipApplicationDetailView.as_view(), name='scholarship-application-detail'),
     path('scholarship-application/<int:pk>/update', ScholarshipApplicationUpdateView.as_view(), name='scholarship-application-update'),
+    ##external opportunities
+    path('external-opportunity-create/', ExternalOppCreateView.as_view(), name="external-opportunity-create"),
+    path('external-opportunity/<int:pk>/update', ExternalOppUpdateView.as_view(), name="external-opportunity-update"),
+    path('external-opportunity/<int:pk>/delete', ExternalOppDeleteView.as_view(), name="external-opportunity-delete"),
+    path('external-opportunity-dash/', externalopp_dash, name="external-opportunity-dash"),
 ]

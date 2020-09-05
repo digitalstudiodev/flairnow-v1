@@ -9,6 +9,11 @@ TYPES = (
     ("SC","Scholarship"),
 )
 
+EXTERNAL_TYPES = (
+    ("EIN","Internship"),
+    ("ESC","Scholarship"),
+)
+
 CONFIRM = (
     ("Y","Yes, I Confirm"),
 )
@@ -150,11 +155,11 @@ class ExternalOpp(models.Model):
     organization = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True)
     ##basic information
     host = models.CharField(max_length=1000, verbose_name="Host", default="", null=True)
-    type = models.CharField(max_length=1000, choices=TYPES, default="SC", null=True, verbose_name="Opportunity Type")
+    type = models.CharField(max_length=1000, choices=EXTERNAL_TYPES, default="SC", null=True, verbose_name="Opportunity Type")
     title = models.CharField(max_length=1000, default=None, null=True, verbose_name="Position Title")
     date_posted = models.DateTimeField(default=timezone.now)
     field = models.CharField(max_length=1000, choices=MAJORS, default=None, null=True)
-    link = models.CharField(max_length=1000, verbose_name="Website Link", default="", null=True)
+    link = models.CharField(max_length=3000, verbose_name="Website Link", default="", null=True)
 
     def __str__(self):
         return self.link

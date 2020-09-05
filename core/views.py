@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from .models import Internship, Scholarship, InternshipApplication, ScholarshipApplication
+from .models import Internship, Scholarship, InternshipApplication, ScholarshipApplication, ExternalOpp
 from users.models import User, InternCommonApp, ScholarCommonApp
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -17,8 +17,9 @@ def home(request):
     """
     internships = Internship.objects.all()[0:4]
     scholarships = Scholarship.objects.all()[0:4]
+    externalopps = ExternalOpp.objects.all()[0:4]
     opportunities = sorted(
-        chain(internships, scholarships),
+        chain(internships, scholarships, externalopps),
         key=lambda instance: instance.date_posted
     )
     context = {
@@ -86,8 +87,9 @@ def browse(request):
     """
     internships = Internship.objects.all()[0:4]
     scholarships = Scholarship.objects.all()[0:4]
+    externalopps = ExternalOpp.objects.all()[0:4]
     opportunities = sorted(
-        chain(internships, scholarships),
+        chain(internships, scholarships, externalopps),
         key=lambda instance: instance.date_posted
     )
     context = {
@@ -152,6 +154,24 @@ def scholarship_dash(request):
 
     }
     return render(request, "core/scholarship_dash.html", context)
+
+def externalopp_dash(request):
+    ##external opportunity dash for admin
+    """
+    this is the view that admins access when they have external opportunities to manage. admins 
+    see a list of all of the extneral opportunities and can either update or delete them.
+    """
+    page_number = request.GET.get('page')
+    paginator = Paginator(ExternalOpp.objects.filter(organization=request.user), 5)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'externalopps': ExternalOpp.objects.filter(organization=request.user),
+        'page_obj': page_obj
+
+    }
+    return render(request, "core/externalopp_dash.html", context)
 
 class InternshipListView(ListView):
     ##internships list view
@@ -462,5 +482,52 @@ class ScholarshipApplicationUpdateView(LoginRequiredMixin, UserPassesTestMixin, 
     def test_func(self):
         scholarship = self.get_object()
         if scholarship:
+            return True
+        return False
+
+class ExternalOppCreateView(LoginRequiredMixin, CreateView):
+    ##external opportunity create view
+    """
+    this is the create view for the external opportunity model.
+    """
+    model = ExternalOpp
+    fields = ['host','title','type','field','link']
+    success_url = '/external-opportunity-dash/'
+
+
+    def form_valid(self, form):
+        form.instance.organization = self.request.user
+        return super().form_valid(form)
+
+class ExternalOppUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    ##external opportunity update view
+    """
+    this is the update view for the external opportunity model.
+    """
+    model = ExternalOpp
+    fields = ['host','title','type','field','link']
+    success_url = '/external-opportunity-dash/'
+
+    def form_valid(self, form):
+        form.instance.organization = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        externalopp = self.get_object()
+        if externalopp:
+            return True
+        return False
+
+class ExternalOppDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    ##external opportunity delete view
+    """
+    this is the delete view for the external opportunity model.
+    """
+    model = ExternalOpp
+    success_url = '/external-opportunity-dash/'
+
+    def test_func(self):
+        externalopp = self.get_object()
+        if externalopp:
             return True
         return False

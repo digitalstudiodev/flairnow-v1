@@ -6,7 +6,7 @@ from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, LoginFor
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import User, Resume, Academic, Background, Contact, OrganizationContact, OrganizationBackground, InternCommonApp, ScholarCommonApp
-from core.models import Internship, Scholarship, InternshipApplication, ScholarshipApplication
+from core.models import Internship, Scholarship, InternshipApplication, ScholarshipApplication, ExternalOpp
 from itertools import chain
 
 def register(request):
@@ -56,6 +56,8 @@ def organization_profile(request):
         'scholarships': Scholarship.objects.filter(organization=request.user),
         'confirmed': confirmed,
     }
+    if request.user.is_admin:
+        context['externalopps'] = ExternalOpp.objects.filter(organization=request.user),
     return render(request, 'users/organization_profile.html', context)
 
 @login_required(login_url='users:login')
