@@ -44,11 +44,11 @@ STATUS = (
     ("W","Wait List")
 )
 
-##internship
-"""
-this is the internship model. 
-"""
 class Internship(models.Model):
+    ##internship
+    """
+    this is the internship model. 
+    """
     organization = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True)
     ##basic information
     type = models.CharField(max_length=1000, choices=TYPES, default="IN", null=True, verbose_name="Opportunity Type")
@@ -75,12 +75,12 @@ class Internship(models.Model):
     def get_apply_url(self):
         return reverse("core:apply-intern", kwargs={'pk': self.pk})
 
-##internship application
-"""
-this is the internship application model. it functions as a connnection between the internship and the student
-applying.
-"""
 class InternshipApplication(models.Model):
+    ##internship application
+    """
+    this is the internship application model. it functions as a connnection between the internship and the student
+    applying.
+    """
     date_posted = models.DateTimeField(default=timezone.now)
     type = models.CharField(max_length=1000, choices=TYPES, default="IN", null=True, verbose_name="Application Type")
     internship = models.ForeignKey(Internship, on_delete=models.SET_NULL, default=None, null=True)
@@ -94,11 +94,11 @@ class InternshipApplication(models.Model):
     def get_absolute_url(self):
         return reverse('core:internship-application-detail', kwargs={'pk': self.id})
 
-##scholarship
-"""
-this is the scholarship model. 
-"""
 class Scholarship(models.Model):
+    ##scholarship
+    """
+    this is the scholarship model. 
+    """
     organization = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True)
     ##basic information
     type = models.CharField(max_length=1000, choices=TYPES, default="SC", null=True, verbose_name="Opportunity Type")
@@ -123,12 +123,12 @@ class Scholarship(models.Model):
     def get_apply_url(self):
         return reverse("core:apply-scholarship", kwargs={'pk': self.pk})
 
-##scholarship application
-"""
-this is the scholarship application model. it functions as a connnection between the internship and the student
-applying.
-"""
 class ScholarshipApplication(models.Model):
+    ##scholarship application
+    """
+    this is the scholarship application model. it functions as a connnection between the internship and the student
+    applying.
+    """
     date_posted = models.DateTimeField(default=timezone.now)
     type = models.CharField(max_length=1000, choices=TYPES, default="SC", null=True, verbose_name="Application Type")
     scholarship = models.ForeignKey(Scholarship, on_delete=models.SET_NULL, default=None, null=True)
