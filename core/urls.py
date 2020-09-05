@@ -8,7 +8,8 @@ from .views import (
     InternshipUpdateView, InternshipDeleteView, InternshipApplicationCreateView, InternshipApplicationDetailView, InternshipApplicationUpdateView,
     ScholarshipListView, ScholarshipDetailView, ScholarshipCreateView, ScholarshipUpdateView,
     ScholarshipDeleteView, ScholarshipApplicationCreateView, ScholarshipApplicationUpdateView, ScholarshipApplicationDetailView,
-    ExternalOppCreateView, ExternalOppUpdateView, ExternalOppDeleteView
+    ExternalOppCreateView, ExternalOppUpdateView, ExternalOppDeleteView,
+    internship_list, scholarship_list
     )
 
 app_name = 'core'
@@ -26,7 +27,7 @@ urlpatterns = [
     path('internship-dash', internship_dash, name="internship-dash"),
     path('scholarship-dash', scholarship_dash, name="scholarship-dash"),
     ##internships
-    path('internship/', InternshipListView.as_view(), name="internship"),
+    path('internship/', internship_list, name="internship"),
     path('internship/<int:pk>/', InternshipDetailView.as_view(), name='internship-detail'),
     path('internship/new/', InternshipCreateView.as_view(), name='internship-create'),
     path('internship/<int:pk>/update', InternshipUpdateView.as_view(), name='internship-update'),
@@ -35,7 +36,7 @@ urlpatterns = [
     path('internship-application/<int:pk>/', InternshipApplicationDetailView.as_view(), name='internship-application-detail'),
     path('internship-application/<int:pk>/update', InternshipApplicationUpdateView.as_view(), name='internship-application-update'),
     ##scholarships
-    path('scholarship/', ScholarshipListView.as_view(), name="scholarship"),
+    path('scholarship/', scholarship_list, name="scholarship"),
     path('scholarship/<int:pk>/', ScholarshipDetailView.as_view(), name='scholarship-detail'),
     path('scholarship/new/', ScholarshipCreateView.as_view(), name='scholarship-create'),
     path('scholarship/<int:pk>/update', ScholarshipUpdateView.as_view(), name='scholarship-update'),

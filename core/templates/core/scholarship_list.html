@@ -38,8 +38,9 @@
                         <div class="container">
                             {% include 'core/messages.html' %}
                             <div class="row">
-                                {% for scholarship in object_list %}
+                                {% for scholarship in page_obj %}
                                 <div class="col-lg-3 col-md-6 mb-5">
+                                    {% if scholarship.type == "SC" %}
                                     <a class="card lift border-bottom-lg border-warning" href="{% url 'core:scholarship-detail' scholarship.id %}">
                                         <div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">{{ scholarship.get_field_display }}</div>
                                         <div class="card-body text-center">
@@ -50,6 +51,18 @@
                                             </p>
                                         </div>
                                     </a>
+                                    {% elif scholarship.type == "ESC" %}
+                                    <a class="card lift border-bottom-lg border-warning" href="{{ scholarship.link }}" target="_blank">
+                                        <div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">{{ scholarship.get_field_display }}</div>
+                                        <div class="card-body text-center">
+                                            <img src="{{ scholarship.organization.profile.image.url }}" width="auto" height="100px" class="m-auto rounded-circle"" alt="{{ scholarship.organization.org_name }} Logo" />
+                                            <div class="small text-dark-600">{{ scholarship.title }}</div>
+                                            <p class="text-muted text-dark">
+                                                {{ scholarship.host }}
+                                            </p>
+                                        </div>
+                                    </a>
+                                    {% endif %}
                                 </div>
                                 {% endfor %}
                             </div>

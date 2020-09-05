@@ -173,6 +173,29 @@ def externalopp_dash(request):
     }
     return render(request, "core/externalopp_dash.html", context)
 
+def internship_list(request):
+    ##internships list view
+    """
+    this is the category view for internships 
+    """
+    internships = Internship.objects.all()
+    externalopps = ExternalOpp.objects.all().filter(type="EIN")
+    opportunities = sorted(
+        chain(internships, externalopps),
+        key=lambda instance: instance.date_posted
+    )
+    page_number = request.GET.get('page')
+    paginator = Paginator(opportunities, 32)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'internships': opportunities,
+        'page_obj': page_obj
+
+    }
+    return render(request, "core/internship_list.html", context)
+
 class InternshipListView(ListView):
     ##internships list view
     """
@@ -333,6 +356,29 @@ class InternshipApplicationUpdateView(LoginRequiredMixin, UserPassesTestMixin, U
         if internship:
             return True
         return False
+
+def scholarship_list(request):
+    ##internships list view
+    """
+    this is the category view for scholarships 
+    """
+    scholarships = Scholarship.objects.all()
+    externalopps = ExternalOpp.objects.all().filter(type="ESC")
+    opportunities = sorted(
+        chain(scholarships, externalopps),
+        key=lambda instance: instance.date_posted
+    )
+    page_number = request.GET.get('page')
+    paginator = Paginator(opportunities, 32)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'scholarships': opportunities,
+        'page_obj': page_obj
+
+    }
+    return render(request, "core/scholarship_list.html", context)
 
 class ScholarshipListView(ListView):
     ##scholarships list view
