@@ -354,6 +354,8 @@ class ScholarshipDetailView(DetailView):
             match = ScholarshipApplication.objects.all().filter(student=self.request.user)
             if match:
                 context['match'] = match[0] 
+        else:
+            pass
         applicants = ScholarshipApplication.objects.all().filter(scholarship=self.object.id)[0:4]
         context['applicants'] = applicants
         return context
