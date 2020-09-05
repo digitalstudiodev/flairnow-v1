@@ -125,12 +125,12 @@ def internship_dash(request):
     any updates or delete them.
     """
     page_number = request.GET.get('page')
-    paginator = Paginator(Internship.objects.filter(organization=request.user), 5)
+    paginator = Paginator(Internship.objects.all().filter(organization=request.user), 5)
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {
-        'internships': Internship.objects.filter(organization=request.user),
+        'internships': Internship.objects.all().filter(organization=request.user),
         'page_obj': page_obj
 
     }
@@ -144,12 +144,12 @@ def scholarship_dash(request):
     any updates or delete them.
     """
     page_number = request.GET.get('page')
-    paginator = Paginator(Scholarship.objects.filter(organization=request.user), 5)
+    paginator = Paginator(Scholarship.objects.all().filter(organization=request.user), 5)
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {
-        'scholarships': Scholarship.objects.filter(organization=request.user),
+        'scholarships': Scholarship.objects.all().filter(organization=request.user),
         'page_obj': page_obj
 
     }

@@ -48,16 +48,16 @@ def profile(request):
 def organization_profile(request):
     contacts = OrganizationContact.objects.all().filter(organization=request.user)
     backgrounds = OrganizationBackground.objects.all().filter(organization=request.user)
+    externalopps = ExternalOpp.objects.all().filter(organization=request.user)
     confirmed = False
     if contacts and backgrounds:
         confirmed = True
     context = {
-        'internships': Internship.objects.filter(organization=request.user),
-        'scholarships': Scholarship.objects.filter(organization=request.user),
+        'internships': Internship.objects.all().filter(organization=request.user),
+        'scholarships': Scholarship.objects.all().filter(organization=request.user),
         'confirmed': confirmed,
+        'externalopps': externalopps,
     }
-    if request.user.is_admin:
-        context['externalopps'] = ExternalOpp.objects.filter(organization=request.user),
     return render(request, 'users/organization_profile.html', context)
 
 @login_required(login_url='users:login')
