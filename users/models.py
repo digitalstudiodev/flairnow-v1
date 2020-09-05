@@ -404,6 +404,7 @@ class User(AbstractBaseUser):
     org_name = models.CharField(max_length=30, default=None, null=True, verbose_name="Organization Name")
     is_student = models.BooleanField(default=True)
     is_organization = models.BooleanField(default=False)
+    is_approved = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'org_name']

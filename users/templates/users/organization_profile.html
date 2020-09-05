@@ -49,12 +49,12 @@
                                                 {% if user.organizationcontact %}
                                                 <a class="list-group-item text-dark" href="{% url 'users:organizationcontact-detail' user.organizationcontact.id %}">Contact</a>
                                                 {% else %}
-                                                <a class="list-group-item text-dark" href="{% url 'users:organizationcontact-create' %}">Contact</a>
+                                                <a class="list-group-item text-dark" href="{% url 'users:organizationcontact-create' %}">Contact&nbsp;<span class="badge badge-info badge-pill px-2 text-white">Add</span></a>
                                                 {% endif %}
                                                 {% if user.organizationbackground %}
                                                 <a class="list-group-item text-dark" href="{% url 'users:organizationbackground-detail' user.organizationbackground.id %}">Background</a>
                                                 {% else %}
-                                                <a class="list-group-item text-dark" href="{% url 'users:organizationbackground-create' %}">Background</a>
+                                                <a class="list-group-item text-dark" href="{% url 'users:organizationbackground-create' %}">Background&nbsp;<span class="badge badge-info badge-pill px-2 text-white">Add</span></a>
                                                 {% endif %}
                                             </div>
                                         </div>
@@ -68,12 +68,20 @@
                                                 {% if internships %}
                                                 <a class="list-group-item text-dark" href="{% url 'core:internship-dash' %}">Internships</a>
                                                 {% else %}
-                                                <a class="list-group-item text-dark" href="{% url 'core:internship-info' %}">Internships</a>
+                                                    {% if confirmed %}
+                                                        <a class="list-group-item text-dark" href="{% url 'core:internship-info' %}">Internships&nbsp;<span class="badge badge-info badge-pill px-2 text-white">Create</span></a>
+                                                    {% else %}
+                                                        <div class="list-group-item text-dark text-muted" href="#">Internships</div>
+                                                    {% endif %}
                                                 {% endif %}
                                                 {% if scholarships %}
                                                 <a class="list-group-item text-dark" href="{% url 'core:scholarship-dash' %}">Scholarships</a>
                                                 {% else %}
-                                                <a class="list-group-item text-dark" href="{% url 'core:scholarship-info' %}">Scholarships</a>
+                                                    {% if confirmed %}
+                                                        <a class="list-group-item text-dark" href="{% url 'core:scholarship-info' %}">Scholarships&nbsp;<span class="badge badge-info badge-pill px-2 text-white">Create</span></a>
+                                                    {% else %}
+                                                        <div class="list-group-item text-dark text-muted" href="#">Scholarships</div>
+                                                    {% endif %}
                                                 {% endif %}
                                             </div>
                                         </div>

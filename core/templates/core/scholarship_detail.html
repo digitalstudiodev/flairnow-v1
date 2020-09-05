@@ -15,6 +15,8 @@
         <link rel="icon" type="image/x-icon" href="{% static 'flairnow_assets/assets/img/logo.png' %}" />
         <script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" crossorigin="anonymous"></script>
+        <!--datatables stylesheet-->
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" />
     </head>
     <body>
         <div id="layoutDefault">
@@ -40,7 +42,7 @@
                         <div class="container mt-10">
                             {% include 'core/messages.html' %}
                             <div class="row">
-                                <div class="col-lg-4">
+                                <div class="col-lg-5">
                                     <ul class="list-group list-group-flush list-group-careers">
                                         <li class="list-group-item">Field <span class="font-weight-bold">{{ object.get_field_display }}</span><i class="fas fa-globe fa-fw text-gray-400"></i></li>
                                         <li class="list-group-item">Grade Level <span class="font-weight-bold">{{ object.get_grade_level_display }}</span><i class="fas fa-bars text-gray-400"></i></li>
@@ -49,7 +51,7 @@
                                         <li class="list-group-item">Scholarship Amount <span class="font-weight-bold">{{ object.get_amount_display }}</span><i class="fas fa-money-bill-wave-alt text-gray-400"></i></li>
                                     </ul>
                                 </div>
-                                <div class="col-lg-8">
+                                <div class="col-lg-7">
                                     <h1 class="mb-4">{{ object.title }}</h1>
                                     <p class="lead mb-4">
                                         {{ object.description }}
@@ -60,12 +62,26 @@
                                             <a class="btn btn-warning btn-marketing rounded-pill ml-2" href="{% url 'core:scholarship-update' object.id %}">Update</a>
                                             <a class="btn btn-danger btn-marketing rounded-pill ml-2" href="{% url 'core:scholarship-delete' object.id %}">Delete</a>
                                             {% endif %}
-                                            {% if user.is_student and user.scholarcommonapp %}
-                                            <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'core:scholarship-application-create' scholarships=object.id %}">Apply</a>
-                                            {% elif user.is_student and not user.scholarcommonapp %}
-                                            Fill out the Scholarship Common Application <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:scholarship-common-application-create' %}">Complete</a>
+                                            {% if user.is_student and not user.scholarcommonapp %}
+                                                Fill out the Scholarship Common Application <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:scholarship-common-application-create' %}">Complete</a>
+                                            {% elif user.is_student and not user.contact %}
+                                                Complete Your Contact Information <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:contact-create' %}">Complete</a>
+                                            {% elif user.is_student and not user.background %}
+                                                Complete Your Background Information <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:background-create' %}">Complete</a>
+                                            {% elif user.is_student and not user.academic %}
+                                                Complete Your Academic Profile <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:academic-create' %}">Complete</a>
+                                            {% elif user.is_student and not user.resume %}
+                                                Upload Your Resume <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:resume-create' %}">Complete</a>
+                                            {% elif user.is_student and user.scholarcommonapp %}
+                                                {% if not match %}
+                                                    <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'core:scholarship-application-create' scholarships=object.id %}">Apply</a>
+                                                {% else %}
+                                                    <div class="alert alert-warning my-5" style="border-radius: 2rem;">
+                                                        Your application has already been submited.
+                                                    </div>
+                                                {% endif %}
                                             {% elif not user.is_authenticated %}
-                                            Login to apply  <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:login' %}">Login</a>
+                                                Login to apply <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:login' %}">Login</a>
                                             {% endif %}
                                         </div>
                                     </div>

@@ -43,13 +43,10 @@
                                     <a class="card lift border-bottom-lg border-warning" href="{% url 'core:internship-detail' internship.id %}">
                                         <div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">{{ internship.get_industry_display }}</div>
                                         <div class="card-body text-center">
-                                            <!--<div class="icon-stack icon-stack-xl bg-warning text-white mb-2">
-                                                <img src="{{ internship.organization.profile.image.url }}" width="auto" height="50px" class="img-fluid m-auto rounded-circle"" alt="{{ internship.organization.org_name }} Logo" />
-                                            </div>-->
                                             <img src="{{ internship.organization.profile.image.url }}" width="auto" height="100px" class="m-auto rounded-circle"" alt="{{ internship.organization.org_name }} Logo" />
-                                            <div class="small text-gray-600">{{ internship.title }}</div>
-                                            <p class="lead text-muted small">
-                                                {{ internship.number_of_positions }} Positions
+                                            <div class="small text-dark-600">{{ internship.title }}</div>
+                                            <p class="text-muted text-dark">
+                                                {{ internship.get_salary_display }}
                                             </p>
                                         </div>
                                     </a>
@@ -63,7 +60,7 @@
                                         <a class="page-link" href="{{ page_obj.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">«</span></a>
                                     </li>
                                     {% endif %}
-                                    <li class="page-item active"><div class="page-link current" href="#!">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</div></li>
+                                    <li class="page-item"><div class="page-link current text-warning" href="#!">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</div></li>
                                     {% if page_obj.has_next %}
                                     <li class="page-item">
                                         <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next"><span aria-hidden="true">»</span></a>

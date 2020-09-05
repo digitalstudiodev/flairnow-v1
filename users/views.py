@@ -46,9 +46,15 @@ def profile(request):
 
 @login_required(login_url='users:login')
 def organization_profile(request):
+    contacts = OrganizationContact.objects.all().filter(organization=request.user)
+    backgrounds = OrganizationBackground.objects.all().filter(organization=request.user)
+    confirmed = False
+    if contacts and backgrounds:
+        confirmed = True
     context = {
         'internships': Internship.objects.filter(organization=request.user),
         'scholarships': Scholarship.objects.filter(organization=request.user),
+        'confirmed': confirmed,
     }
     return render(request, 'users/organization_profile.html', context)
 

@@ -173,6 +173,10 @@ class InternshipDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        if self.request.user.is_student:
+            match = InternshipApplication.objects.all().filter(student=self.request.user)
+            if match:
+                context['match'] = match[0]  
         applicants = InternshipApplication.objects.all().filter(internship=self.object.id)[0:4]
         context['applicants'] = applicants
         return context
@@ -325,6 +329,10 @@ class ScholarshipDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        if self.request.user.is_student:
+            match = ScholarshipApplication.objects.all().filter(student=self.request.user)
+            if match:
+                context['match'] = match[0] 
         applicants = ScholarshipApplication.objects.all().filter(scholarship=self.object.id)[0:4]
         context['applicants'] = applicants
         return context

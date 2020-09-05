@@ -14,6 +14,7 @@ class UserRegisterForm(UserCreationForm):
         user = super().save(commit=commit)
         user.is_student = True
         user.is_organization = False
+        user.is_approved = True
         if commit:
             user.save()
         return user
@@ -29,6 +30,7 @@ class OrgRegisterForm(UserCreationForm):
         user = super().save(commit=commit)
         user.is_student = False
         user.is_organization = True
+        user.is_approved = False
         if commit:
             user.save()
         return user

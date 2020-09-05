@@ -44,8 +44,8 @@
                                         <div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">{{ scholarship.get_field_display }}</div>
                                         <div class="card-body text-center">
                                             <img src="{{ scholarship.organization.profile.image.url }}" width="auto" height="100px" class="m-auto rounded-circle"" alt="{{ scholarship.organization.org_name }} Logo" />
-                                            <div class="small text-gray-600">{{ scholarship.title }}</div>
-                                            <p class="lead text-muted small">
+                                            <div class="small text-dark-600">{{ scholarship.title }}</div>
+                                            <p class="text-muted text-dark">
                                                 {{ scholarship.get_amount_display }}
                                             </p>
                                         </div>
@@ -60,7 +60,7 @@
                                         <a class="page-link" href="{{ page_obj.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">«</span></a>
                                     </li>
                                     {% endif %}
-                                    <li class="page-item active"><div class="page-link current" href="#!">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</div></li>
+                                    <li class="page-item"><div class="page-link current text-warning" href="#!">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</div></li>
                                     {% if page_obj.has_next %}
                                     <li class="page-item">
                                         <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next"><span aria-hidden="true">»</span></a>
