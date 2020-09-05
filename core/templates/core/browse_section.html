@@ -32,7 +32,7 @@
                     </div>
                 </a>
                 {% endif %}
-                {% if item.type == "EIN" %}
+                {% if item.type == "EIN" or item.type == "ESC" %}
                 <a class="card lift border-bottom-lg border-warning" href="{{ item.link }}" target="_blank">
                     <div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">{{ item.get_field_display }}</div>
                     <div class="card-body text-center">
