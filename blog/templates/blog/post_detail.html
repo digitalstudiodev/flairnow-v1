@@ -1,0 +1,121 @@
+{% load crispy_forms_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Flair Now</title>
+        <link href="{% static 'flairnow_assets/css/styles.css' %}" rel="stylesheet" />
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+        <link rel="icon" type="image/x-icon" href="{% static 'flairnow_assets/assets/img/logo.png' %}" />
+        <script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" crossorigin="anonymous"></script>
+        <style>
+            pre:first-child code {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="layoutDefault">
+            <div id="layoutDefault_content">
+                <main>
+                    {% include 'core/nav.html' %}
+                    <header class="page-header page-header-dark bg-warning" style="background-image: url({% static 'flairnow_assets/assets/img/pattern-shapes.png' %})">
+                        <div class="page-header-content">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-xl-8 col-lg-10 text-center" data-aos="fade">
+                                        <h1 class="page-header-title">{{ object.title }}</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="svg-border-rounded text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
+                        </div>
+                    </header>
+                    <section class="bg-white py-10">
+                        <div class="container">
+                            {% include 'core/messages.html' %}
+                            <div class="row justify-content-center">
+                                <div class="col-lg-10 col-xl-8">
+                                    <div class="single-post">
+                                        <p class="lead">{{ object.preview }}</p>
+                                        <div class="d-flex align-items-center justify-content-between mb-5">
+                                            <div class="single-post-meta mr-4">
+                                                <img class="single-post-meta-img" src="{{ object.author.profile.image.url }}" />
+                                                <div class="single-post-meta-details">
+                                                    <div class="single-post-meta-details-name">{{ object.author.first_name }} {{ object.author.last_name }}</div>
+                                                    <div class="single-post-meta-details-date">{{ object.date_posted }} &middot; {{ object.read_time }} read</div>
+                                                </div>
+                                            </div>
+                                            {{ share_string }}
+                                            <div class="single-post-meta-links">
+                                                <a href="https://twitter.com/intent/tweet/?text=Check%20out%20this%20article&url={{ request.build_absolute_uri }}&via=digitalstduio&hashtags=web,development">
+                                                    <i class="fab fa-twitter fa-fw"></i>
+                                                </a>
+                                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
+                                                    <i class="fab fa-facebook-f fa-fw"></i>
+                                                </a>
+                                                <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title=Check%20out%20this%20article&source={{ request.build_absolute_uri }}&summary=digital%20studio">
+                                                    <i class="fab fa-linkedin-in"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <img class="img-fluid mb-2" src="{{ object.featured_image.url }}" />
+                                        <div class="single-post-text my-5">
+                                            <div class="content-markdown">
+                                                {{ object.content }}
+                                            </div>
+                                            <hr class="my-5" />
+                                            {% if object.author == request.user %}
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <a class="btn btn-warning btn-marketing btn-block rounded-pill mt-4" href="{% url 'blog:post-update' object.id %}">Update</a>
+                                                    <a class="btn btn-danger btn-marketing btn-block rounded-pill mt-4" href="{% url 'blog:post-delete' object.id %}">Delete</a>
+                                                </div>
+                                            </div>
+                                            <hr class="my-5" />
+                                            {% endif %}
+                                            <div class="text-center"><a class="btn btn-transparent-dark btn-marketing rounded-pill" href="{% url 'blog:home' %}">Back to Blog</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="svg-border-rounded text-light">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
+                        </div>
+                    </section>
+                </main>
+            </div>
+            {% include 'core/footer.html' %}
+        </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="{% static 'flairnow_assets/js/scripts.js' %}"></script>
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <!--markdown-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/1.0.0/marked.min.js"></script>
+        <script>
+            AOS.init({
+                disable: 'mobile',
+                duration: 600,
+                once: true
+            });
+            $(document).ready(function(){
+                $('.content-markdown').each(function(){
+                    var content = $(this).text()
+                    var markedContent = marked(content)
+                    console.log(markedContent)
+                    $(this).html(markedContent)
+                })
+            })
+        </script>
+    </body>
+</html>

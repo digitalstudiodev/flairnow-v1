@@ -9,6 +9,7 @@ from django.core.paginator import Paginator
 from django.views.generic.edit import FormMixin
 from django.urls import reverse
 from itertools import chain
+from blog.models import Post
 
 def home(request):
     ##home
@@ -22,8 +23,10 @@ def home(request):
         chain(internships, scholarships, externalopps),
         key=lambda instance: instance.date_posted
     )
+    posts = Post.objects.all()[0:4]
     context = {
-        'opportunities': opportunities
+        'opportunities': opportunities,
+        'posts': posts,
     }
     return render(request, "core/home.html", context)
 
@@ -65,9 +68,11 @@ def features_student(request):
     """
     org_count = User.objects.all().filter(is_organization=True).count()
     orgs = User.objects.all().filter(is_organization=True)[0:8]
+    posts = Post.objects.all()[0:4]
     context = {
         'org_count': org_count,
         'orgs': orgs,
+        'posts': posts,
     }
     return render(request, "core/features_student.html", context)
 
@@ -92,8 +97,10 @@ def browse(request):
         chain(internships, scholarships, externalopps),
         key=lambda instance: instance.date_posted
     )
+    posts = Post.objects.all()[0:4]
     context = {
-        'opportunities': opportunities
+        'opportunities': opportunities,
+        'posts': posts,
     }
     return render(request, "core/browse.html", context)
 

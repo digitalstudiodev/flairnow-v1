@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'users.apps.UsersConfig',
     'dash.apps.DashConfig',
+    'blog.apps.BlogConfig',
     'crispy_forms',
     'storages',
     'multiselectfield',

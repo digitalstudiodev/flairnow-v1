@@ -94,6 +94,18 @@
                                         </div>
                                     </div>
                                 </div>
+                                {% if user.is_admin %}
+                                <div class="col-lg-4 col-md-6 mb-5" data-aos="fade-up">
+                                    <div class="card text-center text-decoration-none h-100 lift" href="#!">
+                                        <div class="card-body py-5">
+                                            <h5 class="mb-3">Manage Blog</h5>
+                                            <div class="list-group list-group-flush">
+                                                <a class="list-group-item text-dark" href="{% url 'blog:post-create' %}">New Post</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
                             </div>
                         </div>
                     </section>
