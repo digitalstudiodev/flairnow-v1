@@ -10,11 +10,11 @@ from django.views.generic.edit import FormMixin
 from django.urls import reverse
 from itertools import chain
 
-##home
-"""
-this is the home view. 
-"""
 def home(request):
+    ##home
+    """
+    this is the home view. 
+    """
     internships = Internship.objects.all()[0:4]
     scholarships = Scholarship.objects.all()[0:4]
     opportunities = sorted(
@@ -26,40 +26,42 @@ def home(request):
     }
     return render(request, "core/home.html", context)
 
-##about
-"""
-this is the about view. displays information about the venture.
-"""
 def about(request):
+    ##about
+    """
+    this is the about view. displays information about the venture.
+    """
     context = {
     }
     return render(request, "core/about.html", context)
 
-##contact
-"""
-this is the contact view. this page holds a contact form that newsletter form.
-"""
 def contact(request):
+    ##contact
+    """
+    this is the contact view. this page holds a contact form that newsletter form.
+    """
     context = {
     }
     return render(request, "core/contact.html", context)
 
-##features organization
-"""
-this is the features orgaanizations view. this present information about the features that organizations get to utilize.
-"""
+
 def features_organization(request):
+    ##features organization
+    """
+    this is the features orgaanizations view. this present information about the features that organizations get to utilize.
+    """
     user_count = User.objects.all().filter(is_student=True).count()
     context = {
         'user_count': user_count
     }
     return render(request, "core/features_organization.html", context)
 
-##features student
-"""
-this is the features student view. this present information about the features that students get to utilize.
-"""
+
 def features_student(request):
+    ##features student
+    """
+    this is the features student view. this present information about the features that students get to utilize.
+    """
     org_count = User.objects.all().filter(is_organization=True).count()
     orgs = User.objects.all().filter(is_organization=True)[0:8]
     context = {
@@ -68,20 +70,20 @@ def features_student(request):
     }
     return render(request, "core/features_student.html", context)
 
-##partner contract
-"""
-this is the partner contract view. it is the view that organizations get to before registering on the platform.
-"""
 def partner_contract(request):
+    ##partner contract
+    """
+    this is the partner contract view. it is the view that organizations get to before registering on the platform.
+    """
     context = {
     }
     return render(request, "core/partner_contract.html", context)
 
-##browse
-"""
-this is the browse view. students are able to browse opportunities by categories.
-"""
 def browse(request):
+    ##browse
+    """
+    this is the browse view. students are able to browse opportunities by categories.
+    """
     internships = Internship.objects.all()[0:4]
     scholarships = Scholarship.objects.all()[0:4]
     opportunities = sorted(
@@ -93,34 +95,33 @@ def browse(request):
     }
     return render(request, "core/browse.html", context)
 
-##internship info for organizations
-"""
-this is the view that organizations first start to provide internships on the platform. they will 
-be informed about the partner contract and other pieces of information.
-"""
 def internship_info(request):
+    ##internship info for organizations
+    """
+    this is the view that organizations first start to provide internships on the platform. they will 
+    be informed about the partner contract and other pieces of information.
+    """
     context = {
     }
     return render(request, "core/internship_info.html", context)
 
-##scholarship info for organizations
-"""
-this is the view that organizations first start to provide scholarships on the platform. they will 
-be informed about the partner contract and other pieces of information.
-"""
 def scholarship_info(request):
+    ##scholarship info for organizations
+    """
+    this is the view that organizations first start to provide scholarships on the platform. they will 
+    be informed about the partner contract and other pieces of information.
+    """
     context = {
     }
     return render(request, "core/scholarship_info.html", context)
 
-
-##internship dash for organizations
-"""
-this is the view that organizations access when they have internships to manage. organizations 
-see a list of all of their internships and can go into the detail view for each if they choose to make 
-any updates or delete them.
-"""
 def internship_dash(request):
+    ##internship dash for organizations
+    """
+    this is the view that organizations access when they have internships to manage. organizations 
+    see a list of all of their internships and can go into the detail view for each if they choose to make 
+    any updates or delete them.
+    """
     page_number = request.GET.get('page')
     paginator = Paginator(Internship.objects.filter(organization=request.user), 5)
 
@@ -133,13 +134,13 @@ def internship_dash(request):
     }
     return render(request, "core/internship_dash.html", context)
 
-##scholarship dash for organizations
-"""
-this is the view that organizations access when they have scholarships to manage. organizations 
-see a list of all of their scholarships and can go into the detail view for each if they choose to make 
-any updates or delete them.
-"""
 def scholarship_dash(request):
+    ##scholarship dash for organizations
+    """
+    this is the view that organizations access when they have scholarships to manage. organizations 
+    see a list of all of their scholarships and can go into the detail view for each if they choose to make 
+    any updates or delete them.
+    """
     page_number = request.GET.get('page')
     paginator = Paginator(Scholarship.objects.filter(organization=request.user), 5)
 
@@ -152,23 +153,23 @@ def scholarship_dash(request):
     }
     return render(request, "core/scholarship_dash.html", context)
 
-##internships list view
-"""
-this is the category view for internships 
-"""
 class InternshipListView(ListView):
+    ##internships list view
+    """
+    this is the category view for internships 
+    """
     model = Internship
     template_name = 'core/internship_list.html'  
     context_object_name = 'intern'
     ordering = ['-date_posted']
     paginate_by = 32
 
-##internship detail view
-"""
-this is the detailed view for a internship, it provides further information to students before they apply,
-and it provides access to update and delete the internship for the organizations. 
-"""
 class InternshipDetailView(DetailView):
+    ##internship detail view
+    """
+    this is the detailed view for a internship, it provides further information to students before they apply,
+    and it provides access to update and delete the internship for the organizations. 
+    """
     model = Internship
 
     def get_context_data(self, **kwargs):
@@ -181,11 +182,11 @@ class InternshipDetailView(DetailView):
         context['applicants'] = applicants
         return context
 
-##internship create view
-"""
-this is form that organizations fill out to create a internship. 
-"""
 class InternshipCreateView(LoginRequiredMixin, CreateView):
+    ##internship create view
+    """
+    this is form that organizations fill out to create a internship. 
+    """
     model = Internship
     fields = [
         ##basic information
@@ -200,11 +201,11 @@ class InternshipCreateView(LoginRequiredMixin, CreateView):
         form.instance.organization = self.request.user
         return super().form_valid(form)
 
-##internship update view
-"""
-this is form that organizations fill out to update a internship. 
-"""
 class InternshipUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    ##internship update view
+    """
+    this is form that organizations fill out to update a internship. 
+    """
     model = Internship
     fields = [
         ##basic information
@@ -225,11 +226,11 @@ class InternshipUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             return True
         return False
 
-##internship delete view
-"""
-this is the view that organizations see to delete a internship.
-"""
 class InternshipDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    ##internship delete view
+    """
+    this is the view that organizations see to delete a internship.
+    """
     model = Internship
     success_url = '/'
 
@@ -239,13 +240,13 @@ class InternshipDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
 
-##internship application create view
-"""
-this is how students are able to apply to the internships. we create a internship application and
-attach it in association with the student and the organization. The organization is able to make updates to
-the model by it's status, and students are able to check their application status.
-"""
 class InternshipApplicationCreateView(LoginRequiredMixin, CreateView):
+    ##internship application create view
+    """
+    this is how students are able to apply to the internships. we create a internship application and
+    attach it in association with the student and the organization. The organization is able to make updates to
+    the model by it's status, and students are able to check their application status.
+    """
     model = InternshipApplication
     success_url = "/users/profile/"
     fields = ['confirm']
@@ -269,11 +270,11 @@ class InternshipApplicationCreateView(LoginRequiredMixin, CreateView):
         context['internship'] = Internship.objects.all().filter(id=self.kwargs["internships"])[0]
         return context
 
-##internship application detail view
-"""
-this is the internship application detail view. 
-"""
 class InternshipApplicationDetailView(LoginRequiredMixin, DetailView):
+    ##internship application detail view
+    """
+    this is the internship application detail view. 
+    """
     model = InternshipApplication
 
     def get_context_data(self, **kwargs):
@@ -286,11 +287,11 @@ class InternshipApplicationDetailView(LoginRequiredMixin, DetailView):
         context['q3'] = q3
         return context
 
-##internship application update view
-"""
-this is form that organizations fill out to update a scholarship. 
-"""
 class InternshipApplicationUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    ##internship application update view
+    """
+    this is form that organizations fill out to update a scholarship. 
+    """
     model = InternshipApplication
     fields = [
         'status', 
@@ -308,23 +309,23 @@ class InternshipApplicationUpdateView(LoginRequiredMixin, UserPassesTestMixin, U
             return True
         return False
 
-##scholarships list view
-"""
-this is the category view for scholarships 
-"""
 class ScholarshipListView(ListView):
+    ##scholarships list view
+    """
+    this is the category view for scholarships 
+    """
     model = Scholarship
     template_name = 'core/scholarship_list.html'  
     context_object_name = 'scholarship'
     ordering = ['-date_posted']
     paginate_by = 32
 
-##scholarship detail view
-"""
-this is the detailed view for a scholarship, it provides further information to students before they apply,
-and it provides access to update and delete the scholarship for the organizations. 
-"""
 class ScholarshipDetailView(DetailView):
+    ##scholarship detail view
+    """
+    this is the detailed view for a scholarship, it provides further information to students before they apply,
+    and it provides access to update and delete the scholarship for the organizations. 
+    """
     model = Scholarship
 
     def get_context_data(self, **kwargs):
@@ -337,11 +338,11 @@ class ScholarshipDetailView(DetailView):
         context['applicants'] = applicants
         return context
 
-##scholarship create view
-"""
-this is form that organizations fill out to create a scholarship. 
-"""
 class ScholarshipCreateView(LoginRequiredMixin, CreateView):
+    ##scholarship create view
+    """
+    this is form that organizations fill out to create a scholarship. 
+    """
     model = Scholarship
     fields = [
         ##basic information
@@ -356,11 +357,11 @@ class ScholarshipCreateView(LoginRequiredMixin, CreateView):
         form.instance.organization = self.request.user
         return super().form_valid(form)
 
-##scholarship update view
-"""
-this is form that organizations fill out to update a scholarship. 
-"""
 class ScholarshipUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    ##scholarship update view
+    """
+    this is form that organizations fill out to update a scholarship. 
+    """
     model = Scholarship
     fields = [
         ##basic information
@@ -381,11 +382,11 @@ class ScholarshipUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView)
             return True
         return False
 
-##scholarship delete view
-"""
-this is the view that organizations see to delete a scholarship.
-"""
 class ScholarshipDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    ##scholarship delete view
+    """
+    this is the view that organizations see to delete a scholarship.
+    """
     model = Scholarship
     success_url = '/'
 
@@ -395,14 +396,13 @@ class ScholarshipDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView)
             return True
         return False
 
-
-##scholarship application create view
-"""
-this is how students are able to apply to the scholarship. we create a scholarship application and
-attach it in association with the student and the organization. The organization is able to make updates to
-the model by it's status, and students are able to check their application status.
-"""
 class ScholarshipApplicationCreateView(LoginRequiredMixin, CreateView):
+    ##scholarship application create view
+    """
+    this is how students are able to apply to the scholarship. we create a scholarship application and
+    attach it in association with the student and the organization. The organization is able to make updates to
+    the model by it's status, and students are able to check their application status.
+    """
     model = ScholarshipApplication
     success_url = "/users/profile/"
     fields = ['confirm']
@@ -426,11 +426,11 @@ class ScholarshipApplicationCreateView(LoginRequiredMixin, CreateView):
         context['scholarship'] = Scholarship.objects.all().filter(id=self.kwargs["scholarships"])[0]
         return context
 
-##scholarship application detail view
-"""
-this is the scholarship application detail view. 
-"""
 class ScholarshipApplicationDetailView(LoginRequiredMixin, DetailView):
+    ##scholarship application detail view
+    """
+    this is the scholarship application detail view. 
+    """
     model = ScholarshipApplication
 
     def get_context_data(self, **kwargs):
@@ -443,11 +443,11 @@ class ScholarshipApplicationDetailView(LoginRequiredMixin, DetailView):
         context['q3'] = q3
         return context
 
-##scholarship application update view
-"""
-this is form that organizations fill out to update a scholarship. 
-"""
 class ScholarshipApplicationUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    ##scholarship application update view
+    """
+    this is form that organizations fill out to update a scholarship. 
+    """
     model = ScholarshipApplication
     fields = [
         'status', 
