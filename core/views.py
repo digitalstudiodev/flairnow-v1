@@ -236,23 +236,26 @@ class InternshipDetailView(DetailView):
         lastly we are collecting of the associated internship applications 
         for the organizations to manage below.
         '''
-        context['status'] = False 
-        user = self.request.user
-        #status
-        try:
-            if user.contact and user.background and user.academic and user.interncommonapp:
-                context['status'] = True
-        except: pass 
-        #match
-        match = InternshipApplication.objects.all().filter(student=user)
-        print(match)
-        if match:
-            context['match'] = True
-        #applicants
-        applicants = InternshipApplication.objects.all().filter(internship=self.object.id)
-        if applicants:
-            context['sub_applicants'] = applicants[0:4]
+        if self.request.user.is_authenticated:
+            context['status'] = False 
+            user = self.request.user
+            #status
+            try:
+                if user.contact and user.background and user.academic and user.interncommonapp:
+                    context['status'] = True
+            except: pass 
+            #match
+            match = InternshipApplication.objects.all().filter(student=user)
+            print(match)
+            if match:
+                context['match'] = True
+            #applicants
+            applicants = InternshipApplication.objects.all().filter(internship=self.object.id)
+            if applicants:
+                context['sub_applicants'] = applicants[0:4]
             context['applicants'] = applicants
+        else:
+            pass
         return context
 
 class InternshipCreateView(LoginRequiredMixin, CreateView):
@@ -426,17 +429,38 @@ class ScholarshipDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        '''
+        here we are checking if the user.is_student has completed their profile.
+        we are only checking if they have completed the contact, background, and academic information, 
+        they will add their resume and cover letter to the internship application. 
+        we use the variable status for this.
+
+        we are also checking if the user applied to the internship already
+        we use the variable match for this.
+
+        lastly we are collecting of the associated internship applications 
+        for the organizations to manage below.
+        '''
         if self.request.user.is_authenticated:
-            if self.request.user.is_student:
-                match = ScholarshipApplication.objects.all().filter(student=self.request.user)
-                if match:
-                    context['match'] = True 
-            else:
-                context['match'] = False
+            context['status'] = False 
+            user = self.request.user
+            #status
+            try:
+                if user.contact and user.background and user.academic and user.scholarcommonapp:
+                    context['status'] = True
+            except: pass 
+            #match
+            match = ScholarshipApplication.objects.all().filter(student=self.request.user)
+            print(match)
+            if match:
+                context['match'] = True
+            #applicants
+            applicants = ScholarshipApplication.objects.all().filter(scholarship=self.object.id)
+            if applicants:
+                context['sub_applicants'] = applicants[0:4]
+                context['applicants'] = applicants
         else:
             pass
-        applicants = ScholarshipApplication.objects.all().filter(scholarship=self.object.id)[0:4]
-        context['applicants'] = applicants
         return context
 
 class ScholarshipCreateView(LoginRequiredMixin, CreateView):

@@ -58,21 +58,15 @@
                                     </p>
                                     <div class="card bg-white shadow-none">
                                         <div class="card-body align-items-center justify-content-between p-4">
+                                            <!--if user is organization-->
                                             {% if object.organization == request.user %}
-                                            <a class="btn btn-warning btn-marketing rounded-pill ml-2" href="{% url 'core:scholarship-update' object.id %}">Update</a>
-                                            <a class="btn btn-danger btn-marketing rounded-pill ml-2" href="{% url 'core:scholarship-delete' object.id %}">Delete</a>
+                                                <a class="btn btn-warning btn-marketing rounded-pill ml-2" href="{% url 'core:scholarship-update' object.id %}">Update</a>
+                                                <a class="btn btn-danger btn-marketing rounded-pill ml-2" href="{% url 'core:scholarship-delete' object.id %}">Delete</a>
                                             {% endif %}
-                                            {% if user.is_student and not user.scholarcommonapp %}
-                                                Fill out the Scholarship Common Application <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:scholarship-common-application-create' %}">Complete</a>
-                                            {% elif user.is_student and not user.contact %}
-                                                Complete Your Contact Information <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:contact-create' %}">Complete</a>
-                                            {% elif user.is_student and not user.background %}
-                                                Complete Your Background Information <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:background-create' %}">Complete</a>
-                                            {% elif user.is_student and not user.academic %}
-                                                Complete Your Academic Profile <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:academic-create' %}">Complete</a>
-                                            {% elif user.is_student and not user.resume %}
-                                                Upload Your Resume <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:resume-create' %}">Complete</a>
-                                            {% elif user.is_student and user.scholarcommonapp %}
+                                            <!--if user is student-->
+                                            {% if not status and request.user.is_student %}
+                                                Complete Your Profile <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:profile' %}">Complete</a>
+                                            {% elif status and request.user.is_student %}
                                                 {% if not match %}
                                                     <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'core:scholarship-application-create' scholarships=object.id %}">Apply</a>
                                                 {% else %}
@@ -80,7 +74,9 @@
                                                         Your application has already been submited.
                                                     </div>
                                                 {% endif %}
-                                            {% elif not user.is_authenticated %}
+                                            {% endif %}
+                                            <!--if user is none-->
+                                            {% if not user.is_authenticated %}
                                                 Login to apply <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:login' %}">Login</a>
                                             {% endif %}
                                         </div>
@@ -91,7 +87,7 @@
                                 {% if applicants %}
                                     <h2 class="mb-4" style="font-size: xx-large;">Applicants</h2>
                                     <div class="row">
-                                        {% for item in applicants %}
+                                        {% for item in sub_applicants %}
                                             <div class="col-lg-3 col-md-6 mb-5">
                                                 <a class="card lift border-bottom-lg border-warning" href="{% url 'core:scholarship-application-detail' item.id %}">
                                                     <div class="card-body text-center">
@@ -106,22 +102,34 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Applicant Name</th>
+                                                        <th>Current or Preferred College/University</th>
+                                                        <th>Current Grade Level</th>
+                                                        <th>GPA</th>
+                                                        <th>Expected Grad Year</th>
                                                     </tr> 
                                                 </thead>
                                                 <tbody>
                                                     {% for item in applicants %}
                                                     <tr>
                                                         <td>
-                                                            <a href="{% url 'core:internship-application-detail' item.id %}">
+                                                            <a href="{% url 'core:scholarship-application-detail' item.id %}">
                                                                 {{ item.student.first_name }} {{ item.student.last_name }}
                                                             </a>
                                                         </td>
+                                                        <td>{{ item.student.academic.college }}</td>
+                                                        <td>{{ item.student.academic.current_grade_level }}</td>
+                                                        <td>{{ item.student.academic.gpa }}</td>
+                                                        <td>{{ item.student.academic.expected_grad_year }}</td>
                                                     </tr>
                                                     {% endfor %}
                                                 </tbody>
                                                 <tfoot>
                                                     <tr>
                                                         <th>Applicant Name</th>
+                                                        <th>Current or Preferred College/University</th>
+                                                        <th>Current Grade Level</th>
+                                                        <th>GPA</th>
+                                                        <th>Expected Grad Year</th>
                                                     </tr> 
                                                 </tfoot>
                                             </table>
