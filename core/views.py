@@ -232,24 +232,26 @@ class InternshipDetailView(DetailView):
 
         we are also checking if the user applied to the internship already
         we use the variable match for this.
+
+        lastly we are collecting of the associated internship applications 
+        for the organizations to manage below.
         '''
         context['status'] = False 
         user = self.request.user
-        try: 
-            #status
+        #status
+        try:
             if user.contact and user.background and user.academic and user.interncommonapp:
-                context['status'] = True 
-            #match
-            match = InternshipApplication.objects.all().filter(student=user)
-            print(match)
-            if match:
-                context['match'] = True
-            #applicants
-            applicants = InternshipApplication.objects.all().filter(internship=self.object.id)
-            if applicants:
-                context['applicants'] = applicants
-        except:
-             pass
+                context['status'] = True
+        except: pass 
+        #match
+        match = InternshipApplication.objects.all().filter(student=user)
+        print(match)
+        if match:
+            context['match'] = True
+        #applicants
+        applicants = InternshipApplication.objects.all().filter(internship=self.object.id)
+        if applicants:
+            context['applicants'] = applicants
         return context
 
 class InternshipCreateView(LoginRequiredMixin, CreateView):
