@@ -120,8 +120,8 @@
                                                             </a>
                                                         </td>
                                                         <td>{{ item.student.academic.college }}</td>
-                                                        <td>{{ item.student.academic.current_grade_level }}</td>
-                                                        <td>{{ item.student.academic.gpa }}</td>
+                                                        <td>{{ item.student.academic.get_current_grade_level_display }}</td>
+                                                        <td>{{ item.student.academic.get_gpa_display }}</td>
                                                         <td>{{ item.student.academic.expected_grad_year }}</td>
                                                     </tr>
                                                     {% endfor %}
