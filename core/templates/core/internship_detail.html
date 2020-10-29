@@ -54,33 +54,31 @@
                                     </ul>
                                 </div>
                                 <div class="col-lg-7">
-                                    <h1 class="mb-4">{{ object.title }}</h1>
+                                    <h1 class="mb-4">{{ object.title }} {{ status }}</h1>
                                     <p class="lead mb-4">
                                         {{ object.description }}
                                     </p>
                                     <div class="card bg-white shadow-none">
                                         <div class="card-body align-items-center justify-content-between p-4">
+                                            <!--if user is organization-->
                                             {% if object.organization == request.user %}
-                                            <a class="btn btn-warning btn-marketing rounded-pill ml-2" href="{% url 'core:internship-update' object.id %}">Update</a>
-                                            <a class="btn btn-danger btn-marketing rounded-pill ml-2" href="{% url 'core:internship-delete' object.id %}">Delete</a>
+                                                <a class="btn btn-warning btn-marketing rounded-pill ml-2" href="{% url 'core:internship-update' object.id %}">Update</a>
+                                                <a class="btn btn-danger btn-marketing rounded-pill ml-2" href="{% url 'core:internship-delete' object.id %}">Delete</a>
                                             {% endif %}
-                                            {% if user.is_student and not user.contact %}
-                                                Complete Your Contact Information <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:contact-create' %}">Complete</a>
-                                            {% elif user.is_student and not user.background %}
-                                                Complete Your Background Information <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:background-create' %}">Complete</a>
-                                            {% elif user.is_student and not user.academic %}
-                                                Complete Your Academic Profile <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:academic-create' %}">Complete</a>
-                                            {% elif user.is_student and not user.resume %}
-                                                Upload Your Resume <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:resume-create' %}">Complete</a>
-                                            {% elif user.is_student and user.interncommonapp %}
+                                            <!--if user is student-->
+                                            {% if not status %}
+                                                Complete Your Profile <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:profile' %}">Complete</a>
+                                            {% elif status %}
                                                 {% if not match %}
-                                                    <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'core:scholarship-application-create' scholarships=object.id %}">Apply</a>
+                                                    <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'core:internship-application-create' internships=object.id %}">Apply</a>
                                                 {% else %}
                                                     <div class="alert alert-warning my-5" style="border-radius: 2rem;">
                                                         Your application has already been submited.
                                                     </div>
                                                 {% endif %}
-                                            {% elif not user.is_authenticated %}
+                                            {% endif %}
+                                            <!--if user is none-->
+                                            {% if not user.is_authenticated %}
                                                 Login to apply <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:login' %}">Login</a>
                                             {% endif %}
                                         </div>

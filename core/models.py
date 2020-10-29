@@ -94,7 +94,7 @@ class InternshipApplication(models.Model):
     confirm = MultiSelectField(choices=CONFIRM, max_length=1000, verbose_name="Are you sure? Plase Confirm.", unique=False, default=None)
 
     def __str__(self):
-        return str(self.date_posted)
+        return str(self.student.email)
     
     def get_absolute_url(self):
         return reverse('core:internship-application-detail', kwargs={'pk': self.id})
