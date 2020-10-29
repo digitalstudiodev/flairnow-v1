@@ -54,7 +54,7 @@
                                     </ul>
                                 </div>
                                 <div class="col-lg-7">
-                                    <h1 class="mb-4">{{ object.title }} {{ status }}</h1>
+                                    <h1 class="mb-4">{{ object.title }} {{ applicants }}</h1>
                                     <p class="lead mb-4">
                                         {{ object.description }}
                                     </p>
@@ -66,9 +66,9 @@
                                                 <a class="btn btn-danger btn-marketing rounded-pill ml-2" href="{% url 'core:internship-delete' object.id %}">Delete</a>
                                             {% endif %}
                                             <!--if user is student-->
-                                            {% if not status %}
+                                            {% if not status and request.user.is_student %}
                                                 Complete Your Profile <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:profile' %}">Complete</a>
-                                            {% elif status %}
+                                            {% elif status and request.user.is_student %}
                                                 {% if not match %}
                                                     <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'core:internship-application-create' internships=object.id %}">Apply</a>
                                                 {% else %}
@@ -85,6 +85,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             {% if object.organization == request.user and applicants %}
                                 {% if applicants %}
                                     <h2 class="mb-4" style="font-size: xx-large;">Applicants</h2>

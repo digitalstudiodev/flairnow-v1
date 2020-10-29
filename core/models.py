@@ -54,7 +54,7 @@ class Internship(models.Model):
     """
     this is the internship model. 
     """
-    organization = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True)
+    organization = models.ForeignKey(User, on_delete=models.CASCADE, default=None, null=True)
     ##basic information
     type = models.CharField(max_length=1000, choices=TYPES, default="IN", null=True, verbose_name="Opportunity Type")
     title = models.CharField(max_length=1000, default=None, null=True, verbose_name="Position Title")
@@ -88,13 +88,13 @@ class InternshipApplication(models.Model):
     """
     date_posted = models.DateTimeField(default=timezone.now)
     type = models.CharField(max_length=1000, choices=TYPES, default="IN", null=True, verbose_name="Application Type")
-    internship = models.ForeignKey(Internship, on_delete=models.SET_NULL, default=None, null=True)
-    student = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True)
+    internship = models.ForeignKey(Internship, on_delete=models.CASCADE, default=None, null=True)
+    student = models.ForeignKey(User, on_delete=models.CASCADE, default=None, null=True)
     status = models.CharField(max_length=1000, choices=STATUS, default="P", null=True)
     confirm = MultiSelectField(choices=CONFIRM, max_length=1000, verbose_name="Are you sure? Plase Confirm.", unique=False, default=None)
 
     def __str__(self):
-        return str(self.student.email)
+        return self.student.email
     
     def get_absolute_url(self):
         return reverse('core:internship-application-detail', kwargs={'pk': self.id})
@@ -104,7 +104,7 @@ class Scholarship(models.Model):
     """
     this is the scholarship model. 
     """
-    organization = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True)
+    organization = models.ForeignKey(User, on_delete=models.CASCADE, default=None, null=True)
     ##basic information
     type = models.CharField(max_length=1000, choices=TYPES, default="SC", null=True, verbose_name="Opportunity Type")
     title = models.CharField(max_length=1000, default=None, null=True, verbose_name="Position Title")
@@ -136,13 +136,13 @@ class ScholarshipApplication(models.Model):
     """
     date_posted = models.DateTimeField(default=timezone.now)
     type = models.CharField(max_length=1000, choices=TYPES, default="SC", null=True, verbose_name="Application Type")
-    scholarship = models.ForeignKey(Scholarship, on_delete=models.SET_NULL, default=None, null=True)
-    student = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True)
+    scholarship = models.ForeignKey(Scholarship, on_delete=models.CASCADE, default=None, null=True)
+    student = models.ForeignKey(User, on_delete=models.CASCADE, default=None, null=True)
     status = models.CharField(max_length=1000, choices=STATUS, default="P", null=True)
     confirm = MultiSelectField(choices=CONFIRM, max_length=1000, verbose_name="Are you sure? Plase Confirm.", unique=False, default=None)
 
     def __str__(self):
-        return str(self.date_posted)
+        return self.student.email
     
     def get_absolute_url(self):
         return reverse('core:scholarship-application-detail', kwargs={'pk': self.id})
@@ -152,7 +152,7 @@ class ExternalOpp(models.Model):
     """
     this is the external opportunity model. 
     """
-    organization = models.ForeignKey(User, on_delete=models.SET_NULL, default=None, null=True)
+    organization = models.ForeignKey(User, on_delete=models.CASCADE, default=None, null=True)
     ##basic information
     host = models.CharField(max_length=1000, verbose_name="Host", default="", null=True)
     type = models.CharField(max_length=1000, choices=EXTERNAL_TYPES, default="SC", null=True, verbose_name="Opportunity Type")
@@ -162,4 +162,4 @@ class ExternalOpp(models.Model):
     link = models.CharField(max_length=3000, verbose_name="Website Link", default="", null=True)
 
     def __str__(self):
-        return self.link
+        return self.organization.email

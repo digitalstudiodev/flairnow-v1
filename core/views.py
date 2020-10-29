@@ -224,41 +224,32 @@ class InternshipDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if self.request.user.is_authenticated:
-            if self.request.user.is_student:
-                '''
-                here we are checking if the user.is_student has completed their profile.
-                we are only checking if they have completed the contact, background, and academic information, 
-                they will add their resume and cover letter to the internship application. 
-                we use the variable status for this.
+        '''
+        here we are checking if the user.is_student has completed their profile.
+        we are only checking if they have completed the contact, background, and academic information, 
+        they will add their resume and cover letter to the internship application. 
+        we use the variable status for this.
 
-                we are also checking if the user applied to the internship already
-                we use the variable match for this.
-                '''
-                context['status'] = False 
-                user = self.request.user
-                try: 
-                    if user.contact and user.background and user.academic and user.interncommonapp:
-                        context['status'] = True 
-                    match = InternshipApplication.objects.all().filter(student=user)
-                    print(match)
-                    if match:
-                        context['match'] = True
-                except:
-                    pass
-            elif self.request.user.is_organization:
-                #if users are organizations
-                context['status'] = False
-                context['match'] = False
-                try:
-                    applicants = InternshipApplication.objects.all().filter(internship=self.object.id)[0:4]
-                    context['applicants'] = applicants
-                except:
-                    pass
-        else:
-            context['status'] = False
-            context['match'] = False  
-
+        we are also checking if the user applied to the internship already
+        we use the variable match for this.
+        '''
+        context['status'] = False 
+        user = self.request.user
+        try: 
+            #status
+            if user.contact and user.background and user.academic and user.interncommonapp:
+                context['status'] = True 
+            #match
+            match = InternshipApplication.objects.all().filter(student=user)
+            print(match)
+            if match:
+                context['match'] = True
+            #applicants
+            applicants = InternshipApplication.objects.all().filter(internship=self.object.id)
+            if applicants:
+                context['applicants'] = applicants
+        except:
+             pass
         return context
 
 class InternshipCreateView(LoginRequiredMixin, CreateView):
