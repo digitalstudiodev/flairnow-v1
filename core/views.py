@@ -251,6 +251,7 @@ class InternshipDetailView(DetailView):
         #applicants
         applicants = InternshipApplication.objects.all().filter(internship=self.object.id)
         if applicants:
+            context['sub_applicants'] = applicants[0:4]
             context['applicants'] = applicants
         return context
 
