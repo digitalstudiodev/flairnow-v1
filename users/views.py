@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, LoginForm, OrgRegisterForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .models import User, Resume, Academic, Background, Contact, OrganizationContact, OrganizationBackground, InternCommonApp, ScholarCommonApp
+from .models import User, Academic, Background, Contact, OrganizationContact, OrganizationBackground, InternCommonApp, ScholarCommonApp
 from core.models import Internship, Scholarship, InternshipApplication, ScholarshipApplication, ExternalOpp
 from itertools import chain
 
@@ -113,31 +113,6 @@ def login_view(request):
     context['form'] = form
 
     return render(request, "users/login.html", context)
-
-class ResumeDetailView(DetailView):
-    model = Resume
-
-class ResumeCreateView(LoginRequiredMixin, CreateView):
-    model = Resume
-    fields = ['resume']
-
-    def form_valid(self, form):
-        form.instance.student = self.request.user
-        return super().form_valid(form)
-
-class ResumeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = Resume
-    fields = ['resume']
-
-    def form_valid(self, form):
-        form.instance.student = self.request.user
-        return super().form_valid(form)
-
-    def test_func(self):
-        coap = self.get_object()
-        if coap:
-            return True
-        return False
 
 class AcademicDetailView(DetailView):
     model = Academic

@@ -30,28 +30,36 @@
                 {% endif %}
             {% endfor %}
             <div class="row">
-                {% for post in posts %}
-                    {% if post.tag != "FE" %}
-                <div class="col-md-6 col-xl-4 mb-5">
-                    <a class="card post-preview lift h-100" href="{% url 'blog:post-detail' post.id %}">
-                        <img class="card-img-top" src="{{ post.featured_image.url }}" alt="{{ post.title }} Featured Image" />
-                        <div class="card-body">
-                            <h5 class="card-title">{{ post.title }}</h5>
-                            <p class="card-text">{{ post.preview }}</p>
-                        </div>
-                        <div class="card-footer">
-                            <div class="post-preview-meta">
-                                <img class="post-preview-meta-img" src="{{ post.author.profile.image.url }}" />
-                                <div class="post-preview-meta-details">
-                                    <div class="post-preview-meta-details-name">{{ post.author.org_name }}</div>
-                                    <div class="post-preview-meta-details-date">{{ post.date_posted }} &middot; {{ post.read_time }} read</div>
+                {% if posts %}
+                    {% for post in posts %}
+                        {% if post.tag != "FE" %}
+                    <div class="col-md-6 col-xl-4 mb-5">
+                        <a class="card post-preview lift h-100" href="{% url 'blog:post-detail' post.id %}">
+                            <img class="card-img-top" src="{{ post.featured_image.url }}" alt="{{ post.title }} Featured Image" />
+                            <div class="card-body">
+                                <h5 class="card-title">{{ post.title }}</h5>
+                                <p class="card-text">{{ post.preview }}</p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="post-preview-meta">
+                                    <img class="post-preview-meta-img" src="{{ post.author.profile.image.url }}" />
+                                    <div class="post-preview-meta-details">
+                                        <div class="post-preview-meta-details-name">{{ post.author.org_name }}</div>
+                                        <div class="post-preview-meta-details-date">{{ post.date_posted }} &middot; {{ post.read_time }} read</div>
+                                    </div>
                                 </div>
                             </div>
+                        </a>
+                    </div>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="col-lg-12">
+                        <div class="alert alert-warning my-5" style="border-radius: 2rem;">
+                            There are no blog posts currently
                         </div>
-                    </a>
-                </div>
-                    {% endif %}
-                {% endfor %}
+                    </div>
+                {% endif %}
             </div>
     </div>
 </section>

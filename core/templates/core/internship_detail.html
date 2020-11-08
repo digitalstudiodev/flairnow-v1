@@ -44,6 +44,11 @@
                             <div class="row">
                                 <div class="col-lg-5">
                                     <ul class="list-group list-group-flush list-group-careers">
+                                        {% if object.organization == request.user %}
+                                        <li class="list-group-item pt-0">
+                                            <a class="small" href="{% url 'core:internship-dash' %}"><i class="fas fa-arrow-left mr-1"></i>Back to Internships</a>
+                                        </li>
+                                        {% endif %}
                                         <li class="list-group-item">Industry <span class="font-weight-bold">{{ object.get_industry_display }}</span><i class="fas fa-globe fa-fw text-gray-400"></i></li>
                                         <li class="list-group-item">Start Date <span class="font-weight-bold">{{ object.start_date }}</span><i class="fas fa-clock fa-fw text-gray-400"></i></li>
                                         <li class="list-group-item">End Date <span class="font-weight-bold">{{ object.end_date }}</span><i class="fas fa-clock fa-fw text-gray-400"></i></li>
@@ -90,6 +95,7 @@
                                 {% if applicants %}
                                     <h2 class="mb-4" style="font-size: xx-large;">Applicants</h2>
                                     <div class="row">
+                                        <!--
                                         {% for item in sub_applicants %}
                                             <div class="col-lg-3 col-md-6 mb-5">
                                                 <a class="card lift border-bottom-lg border-warning" href="{% url 'core:internship-application-detail' item.id %}">
@@ -100,6 +106,7 @@
                                                 </a>
                                             </div>
                                         {% endfor %}
+                                        -->
                                         <div class="col-lg-12">
                                             <table id="applicants" class="table table-striped table-bordered" style="width:100%">
                                                 <thead>
@@ -109,6 +116,7 @@
                                                         <th>Current Grade Level</th>
                                                         <th>GPA</th>
                                                         <th>Expected Grad Year</th>
+                                                        <th>Resume</th>
                                                     </tr> 
                                                 </thead>
                                                 <tbody>
@@ -123,6 +131,7 @@
                                                         <td>{{ item.student.academic.get_current_grade_level_display }}</td>
                                                         <td>{{ item.student.academic.get_gpa_display }}</td>
                                                         <td>{{ item.student.academic.expected_grad_year }}</td>
+                                                        <td><a href="{{ item.resume.url }}" target="_blank">View</a></td>
                                                     </tr>
                                                     {% endfor %}
                                                 </tbody>
@@ -133,6 +142,7 @@
                                                         <th>Current Grade Level</th>
                                                         <th>GPA</th>
                                                         <th>Expected Grad Year</th>
+                                                        <th>Resume</th>
                                                     </tr> 
                                                 </tfoot>
                                             </table>

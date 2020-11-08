@@ -79,24 +79,8 @@
                                                     </span>
                                                     <i class="fas fa-graduation-cap text-gray-400"></i>
                                                 </li>
-                                                <li class="list-group-item">
-                                                    Resume 
-                                                    <span class="font-weight-bold">
-                                                        {% if user.resume %}
-                                                        <a href="{% url 'users:resume-detail' user.resume.id %}">
-                                                            Review
-                                                        </a>
-                                                        {% else %}
-                                                        <a href="{% url 'users:resume-create' %}">
-                                                            Upload
-                                                        </a>
-                                                        {% endif %}
-                                                    </span>
-                                                    <i class="fas fa-bars text-gray-400"></i>
-                                                </li>
-
                                             </ul>
-                                            <form class="register-form" method="POST">
+                                            <form class="register-form" method="POST" enctype="multipart/form-data">
                                                 {% csrf_token %}
                                                 {{ form|crispy }}
                                                 <button class="btn btn-info btn-block btn-round rounded-pill" type="Submit">Save</button>

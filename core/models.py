@@ -18,12 +18,6 @@ CONFIRM = (
     ("Y","Yes, I Confirm"),
 )
 
-STATUS = (
-    ("O","Open"),
-    ("P","Pending"),
-    ("C","Closed"),
-)
-
 SALARY = (
     ("UP","Unpaid"),
     ("S0","Less than $500"),
@@ -91,6 +85,7 @@ class InternshipApplication(models.Model):
     internship = models.ForeignKey(Internship, on_delete=models.CASCADE, default=None, null=True)
     student = models.ForeignKey(User, on_delete=models.CASCADE, default=None, null=True)
     status = models.CharField(max_length=1000, choices=STATUS, default="P", null=True)
+    resume = models.FileField(default=None, upload_to='resumes', verbose_name="Resume")
     confirm = MultiSelectField(choices=CONFIRM, max_length=1000, verbose_name="Are you sure? Plase Confirm.", unique=False, default=None)
 
     def __str__(self):
@@ -139,6 +134,7 @@ class ScholarshipApplication(models.Model):
     scholarship = models.ForeignKey(Scholarship, on_delete=models.CASCADE, default=None, null=True)
     student = models.ForeignKey(User, on_delete=models.CASCADE, default=None, null=True)
     status = models.CharField(max_length=1000, choices=STATUS, default="P", null=True)
+    resume = models.FileField(default=None, upload_to='resumes', verbose_name="Resume")
     confirm = MultiSelectField(choices=CONFIRM, max_length=1000, verbose_name="Are you sure? Plase Confirm.", unique=False, default=None)
 
     def __str__(self):

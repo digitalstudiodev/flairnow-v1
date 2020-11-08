@@ -43,7 +43,10 @@
                                                 <p>{{ object.q2 }}</p>
                                                 <h4>{{ q3 }}</h4>
                                                 <p>{{ object.q3 }}</p>
-                                                <a class="btn btn-warning btn-marketing rounded-pill lift lift-sm my-3 text-white" href="{% url 'users:scholarship-common-application-update' object.id %}">Update</a><a class="btn btn-marketing text-dark" href="{% url 'users:profile' %}">Profile</a>
+                                                <div class="text-center">
+                                                    <a class="btn btn-info btn-marketing rounded-pill lift lift-sm my-3 text-white" href="{% url 'users:scholarship-common-application-update' object.id %}">Update</a>
+                                                    <a class="btn btn-marketing text-dark" href="{% url 'users:profile' %}">Profile</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

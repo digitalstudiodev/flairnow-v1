@@ -420,7 +420,6 @@ class User(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
 
-
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.png', upload_to='profile_pics', verbose_name="Profile Picture")
@@ -439,19 +438,6 @@ class Profile(models.Model):
             img.save(self.image.path)
     '''
 
-##student resume
-class Resume(models.Model):
-    student = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Student")
-    date_posted = models.DateTimeField(default=timezone.now)
-    resume = models.FileField(default="sample_resume.pdf", upload_to='resumes', verbose_name="Resume")
-    
-    def __str__(self):
-        return self.student.email
-
-    def get_absolute_url(self):
-        return reverse('users:resume-detail', kwargs={'pk': self.pk})
-
-##student academic information
 class Academic(models.Model):
     student = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Student")
     date_posted = models.DateTimeField(default=timezone.now)
@@ -470,7 +456,6 @@ class Academic(models.Model):
     def get_absolute_url(self):
         return reverse('users:academic-detail', kwargs={'pk': self.pk})
 
-##student background information
 class Background(models.Model):
     student = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Student")
     date_posted = models.DateTimeField(default=timezone.now)
@@ -488,7 +473,6 @@ class Background(models.Model):
     def get_absolute_url(self):
         return reverse('users:background-detail', kwargs={'pk': self.pk})
 
-##student contact information
 class Contact(models.Model):
     student = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Student")
     date_posted = models.DateTimeField(default=timezone.now)
@@ -505,7 +489,6 @@ class Contact(models.Model):
     def get_absolute_url(self):
         return reverse('users:contact-detail', kwargs={'pk': self.pk})
 
-##organization contact information
 class OrganizationContact(models.Model):
     organization = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Organization")
     date_posted = models.DateTimeField(default=timezone.now)
@@ -525,7 +508,6 @@ class OrganizationContact(models.Model):
     def get_absolute_url(self):
         return reverse('users:organizationcontact-detail', kwargs={'pk': self.pk})
 
-##organization background information
 class OrganizationBackground(models.Model):
     organization = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Organization")
     date_posted = models.DateTimeField(default=timezone.now)
@@ -540,7 +522,6 @@ class OrganizationBackground(models.Model):
     def get_absolute_url(self):
         return reverse('users:organizationbackground-detail', kwargs={'pk': self.pk})
 
-##internship common application
 class InternCommonApp(models.Model):
     student = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Student")
     date_posted = models.DateTimeField(default=timezone.now)
@@ -554,7 +535,6 @@ class InternCommonApp(models.Model):
     def get_absolute_url(self):
         return reverse('users:internship-common-application-detail', kwargs={'pk': self.pk})
 
-##scholarship common application
 class ScholarCommonApp(models.Model):
     student = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Student")
     date_posted = models.DateTimeField(default=timezone.now)

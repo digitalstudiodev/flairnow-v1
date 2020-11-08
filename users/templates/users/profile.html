@@ -51,6 +51,7 @@
                                                 {% else %}
                                                 <a class="list-group-item text-dark" href="{% url 'users:internship-common-application-create' %}">Internships&nbsp;<span class="badge badge-info badge-pill px-2 text-white">Add</span></a>
                                                 {% endif %}
+                                                
                                                 {% if user.scholarcommonapp %}
                                                 <a class="list-group-item text-dark" href="{% url 'users:scholarship-common-application-detail' user.scholarcommonapp.id %}">Scholarships</a>
                                                 {% else %}
@@ -74,20 +75,17 @@
                                                 {% else %}
                                                 <a class="list-group-item text-dark" href="{% url 'users:contact-create' %}">Contact&nbsp;<span class="badge badge-info badge-pill px-2 text-white">Add</span></a>
                                                 {% endif %}
+
                                                 {% if user.background %}
                                                 <a class="list-group-item text-dark" href="{% url 'users:background-detail' user.background.id %}">Background</a>
                                                 {% else %}
                                                 <a class="list-group-item text-dark" href="{% url 'users:background-create' %}">Background&nbsp;<span class="badge badge-info badge-pill px-2 text-white">Add</span></a>
                                                 {% endif %}
+
                                                 {% if user.academic %}
                                                 <a class="list-group-item text-dark" href="{% url 'users:academic-detail' user.academic.id %}">Academic</a>
                                                 {% else %}
                                                 <a class="list-group-item text-dark" href="{% url 'users:academic-create' %}">Academic&nbsp;<span class="badge badge-info badge-pill px-2 text-white">Add</span></a>
-                                                {% endif %}
-                                                {% if user.resume %}
-                                                <a class="list-group-item text-dark" href="{% url 'users:resume-detail' user.resume.id %}">Resume</a>
-                                                {% else %}
-                                                <a class="list-group-item text-dark" href="{% url 'users:resume-create' %}">Resume&nbsp;<span class="badge badge-info badge-pill px-2 text-white">Add</span></a>
                                                 {% endif %}
                                             </div >
                                         </div>

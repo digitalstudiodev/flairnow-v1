@@ -2,8 +2,7 @@ from django.urls import path, include
 from .views import (
     register, register_organization, profile, 
     organization_profile, profile_update, login_view, 
-    logout_view, ResumeDetailView, ResumeCreateView, 
-    ResumeUpdateView, AcademicDetailView, AcademicCreateView, 
+    logout_view, AcademicDetailView, AcademicCreateView, 
     AcademicUpdateView, BackgroundDetailView, BackgroundCreateView, 
     BackgroundUpdateView, ContactDetailView, ContactCreateView, 
     ContactUpdateView, OrganizationContactDetailView, OrganizationContactCreateView, 
@@ -25,10 +24,6 @@ urlpatterns = [
     ##login + logout
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
-    ##student resume
-    path('resume/<int:pk>/', ResumeDetailView.as_view(), name='resume-detail'),
-    path('resume/new/', ResumeCreateView.as_view(), name='resume-create'),
-    path('resume/<int:pk>/update/', ResumeUpdateView.as_view(), name='resume-update'),
     ##student academic information
     path('academic/<int:pk>/', AcademicDetailView.as_view(), name='academic-detail'),
     path('academic/new/', AcademicCreateView.as_view(), name='academic-create'),

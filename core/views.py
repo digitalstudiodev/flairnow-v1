@@ -48,7 +48,6 @@ def contact(request):
     }
     return render(request, "core/contact.html", context)
 
-
 def features_organization(request):
     ##features organization
     """
@@ -59,7 +58,6 @@ def features_organization(request):
         'user_count': user_count
     }
     return render(request, "core/features_organization.html", context)
-
 
 def features_student(request):
     ##features student
@@ -203,6 +201,29 @@ def internship_list(request):
     }
     return render(request, "core/internship_list.html", context)
 
+def scholarship_list(request):
+    ##internships list view
+    """
+    this is the category view for scholarships 
+    """
+    scholarships = Scholarship.objects.all()
+    externalopps = ExternalOpp.objects.all().filter(type="ESC")
+    opportunities = sorted(
+        chain(scholarships, externalopps),
+        key=lambda instance: instance.date_posted
+    )
+    page_number = request.GET.get('page')
+    paginator = Paginator(opportunities, 32)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'scholarships': opportunities,
+        'page_obj': page_obj
+
+    }
+    return render(request, "core/scholarship_list.html", context)
+
 class InternshipListView(ListView):
     ##internships list view
     """
@@ -245,7 +266,7 @@ class InternshipDetailView(DetailView):
                     context['status'] = True
             except: pass 
             #match
-            match = InternshipApplication.objects.all().filter(student=user)
+            match = InternshipApplication.objects.all().filter(student=user, internship=self.object.id)
             print(match)
             if match:
                 context['match'] = True
@@ -325,7 +346,7 @@ class InternshipApplicationCreateView(LoginRequiredMixin, CreateView):
     """
     model = InternshipApplication
     success_url = "/users/profile/"
-    fields = ['confirm']
+    fields = ['resume', 'confirm']
 
 
     def form_valid(self, form):
@@ -355,9 +376,12 @@ class InternshipApplicationDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        q1 = InternCommonApp.objects.all()[0]._meta.get_field('q1').verbose_name
-        q2 = InternCommonApp.objects.all()[0]._meta.get_field('q2').verbose_name
-        q3 = InternCommonApp.objects.all()[0]._meta.get_field('q3').verbose_name
+        q1 = InternCommonApp.objects.get(id=self.object.id)._meta.get_field('q1').verbose_name
+        q2 = InternCommonApp.objects.get(id=self.object.id)._meta.get_field('q2').verbose_name
+        q3 = InternCommonApp.objects.get(id=self.object.id)._meta.get_field('q3').verbose_name
+        status = self.object.status
+        #insert email to student based on status type
+
         context['q1'] = q1
         context['q2'] = q2
         context['q3'] = q3
@@ -384,29 +408,6 @@ class InternshipApplicationUpdateView(LoginRequiredMixin, UserPassesTestMixin, U
         if internship:
             return True
         return False
-
-def scholarship_list(request):
-    ##internships list view
-    """
-    this is the category view for scholarships 
-    """
-    scholarships = Scholarship.objects.all()
-    externalopps = ExternalOpp.objects.all().filter(type="ESC")
-    opportunities = sorted(
-        chain(scholarships, externalopps),
-        key=lambda instance: instance.date_posted
-    )
-    page_number = request.GET.get('page')
-    paginator = Paginator(opportunities, 32)
-
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    context = {
-        'scholarships': opportunities,
-        'page_obj': page_obj
-
-    }
-    return render(request, "core/scholarship_list.html", context)
 
 class ScholarshipListView(ListView):
     ##scholarships list view
@@ -450,7 +451,7 @@ class ScholarshipDetailView(DetailView):
                     context['status'] = True
             except: pass 
             #match
-            match = ScholarshipApplication.objects.all().filter(student=self.request.user)
+            match = ScholarshipApplication.objects.all().filter(student=self.request.user, scholarship=self.object.id)
             print(match)
             if match:
                 context['match'] = True
@@ -530,7 +531,7 @@ class ScholarshipApplicationCreateView(LoginRequiredMixin, CreateView):
     """
     model = ScholarshipApplication
     success_url = "/users/profile/"
-    fields = ['confirm']
+    fields = ['resume', 'confirm']
 
 
     def form_valid(self, form):
@@ -560,9 +561,12 @@ class ScholarshipApplicationDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        q1 = ScholarCommonApp.objects.all()[0]._meta.get_field('q1').verbose_name
-        q2 = ScholarCommonApp.objects.all()[0]._meta.get_field('q2').verbose_name
-        q3 = ScholarCommonApp.objects.all()[0]._meta.get_field('q3').verbose_name
+        q1 = ScholarCommonApp.objects.get(id=self.object.id)._meta.get_field('q1').verbose_name
+        q2 = ScholarCommonApp.objects.get(id=self.object.id)._meta.get_field('q2').verbose_name
+        q3 = ScholarCommonApp.objects.get(id=self.object.id)._meta.get_field('q3').verbose_name
+        status = self.object.status
+        #insert email to student based on status type
+
         context['q1'] = q1
         context['q2'] = q2
         context['q3'] = q3
