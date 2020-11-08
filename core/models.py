@@ -54,8 +54,6 @@ class Internship(models.Model):
     title = models.CharField(max_length=1000, default=None, null=True, verbose_name="Position Title")
     date_posted = models.DateTimeField(default=timezone.now)
     industry = models.CharField(max_length=1000, choices=MAJORS, default=None, null=True)
-    start_date = models.DateTimeField(verbose_name="Start Date", default=None, null=True)
-    end_date = models.DateTimeField(verbose_name="End Date", default=None, null=True)
     description = models.TextField(verbose_name="Description", default=None, null=True)
     number_of_positions = models.IntegerField(default=None, null=True, verbose_name="Number of Available Positions")
     ##education requirements

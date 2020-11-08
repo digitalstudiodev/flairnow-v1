@@ -287,7 +287,7 @@ class InternshipCreateView(LoginRequiredMixin, CreateView):
     model = Internship
     fields = [
         ##basic information
-        'title', 'industry', 'start_date', 'end_date', 'number_of_positions', 'description',
+        'title', 'industry', 'number_of_positions', 'description',
         ##education requirements
         'grade_level','degree','gpa',
         ##financial information
@@ -306,7 +306,7 @@ class InternshipUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Internship
     fields = [
         ##basic information
-        'title', 'industry', 'start_date', 'end_date', 'number_of_positions', 'description',
+        'title', 'industry', 'number_of_positions', 'description',
         ##education requirements
         'grade_level','degree','gpa',
         ##financial information
