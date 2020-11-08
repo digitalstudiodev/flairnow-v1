@@ -26,17 +26,8 @@
                               <div class="row align-items-center">
                                 <div class="col-lg-6 m-auto">
                                     <div class="card rounded-lg text-dark">
-                                        <div class="card-header py-4 text-dark">Login and Start Applying To Opportunities</div>
                                         <div class="card-body">
-                                          <form class="register-form" method="POST">
-                                            {% csrf_token %}
-                                            <p>
-                                              If you don't already have an account please <a href="{% url 'users:register' %}">register</a>
-                                            </p>
-                                            {{ form|crispy }}
-                                            <button class="btn btn-marketing btn-info btn-block btn-round rounded-pill" type="Submit">Login</button>
-                                            <a class="text-dark ml-2" href="{% url 'password_reset' %}">Forgot Password</a>
-                                          </form>
+                                          <h3 class="title mx-auto ml-3">An email has been sent with instructions to reset your password.</h3>
                                         </div>
                                     </div>
                                 </div>
