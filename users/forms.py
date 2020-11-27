@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
-from .models import Profile, User
+from .models import Profile, User, Contact
+from bootstrap_datepicker_plus import DatePickerInput
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(max_length=60)
@@ -59,3 +60,14 @@ class LoginForm(forms.ModelForm):
         password = self.cleaned_data['password']
         if not authenticate(email=email, password=password):
             raise forms.ValidationError("Invalid Login")
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = [
+            'phone', 'dob', 'primary_address', 'secondary_address',
+            'zip_code', 'city', 'state',
+        ]
+        widgets = {
+            'dob': DatePickerInput(format='%Y-%m-%d'), 
+        }

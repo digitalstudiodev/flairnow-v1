@@ -4,6 +4,7 @@ from PIL import Image
 from django.urls import reverse
 from django.utils import timezone
 from multiselectfield import MultiSelectField
+from phone_field import PhoneField
 
 BINARY = (
     ("Y","Yes"),
@@ -11,7 +12,7 @@ BINARY = (
 )
 
 GPA = (
-    ("N","I don't have a GPA"),
+    ("N","None"),
     ("G0","Below 1.0"),
     ("G1","Between 1.0 and 1.5"),
     ("G2","Between 1.5 and 2.0"),
@@ -19,54 +20,6 @@ GPA = (
     ("G4","Between 2.5 and 3.0"),
     ("G5","Between 3.0 and 3.5"),
     ("G6","Between 3.5 and 4.0"),
-    ("P","Prefer Not To Say"),
-)
-
-ACT_SCORES = (
-    ("N","Did not take the ACT"),
-    ("A0","Below 5"),
-    ("A1","Between 5 and 7"),
-    ("A2","Between 7 and 9"),
-    ("A3","Between 9 and 11"),
-    ("A4","Between 11 and 13"),
-    ("A5","Between 13 and 15"),
-    ("A6","Between 15 and 17"),
-    ("A7","Between 17 and 19"),
-    ("A8","Between 19 and 21"),
-    ("A9","Between 21 and 23"),
-    ("A10","Between 23 and 25"),
-    ("A11","Between 25 and 27"),
-    ("A12","Between 27 and 29"),
-    ("A13","Between 29 and 31"),
-    ("P","Prefer Not To Say"),
-)
-
-SAT_SCORES = (
-    ("N","Did not take the SAT"),
-    ("S0","Below 500"),
-    ("S1","Between 500 and 550"),
-    ("S2","Between 550 and 600"),
-    ("S3","Between 600 and 650"),
-    ("S4","Between 650 and 700"),
-    ("S5","Between 700 and 750"),
-    ("S6","Between 750 and 800"),
-    ("S7","Between 800 and 850"),
-    ("S8","Between 850 and 900"),
-    ("S9","Between 900 and 950"),
-    ("S10","Between 950 and 1000"),
-    ("S11","Between 1000 and 1050"),
-    ("S12","Between 1050 and 1100"),
-    ("S13","Between 1100 and 1150"),
-    ("S14","Between 1150 and 1200"),
-    ("S15","Between 1200 and 1250"),
-    ("S16","Between 1250 and 1300"),
-    ("S17","Between 1300 and 1350"),
-    ("S18","Between 1350 and 1400"),
-    ("S19","Between 1400 and 1450"),
-    ("S20","Between 1450 and 1500"),
-    ("S21","Between 1500 and 1550"),
-    ("S22","Between 1550 and 1600"),
-    ("P","Prefer Not To Say"),
 )
 
 ORGANIZATION_TYPES = (
@@ -134,6 +87,7 @@ US_STATES = (
 )
 
 HOUSE_INCOME = (
+    ("N","None"),
     ("HI0","Less than $10,000"),
     ("HI1","Between $10,000 - $25,000"),
     ("HI2","Between $25,000 - $50,000"),
@@ -141,53 +95,53 @@ HOUSE_INCOME = (
     ("HI4","Between $100,000 - $150,000"),
     ("HI5","Between $150,000 - $200,000"),
     ("HI6","Over $200,000"),
-    ("P","Prefer Not To Say"),
 )
 
 HOUSE_SIZE = (
+    ("N","None"),
     ("HS0","Small (Less than 3)"),
     ("HS1","Midsize (3-5)"),
     ("HS2","Large (Over 5)"),
     ("HS3","X-Large (Over 10)"),
-    ("P","Prefer Not To Say"),
 )
 
 CITIZENSHIP = (
+    ("N","None"),
     ("C0","U.S. Citizen"),
     ("C1","U.S. Permanent Resident"),
     ("C2","DACA"),
     ("C3","TPS"),
     ("OTH","Other"),
-    ("P","Prefer Not To Say"),
 )
 
 RACE = (
+    ("N","None"),
     ("R0","American Indian or Alaska Native"),
     ("R1","Asian"),
     ("R2","Black or African American"),
     ("R3","Hispanic or Latino"),
     ("R4","Native Hawaiian or Other Pacific Islander"),
     ("R5","White"),
-    ("P","Prefer Not To Say"),
 )
 
 SEX = (
+    ("N","None"),
     ("HO","Heterosexual"),
     ("HE","Homosexual"),
     ("BI","Bisexual"),
     ("AS","Asexual"),
     ("NB","Non-Binary"),
-    ("P","Prefer Not To Say"),
 )
 
 GENDERS = (
+    ("N","None"),
     ("M","Male"),
     ("F","Female"),
     ("O","Other"),
-    ("P","Prefer Not To Say"),
 )
 
 YEARS = (
+    ("N","None"),
     ("1990","1990"),
     ("1991","1991"),
     ("1992","1992"),
@@ -239,10 +193,10 @@ YEARS = (
     ('2038',"2038"),
     ('2039','2039'),
     ('2040',"2040"),
-    ("P","Prefer Not To Say"),
 )
 
-CURRENT_GRADE_LEVEL = (
+EDU_LEVEL = (
+    ("N","None"),
     ("L0","Middle School (7, 8 Grades)"),
     ("L1","Grade 9 High School"),
     ("L2","Grade 10 High School"),
@@ -255,16 +209,15 @@ CURRENT_GRADE_LEVEL = (
     ("L9","Five Year or More Undergraduate"),
     ("L10","Graduate Student"),
     ("L11","Vocational Education"),
-    ("P","Prefer Not To Say"),
 )
 
 DEGREES = (
+    ("N","None"),
     ("L0","High School Diploma (or Equivalent)"),
     ("L1","Associate Degree"),
     ("L2","Bachelor's Degree"),
     ("L3","Master's Degree"),
     ("L4","Doctoral Degree"),
-    ("P","Prefer Not To Say"),
 )
 
 #based from https://www.collegemajors101.com/ with over 150 majors listed
@@ -426,124 +379,102 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'{self.user.email} Profile'
-    '''
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-
-        img = Image.open(self.image.path)
-
-        if img.height > 300 or img.width > 300:
-            output_size = (300, 300)
-            img.thumbnail(output_size)
-            img.save(self.image.path)
-    '''
 
 class Academic(models.Model):
     student = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Student")
-    date_posted = models.DateTimeField(default=timezone.now)
-    college = models.CharField(max_length=1000, default="", null=True, verbose_name="Current or Preferred College/University")
-    current_grade_level = models.CharField(max_length=1000, choices=CURRENT_GRADE_LEVEL, default=None, null=True, verbose_name="Current Grade Level")
-    degree_in_pursuit = models.CharField(max_length=1000, choices=DEGREES, default=None, null=True, verbose_name="Degree You Are Currently Pursuing")
-    field = models.CharField(max_length=1000, choices=MAJORS, default=None, null=True, verbose_name="Current Major or Field")
-    sat_score = models.CharField(max_length=1000, choices=SAT_SCORES, verbose_name="SAT Score", default=None, null=True)
-    act_score = models.CharField(max_length=1000, choices=ACT_SCORES, verbose_name="ACT Score", default=None, null=True)
-    gpa = models.CharField(max_length=1000, choices=GPA, verbose_name="GPA", default=None, null=True)
-    expected_grad_year = models.CharField(max_length=1000, choices=YEARS, default=None, null=True, verbose_name="Expected Graudation Year")
+    school = models.CharField(max_length=1000, default="", null=True, verbose_name="Current or Preferred Institution")
+    edu_level = models.CharField(max_length=1000, choices=EDU_LEVEL, default="", null=True, verbose_name="Edu Level")
+    degree = models.CharField(max_length=1000, choices=DEGREES, default="", null=True, verbose_name="Degree You Are Currently Pursuing")
+    field = models.CharField(max_length=1000, choices=MAJORS, default="", null=True, verbose_name="Current Major or Field")
+    gpa = models.CharField(max_length=1000, choices=GPA, verbose_name="GPA", default="", null=True)
+    grad_year = models.CharField(max_length=1000, choices=YEARS, default="", null=True, verbose_name="Class")
     
     def __str__(self):
         return self.student.email
 
     def get_absolute_url(self):
-        return reverse('users:academic-detail', kwargs={'pk': self.pk})
+        return reverse('users:academic_detail', kwargs={'pk': self.pk})
 
 class Background(models.Model):
     student = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Student")
-    date_posted = models.DateTimeField(default=timezone.now)
-    gender = models.CharField(max_length=1000, choices=GENDERS, default=None, null=True, verbose_name="Gender")
-    sexual_orientation = models.CharField(max_length=1000, choices=SEX, default=None, null=True, verbose_name="Sexual Orientation")
-    race = models.CharField(max_length=1000, choices=RACE, default=None, null=True, verbose_name="Race")
-    citizenship = models.CharField(max_length=1000, choices=CITIZENSHIP, default=None, null=True, verbose_name="Citizenship")
-    household_size = models.CharField(max_length=1000, choices=HOUSE_SIZE, default=None, null=True, verbose_name="Household Size")
-    household_income = models.CharField(max_length=1000, choices=HOUSE_INCOME, default=None, null=True, verbose_name="Household Income")
-    first_gen = models.CharField(max_length=1000, choices=BINARY, default=None, null=True, verbose_name="Are you the first in your family to go to college?")
+    gender = models.CharField(max_length=1000, choices=GENDERS, default="", null=True, verbose_name="Gender")
+    sex = models.CharField(max_length=1000, choices=SEX, default="", null=True, verbose_name="Sexual Orientation")
+    race = models.CharField(max_length=1000, choices=RACE, default="", null=True, verbose_name="Race")
+    citizenship = models.CharField(max_length=1000, choices=CITIZENSHIP, default="", null=True, verbose_name="Citizenship")
+    household_size = models.CharField(max_length=1000, choices=HOUSE_SIZE, default="", null=True, verbose_name="Household Size")
+    household_income = models.CharField(max_length=1000, choices=HOUSE_INCOME, default="", null=True, verbose_name="Household Income")
+    first_gen = models.CharField(max_length=1000, choices=BINARY, default="", null=True, verbose_name="Are you the first in your family to go to college?")
     
     def __str__(self):
         return self.student.email
 
     def get_absolute_url(self):
-        return reverse('users:background-detail', kwargs={'pk': self.pk})
+        return reverse('users:background_detail', kwargs={'pk': self.pk})
 
 class Contact(models.Model):
     student = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Student")
-    date_posted = models.DateTimeField(default=timezone.now)
-    phone_number = models.CharField(max_length=10, default="", null=True, verbose_name="Phone Number", help_text="Please enter in the following format: 9734568456, with no spaces or special characters.")
-    date_of_birth = models.CharField(max_length=10, default="", null=True, verbose_name="Date of Birth", help_text="Please enter in the following format: MM/DD/YYY or MM-DD-YYY")
+    phone = models.CharField(default="", null=True, max_length=10, verbose_name="Phone Number")
+    dob = models.CharField(max_length=10, default="", null=True, verbose_name="Date of Birth")
     primary_address = models.CharField(max_length=1000, default="", null=True, verbose_name="Primary Address")
-    zip_code = models.CharField(max_length=1000, default="", null=True, verbose_name="Zip Code")
+    secondary_address = models.CharField(max_length=1000, default="", null=True, verbose_name="Secondary Address")
+    zip_code = models.CharField(max_length=5, default="", null=True, verbose_name="Zip Code", help_text="Example 07102")
     city = models.CharField(max_length=1000, default="", null=True, verbose_name="City")
-    state = models.CharField(max_length=1000, choices=US_STATES, default=None, null=True, verbose_name="State")
+    state = models.CharField(max_length=1000, choices=US_STATES, default="", null=True, verbose_name="State")
     
     def __str__(self):
         return self.student.email
 
     def get_absolute_url(self):
-        return reverse('users:contact-detail', kwargs={'pk': self.pk})
+        return reverse('users:contact_detail', kwargs={'pk': self.pk})
 
-class OrganizationContact(models.Model):
+class OrgContact(models.Model):
     organization = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Organization")
-    date_posted = models.DateTimeField(default=timezone.now)
-    phone_number = models.CharField(max_length=10, default="", null=True, verbose_name="Phone Number", help_text="Please enter in the following format: 9734568456")
+    phone = models.CharField(max_length=10, default="", null=True, verbose_name="Phone Number")
     primary_address = models.CharField(max_length=1000, default="", null=True, verbose_name="Primary Address")
-    zip_code = models.CharField(max_length=1000, default="", null=True, verbose_name="Zip Code")
-    city = models.CharField(max_length=1000, default=None, null=True, verbose_name="City")
-    state = models.CharField(max_length=1000, choices=US_STATES, default=None, null=True, verbose_name="State")
+    secondary_address = models.CharField(max_length=1000, default="", null=True, verbose_name="Secondary Address")
+    zip_code = models.CharField(max_length=5, default="", null=True, verbose_name="Zip Code", help_text="Example 07102")
+    city = models.CharField(max_length=1000, default="", null=True, verbose_name="City")
+    state = models.CharField(max_length=1000, choices=US_STATES, default="", null=True, verbose_name="State")
     website_link = models.CharField(max_length=1000, default="", null=True, verbose_name="Website Link")
-    facebook_link = models.CharField(max_length=1000, default="", null=True, verbose_name="Facebook Link")
-    linkedin_link = models.CharField(max_length=1000, default="", null=True, verbose_name="LinkedIn Link")
-    twitter_link = models.CharField(max_length=1000, default="", null=True, verbose_name="Twitter Link")
 
     def __str__(self):
         return self.phone_number
 
     def get_absolute_url(self):
-        return reverse('users:organizationcontact-detail', kwargs={'pk': self.pk})
+        return reverse('users:orgcontact_detail', kwargs={'pk': self.pk})
 
-class OrganizationBackground(models.Model):
+class OrgBackground(models.Model):
     organization = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Organization")
-    date_posted = models.DateTimeField(default=timezone.now)
-    size = models.IntegerField(default=None, null=True, verbose_name="Number of Individuals")
-    industry = models.CharField(max_length=1000, choices=MAJORS, default=None, null=True, verbose_name="Industry")
-    type = models.CharField(max_length=1000, choices=ORGANIZATION_TYPES, default=None, null=True, verbose_name="Organization Type")
+    size = models.IntegerField(default=1, null=True, verbose_name="Number of Individuals")
+    industry = models.CharField(max_length=1000, choices=MAJORS, default="", null=True, verbose_name="Industry")
+    org_type = models.CharField(max_length=1000, choices=ORGANIZATION_TYPES, default="", null=True, verbose_name="Organization Type")
 
 
     def __str__(self):
         return self.organization.email
 
     def get_absolute_url(self):
-        return reverse('users:organizationbackground-detail', kwargs={'pk': self.pk})
+        return reverse('users:orgbackground_detail', kwargs={'pk': self.pk})
 
-class InternCommonApp(models.Model):
+class UInternshipApp(models.Model):
     student = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Student")
     date_posted = models.DateTimeField(default=timezone.now)
-    q1 = models.TextField(max_length=1000, verbose_name="Tell us a bit about yourself.", help_text="Max Length (1000 characters)")
-    q2 = models.TextField(max_length=1000, verbose_name="What’s the Best Team You’ve Ever Been a Part of, and Why?/What’s Your Ideal Team?", help_text="Max Length (1000 characters)")
-    q3 = models.TextField(max_length=1000, verbose_name="What are your strengths?", help_text="Max Length (1000 characters)")
+    q1 = models.TextField(max_length=1000, verbose_name="What’s the Best Team You’ve Ever Been a Part of, and Why?/What’s Your Ideal Team?", help_text="Max Length (1000 characters)")
+    q2 = models.TextField(max_length=1000, verbose_name="What are your academic and/or career goals?", help_text="Max Length (1000 characters)")
 
     def __str__(self):
         return self.student.email
 
     def get_absolute_url(self):
-        return reverse('users:internship-common-application-detail', kwargs={'pk': self.pk})
+        return reverse('users:u_internship_app_detail', kwargs={'pk': self.pk})
 
-class ScholarCommonApp(models.Model):
+class UScholarshipApp(models.Model):
     student = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Student")
-    date_posted = models.DateTimeField(default=timezone.now)
-    q1 = models.TextField(max_length=1000, verbose_name="Tell us about yourself.", help_text="Max Length (1000 characters)")
-    q2 = models.TextField(max_length=1000, verbose_name="What is your greatest strength/weakness?", help_text="Max Length (1000 characters)")
-    q3 = models.TextField(max_length=1000, verbose_name="Who has been a role model for you?", help_text="Max Length (1000 characters)")
+    q1 = models.TextField(max_length=1000, verbose_name="How have you contributed to your community?", help_text="Max Length (1000 characters)")
+    q2 = models.TextField(max_length=1000, verbose_name="Who has been a role model for you?", help_text="Max Length (1000 characters)")
 
     def __str__(self):
         return self.student.email
 
     def get_absolute_url(self):
-        return reverse('users:scholarship-common-application-detail', kwargs={'pk': self.pk})
+        return reverse('users:u_scholarship_app_detail', kwargs={'pk': self.pk})

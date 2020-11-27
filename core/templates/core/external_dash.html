@@ -27,7 +27,7 @@
                                 <div class="row justify-content-center">
                                     <div class="col-xl-8 col-lg-10 text-center" data-aos="fade">
                                         <h1 class="page-header-title">External Opportunities</h1>
-                                        <a class="btn btn-info btn-marketing rounded-pill lift lift-sm my-3" href="{% url 'core:external-opportunity-create' %}">Add New</a>
+                                        <a class="btn btn-info btn-marketing rounded-pill lift lift-sm my-3" href="{% url 'core:external_create' %}">Add New</a>
                                     </div>
                                 </div>
                             </div>
@@ -41,25 +41,25 @@
                             {% include 'core/messages.html' %}
                             <div class="row justify-content-center">
                                 <div class="col-lg-10">
-                                    {% for externalopp in page_obj %}
+                                    {% for external in page_obj %}
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <h2 class="mb-0"><a href="{{ externalopp.link }}" class="btn-link text-dark" target="_blank">{{ externalopp.title }}</a></h2>
-                                        <a class="btn btn-warning btn-marketing rounded-pill mx-2 ml-auto" href="{% url 'core:external-opportunity-update' externalopp.id %}">Update</a>
-                                        <a class="btn btn-danger btn-marketing rounded-pill mx-2" href="{% url 'core:external-opportunity-delete' externalopp.id %}">Delete</a>
+                                        <h2 class="mb-0"><a href="{{ external.link }}" class="btn-link text-dark" target="_blank">{{ external.title }}</a></h2>
+                                        <a class="btn btn-warning btn-marketing rounded-pill mx-2 ml-auto" href="{% url 'core:external_update' external.id %}">Update</a>
+                                        <a class="btn btn-danger btn-marketing rounded-pill mx-2" href="{% url 'core:external_delete' external.id %}">Delete</a>
                                     </div>
                                     <hr class="mb-0" />
                                     <ul class="list-group list-group-flush list-group-careers text-dark">
                                         <li class="list-group-item">
                                             Type
-                                            <div class="small">{{ externalopp.get_type_display }}</div>
+                                            <div class="small">{{ external.get_type_display }}</div>
                                         </li>
                                         <li class="list-group-item">
                                             Host
-                                            <div class="small">{{ externalopp.host }}</div>
+                                            <div class="small">{{ external.host }}</div>
                                         </li>
                                         <li class="list-group-item">
                                             Field
-                                            <div class="small">{{ externalopp.get_field_display }}</div>
+                                            <div class="small">{{ external.get_field_display }}</div>
                                         </li>
                                     </ul>
                                     {% endfor %}

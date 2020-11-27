@@ -1,52 +1,58 @@
 from django.contrib import admin
 from django.urls import path
 from .views import (
-    home, browse, about, contact, partner_contract,
-    internship_info, internship_dash, scholarship_dash, scholarship_info, features_organization, 
-    features_student, externalopp_dash, InternshipListView, 
-    InternshipDetailView, InternshipCreateView, 
-    InternshipUpdateView, InternshipDeleteView, InternshipApplicationCreateView, InternshipApplicationDetailView, InternshipApplicationUpdateView,
-    ScholarshipListView, ScholarshipDetailView, ScholarshipCreateView, ScholarshipUpdateView,
-    ScholarshipDeleteView, ScholarshipApplicationCreateView, ScholarshipApplicationUpdateView, ScholarshipApplicationDetailView,
-    ExternalOppCreateView, ExternalOppUpdateView, ExternalOppDeleteView,
-    internship_list, scholarship_list
+    #global
+    home, browse, about, contact, partner_contract, features_org, features_student, 
+    #intenship app
+    InternshipAppCreateView, InternshipAppDetailView, InternshipAppUpdateView,
+    #scholarship app
+    ScholarshipAppCreateView, ScholarshipAppUpdateView, ScholarshipAppDetailView,
+    #internships
+    create_internship, update_internship, InternshipDetailView, InternshipDeleteView,
+    internship_list, internship_info, internship_dash,
+    #scholarships
+    create_scholarship, update_scholarship, ScholarshipDetailView, ScholarshipDeleteView, 
+    scholarship_list, scholarship_info, scholarship_dash,
+    #external
+    ExternalCreateView, ExternalUpdateView, ExternalDeleteView, external_dash,
     )
 
 app_name = 'core'
 
 urlpatterns = [
+    #global
     path('', home, name="home"),
     path('browse', browse, name="browse"),
     path('about', about, name="about"),
     path('contact', contact, name="contact"),
-    path('features-organization', features_organization, name="features-organization"),
-    path('features-student', features_student, name="features-student"),
-    path('partner-contract', partner_contract, name="partner-contract"),
-    path('internship-info', internship_info, name="internship-info"),
-    path('scholarship-info', scholarship_info, name="scholarship-info"),
-    path('internship-dash', internship_dash, name="internship-dash"),
-    path('scholarship-dash', scholarship_dash, name="scholarship-dash"),
-    ##internships
+    path('features-org', features_org, name="features_org"),
+    path('features-student', features_student, name="features_student"),
+    path('partner-contract', partner_contract, name="partner_contract"),
+    #internships
     path('internship/', internship_list, name="internship"),
-    path('internship/<int:pk>/', InternshipDetailView.as_view(), name='internship-detail'),
-    path('internship/new/', InternshipCreateView.as_view(), name='internship-create'),
-    path('internship/<int:pk>/update', InternshipUpdateView.as_view(), name='internship-update'),
-    path('internship/<int:pk>/delete', InternshipDeleteView.as_view(), name='internship-delete'),
-    path('internship/<int:internships>/apply', InternshipApplicationCreateView.as_view(), name='internship-application-create'),
-    path('internship-application/<int:pk>/', InternshipApplicationDetailView.as_view(), name='internship-application-detail'),
-    path('internship-application/<int:pk>/update', InternshipApplicationUpdateView.as_view(), name='internship-application-update'),
-    ##scholarships
+    path('internship/<int:pk>/', InternshipDetailView.as_view(), name='internship_detail'),
+    path('internship/new/', create_internship, name='internship_create'),
+    path('internship/<int:pk>/update', update_internship, name='internship_update'),
+    path('internship/<int:pk>/delete', InternshipDeleteView.as_view(), name='internship_delete'),
+    path('internship/<int:internships>/apply', InternshipAppCreateView.as_view(), name='internship_app_create'),
+    path('internship-app/<int:pk>/', InternshipAppDetailView.as_view(), name='internship_app_detail'),
+    path('internship-app/<int:pk>/update', InternshipAppUpdateView.as_view(), name='internship_app_update'),
+    path('internship-info', internship_info, name="internship_info"),
+    path('internship-dash', internship_dash, name="internship_dash"),
+    #scholarships
     path('scholarship/', scholarship_list, name="scholarship"),
-    path('scholarship/<int:pk>/', ScholarshipDetailView.as_view(), name='scholarship-detail'),
-    path('scholarship/new/', ScholarshipCreateView.as_view(), name='scholarship-create'),
-    path('scholarship/<int:pk>/update', ScholarshipUpdateView.as_view(), name='scholarship-update'),
-    path('scholarship/<int:pk>/delete', ScholarshipDeleteView.as_view(), name='scholarship-delete'),
-    path('scholarship/<int:scholarships>/apply', ScholarshipApplicationCreateView.as_view(), name='scholarship-application-create'),
-    path('scholarship-application/<int:pk>/', ScholarshipApplicationDetailView.as_view(), name='scholarship-application-detail'),
-    path('scholarship-application/<int:pk>/update', ScholarshipApplicationUpdateView.as_view(), name='scholarship-application-update'),
-    ##external opportunities
-    path('external-opportunity-create/', ExternalOppCreateView.as_view(), name="external-opportunity-create"),
-    path('external-opportunity/<int:pk>/update', ExternalOppUpdateView.as_view(), name="external-opportunity-update"),
-    path('external-opportunity/<int:pk>/delete', ExternalOppDeleteView.as_view(), name="external-opportunity-delete"),
-    path('external-opportunity-dash/', externalopp_dash, name="external-opportunity-dash"),
+    path('scholarship/<int:pk>/', ScholarshipDetailView.as_view(), name='scholarship_detail'),
+    path('scholarship/new/', create_scholarship, name='scholarship_create'),
+    path('scholarship/<int:pk>/update', update_scholarship, name='scholarship_update'),
+    path('scholarship/<int:pk>/delete', ScholarshipDeleteView.as_view(), name='scholarship_delete'),
+    path('scholarship/<int:scholarships>/apply', ScholarshipAppCreateView.as_view(), name='scholarship_app_create'),
+    path('scholarship-app/<int:pk>/', ScholarshipAppDetailView.as_view(), name='scholarship_app_detail'),
+    path('scholarship-app/<int:pk>/update', ScholarshipAppUpdateView.as_view(), name='scholarship_app_update'),
+    path('scholarship-info', scholarship_info, name="scholarship_info"),
+    path('scholarship-dash', scholarship_dash, name="scholarship_dash"),
+    #external opportunities
+    path('external-create/', ExternalCreateView.as_view(), name="external_create"),
+    path('external/<int:pk>/update', ExternalUpdateView.as_view(), name="external_update"),
+    path('external/<int:pk>/delete', ExternalDeleteView.as_view(), name="external_delete"),
+    path('external-dash/', external_dash, name="external_dash"),
 ]

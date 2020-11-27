@@ -14,6 +14,15 @@
         <link rel="icon" type="image/x-icon" href="{% static 'flairnow_assets/assets/img/logo.png' %}" />
         <script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" crossorigin="anonymous"></script>
+        <style>
+            h4 {
+                font-size: small;
+                font-weight: bold;
+            }
+            p {
+                font-size: small;
+            }
+        </style>
     </head>
     <body>
         <div id="layoutDefault">
@@ -24,30 +33,19 @@
                         <div class="page-header-content">
                             <div class="container">
                                 <div class="row align-items-center">
-                                    <div class="col-lg-6 m-auto">
+                                    <div class="col-lg-8 m-auto">
                                         <div class="card rounded-lg text-dark">
                                             <div class="card-body">
-                                                <h3 class="title mx-auto ml-3 mb-5">Organization Contact Infomation</h3>
-                                                <ul class="fa-ul pricing-list">
-                                                    <li class="pricing-list-item">
-                                                        <span class="fa-li"><i class="fas fa-phone text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">Phone Number:</span> {{ object.phone_number }}</span>
-                                                    </li>
-                                                    <li class="pricing-list-item">
-                                                        <span class="fa-li"><i class="fas fa-map-marker-alt text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">Primary Address</span> {{ object.primary_address }}</span>
-                                                    </li>
-                                                    <li class="pricing-list-item">
-                                                        <span class="fa-li"><i class="fas fa-globe-americas text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">Zip Code:</span> {{ object.zip_code }}</span>
-                                                    </li>
-                                                    <li class="pricing-list-item">
-                                                        <span class="fa-li"><i class="fas fa-city text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">City:</span> {{ object.city  }}</span>
-                                                    </li>
-                                                    <li class="pricing-list-item">
-                                                        <span class="fa-li"><i class="fas fa-flag-usa text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">State:</span> {{ object.get_state_display }}</span>
-                                                    </li>
-                                                </ul>
+                                                <h3 class="title mx-auto ml-3 mb-5">Scholarship Common Application</h3>
+                                                <h4>{{ q1 }}</h4>
+                                                <p>{{ object.q1 }}</p>
+                                                <h4>{{ q2 }}</h4>
+                                                <p>{{ object.q2 }}</p>
+                                                <h4>{{ q3 }}</h4>
+                                                <p>{{ object.q3 }}</p>
                                                 <div class="text-center">
-                                                    <a class="btn btn-info btn-marketing rounded-pill lift lift-sm my-3 text-white" href="{% url 'users:organizationcontact-update' object.id %}">Update</a>
-                                                    <a class="btn btn-marketing text-dark" href="{% url 'users:organization-profile' %}">Profile</a>
+                                                    <a class="btn btn-info btn-marketing rounded-pill lift lift-sm my-3 text-white" href="{% url 'users:u_scholarship_app_update' object.id %}">Update</a>
+                                                    <a class="btn btn-marketing text-dark" href="{% url 'users:profile' %}">Profile</a>
                                                 </div>
                                             </div>
                                         </div>

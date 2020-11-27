@@ -1,5 +1,9 @@
 {% load crispy_forms_tags %}
 {% load static %} 
+{% load bootstrap4 %}       {# import bootstrap4/bootstrap3 #}
+{% bootstrap_css %}         {# Embed Bootstrap CSS #}
+{% bootstrap_javascript jquery='full' %}  {# Embed Bootstrap JS+jQuery #}
+{{ form.media }}            {# Adds date-picker required JS and CSS #}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -24,14 +28,57 @@
                         <div class="page-header-content">
                             <div class="container">
                               <div class="row align-items-center">
-                                <div class="col-lg-8 m-auto">
+                                <div class="col-lg-12 m-auto">
                                     <div class="card rounded-lg text-dark">
                                         <div class="card-header py-4 text-dark">Internship</div>
                                         <div class="card-body">
                                           <form class="register-form" method="POST">
                                             {% csrf_token %}
-                                            {{ form|crispy }}
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    {{ form.title|as_crispy_field }}
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    {{ form.field|as_crispy_field }}
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    {{ form.pos|as_crispy_field }}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    {{ form.edu_level|as_crispy_field }}
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    {{ form.degree|as_crispy_field }}
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    {{ form.gpa|as_crispy_field }}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-8">
+                                                    {{ form.valid_date|as_crispy_field }}
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    {{ form.salary|as_crispy_field }}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    {{ form.city|as_crispy_field }}
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    {{ form.state|as_crispy_field }}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    {{ form.desc|as_crispy_field }}
+                                                </div>
+                                            </div>
                                             <button class="btn btn-info btn-block btn-round rounded-pill" type="Submit">Save</button>
+                                            <a class="btn btn-warning btn-block btn-round rounded-pill" href="{% url 'core:internship_dash' %}">Cancel</a>
                                           </form>
                                         </div>
                                     </div>

@@ -26,39 +26,34 @@
                               <div class="row align-items-center">
                                 <div class="col-lg-8 m-auto">
                                     <div class="card rounded-lg text-dark">
-                                        <div class="card-header py-4 text-dark">
-                                            Internship Application Update Status
-                                        </div>
+                                        <div class="card-header py-4 text-dark">Scholarship Application Review</div>
                                         <div class="card-body">
-                                            {% if user.is_student %}
-                                            <h1>{{ internship.title }}</h1>
+                                            <h1>{{ scholarship.title }}</h1>
                                             <ul class="list-group list-group-flush list-group-careers">
-                                                <li class="list-group-item">Industry <span class="font-weight-bold">{{ internship.get_industry_display }}</span><i class="fas fa-globe fa-fw text-gray-400"></i></li>
-                                                <li class="list-group-item">Start Date <span class="font-weight-bold">{{ internship.start_date }}</span><i class="fas fa-clock fa-fw text-gray-400"></i></li>
-                                                <li class="list-group-item">End Date <span class="font-weight-bold">{{ internship.end_date }}</span><i class="fas fa-clock fa-fw text-gray-400"></i></li>
-                                                <li class="list-group-item">Grade Level <span class="font-weight-bold">{{ internship.get_grade_level_display }}</span><i class="fas fa-bars text-gray-400"></i></li>
-                                                <li class="list-group-item">GPA <span class="font-weight-bold">{{ internship.gpa }}</span><i class="fas fa-star text-gray-400"></i></li>
-                                                <li class="list-group-item">Degree Minimum <span class="font-weight-bold">{{ internship.get_degree_display }}</span><i class="fas fa-graduation-cap text-gray-400"></i></li>
-                                                <li class="list-group-item">Salary <span class="font-weight-bold">{{ internship.get_salary_display }}</span><i class="fas fa-money-bill-wave-alt text-gray-400"></i></li>
+                                                <li class="list-group-item">Field <span class="font-weight-bold">{{ scholarship.get_field_display }}</span><i class="fas fa-globe fa-fw text-gray-400"></i></li>
+                                                <li class="list-group-item">Grade Level <span class="font-weight-bold">{{ scholarship.get_edu_level_display }}</span><i class="fas fa-bars text-gray-400"></i></li>
+                                                <li class="list-group-item">GPA <span class="font-weight-bold">{{ scholarship.get_gpa_display }}</span><i class="fas fa-star text-gray-400"></i></li>
+                                                <li class="list-group-item">Degree <span class="font-weight-bold">{{ scholarship.get_degree_display }}</span><i class="fas fa-graduation-cap text-gray-400"></i></li>
+                                                <li class="list-group-item">Amount <span class="font-weight-bold">$ {{ scholarship.salary }}</span><i class="fas fa-money-bill-wave-alt text-gray-400"></i></li>
                                             </ul>
                                             <h1>{{ user.first_name }} {{ user.last_name }}</h1>
                                             <ul class="list-group list-group-flush list-group-careers">
                                                 <li class="list-group-item">
                                                     Profile 
                                                     <span class="font-weight-bold">
-                                                        <a href="{% url 'users:profile-update' %}">Review</a>
+                                                        <a href="{% url 'users:profile_update' %}">Review</a>
                                                     </span>
                                                     <i class="fas fa-bars text-gray-400"></i>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    Internship Common Application 
+                                                    Universal Scholarship Application 
                                                     <span class="font-weight-bold">
-                                                        {% if user.interncommonapp %}
-                                                        <a href="{% url 'users:internship-common-application-detail' user.interncommonapp.id %}">
+                                                        {% if user.uscholarshipapp %}
+                                                        <a href="{% url 'users:u_scholarship_app_detail' user.uscholarshipapp.id %}">
                                                             Review
                                                         </a>
                                                         {% else %}
-                                                        <a href="{% url 'users:internship-common-application-create' %}">
+                                                        <a href="{% url 'users:u_scholarship_app_create' %}">
                                                             Add
                                                         </a>
                                                         {% endif %}
@@ -69,39 +64,23 @@
                                                     Academic Information 
                                                     <span class="font-weight-bold">
                                                         {% if user.academic %}
-                                                        <a href="{% url 'users:academic-detail' user.academic.id %}">
+                                                        <a href="{% url 'users:academic_detail' user.academic.id %}">
                                                             Review
                                                         </a>
                                                         {% else %}
-                                                        <a href="{% url 'users:academic-create' %}">
+                                                        <a href="{% url 'users:academic_create' %}">
                                                             Add
                                                         </a>
                                                         {% endif %}
                                                     </span>
                                                     <i class="fas fa-graduation-cap text-gray-400"></i>
                                                 </li>
-                                                <li class="list-group-item">
-                                                    Resume 
-                                                    <span class="font-weight-bold">
-                                                        {% if user.resume %}
-                                                        <a href="{% url 'users:resume-detail' user.resume.id %}">
-                                                            Review
-                                                        </a>
-                                                        {% else %}
-                                                        <a href="{% url 'users:resume-create' %}">
-                                                            Upload
-                                                        </a>
-                                                        {% endif %}
-                                                    </span>
-                                                    <i class="fas fa-bars text-gray-400"></i>
-                                                </li>
-
                                             </ul>
-                                            {% endif %}
-                                          <form class="register-form" method="POST">
+                                          <form class="register-form" method="POST" enctype="multipart/form-data">
                                             {% csrf_token %}
                                             {{ form|crispy }}
-                                            <button class="btn btn-info btn-block btn-round rounded-pill" type="Submit">Save</button>
+                                            <button class="btn btn-info btn-block btn-round rounded-pill" type="Submit">Apply</button>
+                                            <a class="btn btn-warning btn-block btn-round rounded-pill" href="{% url 'core:scholarship_detail' scholarship.id %}">Cancel</a>
                                           </form>
                                         </div>
                                     </div>

@@ -41,7 +41,7 @@
                                 {% for internship in page_obj %}
                                 <div class="col-lg-3 col-md-6 mb-5">
                                     {% if internship.type == "IN" %}
-                                    <a class="card lift border-bottom-lg border-warning" href="{% url 'core:internship-detail' internship.id %}">
+                                    <a class="card lift border-bottom-lg border-warning" href="{% url 'core:internship_detail' internship.id %}">
                                         <div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">{{ internship.get_industry_display }}</div>
                                         <div class="card-body text-center">
                                             <img src="{{ internship.organization.profile.image.url }}" width="auto" height="100px" class="m-auto rounded-circle"" alt="{{ internship.organization.org_name }} Logo" />

@@ -34,7 +34,12 @@
                                             {{ u_form|crispy }}
                                             {{ p_form|crispy }}
                                             <button class="btn btn-marketing btn-info btn-block btn-round rounded-pill" type="Submit">Update</button>
-                                          </form>
+                                            {% if request.user.is_student %}
+                                            <a class="btn btn-warning btn-block btn-round rounded-pill" href="{% url 'users:profile' %}">Cancel</a>
+                                            {% elif request.user.is_organization %}
+                                            <a class="btn btn-warning btn-block btn-round rounded-pill" href="{% url 'users:org_profile' %}">Cancel</a>
+                                            {% endif %}
+                                        </form>
                                         </div>
                                     </div>
                                 </div>

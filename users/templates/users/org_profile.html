@@ -28,7 +28,7 @@
                                     <div class="col-xl-8 col-lg-10 text-center">
                                         <img class="mb-4 rounded-circle" src="{{ user.profile.image.url }}" style="width: 15rem;" />
                                         <h1 class="page-header-title">{{ user.org_name }}</h1>
-                                        <a class="btn btn-info btn-marketing rounded-pill lift lift-sm my-3" href="{% url 'users:profile-update' %}">Update</a>
+                                        <a class="btn btn-info btn-marketing rounded-pill lift lift-sm my-3" href="{% url 'users:profile_update' %}">Update</a>
                                     </div>
                                 </div>
                             </div>
@@ -41,20 +41,28 @@
                         <div class="container">
                             {% include 'core/messages.html' %}
                             <div class="row">
+                                {% if not request.user.is_approved %}
+                                <div class="col-lg-10 m-auto">
+                                    <div class="alert alert-warning my-5" style="border-radius: 2rem;">
+                                        Your account is currently being reviewed. We will notify you within 3 - 5 days regarding your status. In the 
+                                        meantime please complete your organization's profile information, this is necessary for our review process.
+                                    </div>
+                                </div>
+                                {% endif %}
                                 <div class="col-lg-4 col-md-6 mb-5" data-aos="fade-up">
                                     <div class="card text-center text-decoration-none h-100 lift" href="#!">
                                         <div class="card-body py-5">
                                             <h5 class="mb-3">Organization Information</h5>
                                             <div class="list-group list-group-flush">
-                                                {% if user.organizationcontact %}
-                                                <a class="list-group-item text-dark" href="{% url 'users:organizationcontact-detail' user.organizationcontact.id %}">Contact</a>
+                                                {% if user.orgcontact %}
+                                                <a class="list-group-item text-dark" href="{% url 'users:orgcontact_detail' user.orgcontact.id %}">Contact</a>
                                                 {% else %}
-                                                <a class="list-group-item text-dark" href="{% url 'users:organizationcontact-create' %}">Contact&nbsp;<span class="badge badge-info badge-pill px-2 text-white">Add</span></a>
+                                                <a class="list-group-item text-dark" href="{% url 'users:orgcontact_create' %}">Contact&nbsp;<span class="badge badge-info badge-pill px-2 text-white">Add</span></a>
                                                 {% endif %}
-                                                {% if user.organizationbackground %}
-                                                <a class="list-group-item text-dark" href="{% url 'users:organizationbackground-detail' user.organizationbackground.id %}">Background</a>
+                                                {% if user.orgbackground %}
+                                                <a class="list-group-item text-dark" href="{% url 'users:orgbackground_detail' user.orgbackground.id %}">Background</a>
                                                 {% else %}
-                                                <a class="list-group-item text-dark" href="{% url 'users:organizationbackground-create' %}">Background&nbsp;<span class="badge badge-info badge-pill px-2 text-white">Add</span></a>
+                                                <a class="list-group-item text-dark" href="{% url 'users:orgbackground_create' %}">Background&nbsp;<span class="badge badge-info badge-pill px-2 text-white">Add</span></a>
                                                 {% endif %}
                                             </div>
                                         </div>
@@ -66,41 +74,32 @@
                                             <h5 class="mb-3">Provide An Opportunity</h5>
                                             <div class="list-group list-group-flush">
                                                 {% if internships %}
-                                                <a class="list-group-item text-dark" href="{% url 'core:internship-dash' %}">Internships</a>
+                                                <a class="list-group-item text-dark" href="{% url 'core:internship_dash' %}">Internships</a>
                                                 {% else %}
                                                     {% if confirmed %}
-                                                        <a class="list-group-item text-dark" href="{% url 'core:internship-info' %}">Internships&nbsp;<span class="badge badge-info badge-pill px-2 text-white">Create</span></a>
+                                                        <a class="list-group-item text-dark" href="{% url 'core:internship_info' %}">Internships&nbsp;<span class="badge badge-info badge-pill px-2 text-white">Create</span></a>
                                                     {% else %}
                                                         <div class="list-group-item text-dark text-muted" href="#">Internships</div>
                                                     {% endif %}
                                                 {% endif %}
+
                                                 {% if scholarships %}
-                                                <a class="list-group-item text-dark" href="{% url 'core:scholarship-dash' %}">Scholarships</a>
+                                                <a class="list-group-item text-dark" href="{% url 'core:scholarship_dash' %}">Scholarships</a>
                                                 {% else %}
                                                     {% if confirmed %}
-                                                        <a class="list-group-item text-dark" href="{% url 'core:scholarship-info' %}">Scholarships&nbsp;<span class="badge badge-info badge-pill px-2 text-white">Create</span></a>
+                                                        <a class="list-group-item text-dark" href="{% url 'core:scholarship_info' %}">Scholarships&nbsp;<span class="badge badge-info badge-pill px-2 text-white">Create</span></a>
                                                     {% else %}
                                                         <div class="list-group-item text-dark text-muted" href="#">Scholarships</div>
                                                     {% endif %}
                                                 {% endif %}
+
                                                 {% if request.user.is_admin %}
                                                     {% if not externalopps %}
-                                                    <a class="list-group-item text-dark" href="{% url 'core:external-opportunity-create' %}">External</a>
+                                                    <a class="list-group-item text-dark" href="{% url 'core:external_create' %}">External</a>
                                                     {% else %}
-                                                    <a class="list-group-item text-dark" href="{% url 'core:external-opportunity-dash' %}">External</a>
+                                                    <a class="list-group-item text-dark" href="{% url 'core:external_dash' %}">External</a>
                                                     {% endif %}
                                                 {% endif %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6 mb-5" data-aos="fade-up">
-                                    <div class="card text-center text-decoration-none h-100 lift" href="#!">
-                                        <div class="card-body py-5">
-                                            <h5 class="mb-3">Manage Account</h5>
-                                            <div class="list-group list-group-flush">
-                                                <a class="list-group-item text-dark" href="#">Account Type</a>
-                                                <a class="list-group-item text-dark" href="#">Payment Information</a>
                                             </div>
                                         </div>
                                     </div>
@@ -109,9 +108,15 @@
                                 <div class="col-lg-4 col-md-6 mb-5" data-aos="fade-up">
                                     <div class="card text-center text-decoration-none h-100 lift" href="#!">
                                         <div class="card-body py-5">
-                                            <h5 class="mb-3">Manage Blog</h5>
+                                            <h5 class="mb-3">Adminstration</h5>
                                             <div class="list-group list-group-flush">
                                                 <a class="list-group-item text-dark" href="{% url 'blog:post-create' %}">New Post</a>
+                                            </div>
+                                            <div class="list-group list-group-flush">
+                                                <a class="list-group-item text-dark" href="#">Manage Organizations</a>
+                                            </div>
+                                            <div class="list-group list-group-flush">
+                                                <a class="list-group-item text-dark" href="#">Analytics</a>
                                             </div>
                                         </div>
                                     </div>

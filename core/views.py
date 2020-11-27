@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from .models import Internship, Scholarship, InternshipApplication, ScholarshipApplication, ExternalOpp
-from users.models import User, InternCommonApp, ScholarCommonApp
+from .models import Internship, Scholarship, InternshipApp, ScholarshipApp, External
+from users.models import User, UInternshipApp, UScholarshipApp
+from .forms import InternshipForm, ScholarshipForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -10,15 +11,16 @@ from django.views.generic.edit import FormMixin
 from django.urls import reverse
 from itertools import chain
 from blog.models import Post
+import datetime
+from django.core.mail import send_mail
 
 def home(request):
-    ##home
     """
-    this is the home view. 
+    -> home page
     """
     internships = Internship.objects.all()[0:4]
     scholarships = Scholarship.objects.all()[0:4]
-    externalopps = ExternalOpp.objects.all()[0:4]
+    externalopps = External.objects.all()[0:4]
     opportunities = sorted(
         chain(internships, scholarships, externalopps),
         key=lambda instance: instance.date_posted
@@ -31,38 +33,34 @@ def home(request):
     return render(request, "core/home.html", context)
 
 def about(request):
-    ##about
     """
-    this is the about view. displays information about the venture.
+    -> about page
     """
     context = {
     }
     return render(request, "core/about.html", context)
 
 def contact(request):
-    ##contact
     """
-    this is the contact view. this page holds a contact form that newsletter form.
+    -> general contact
     """
     context = {
     }
     return render(request, "core/contact.html", context)
 
-def features_organization(request):
-    ##features organization
+def features_org(request):
     """
-    this is the features orgaanizations view. this present information about the features that organizations get to utilize.
+    -> info on features for orgs
     """
     user_count = User.objects.all().filter(is_student=True).count()
     context = {
         'user_count': user_count
     }
-    return render(request, "core/features_organization.html", context)
+    return render(request, "core/features_org.html", context)
 
 def features_student(request):
-    ##features student
     """
-    this is the features student view. this present information about the features that students get to utilize.
+    -> info on features for students
     """
     org_count = User.objects.all().filter(is_organization=True).count()
     orgs = User.objects.all().filter(is_organization=True)[0:8]
@@ -75,27 +73,29 @@ def features_student(request):
     return render(request, "core/features_student.html", context)
 
 def partner_contract(request):
-    ##partner contract
     """
-    this is the partner contract view. it is the view that organizations get to before registering on the platform.
+    -> info on goals for orgs
     """
     context = {
     }
     return render(request, "core/partner_contract.html", context)
 
 def browse(request):
-    ##browse
     """
-    this is the browse view. students are able to browse opportunities by categories.
+    -> browse view
     """
+    #grabbing each opportunity type
     internships = Internship.objects.all()[0:4]
     scholarships = Scholarship.objects.all()[0:4]
-    externalopps = ExternalOpp.objects.all()[0:4]
+    externalopps = External.objects.all()[0:4]
+    #sorting them by date
     opportunities = sorted(
         chain(internships, scholarships, externalopps),
         key=lambda instance: instance.date_posted
     )
+    #grabbing the latest blog posts
     posts = Post.objects.all()[0:4]
+    #exporting context
     context = {
         'opportunities': opportunities,
         'posts': posts,
@@ -103,37 +103,33 @@ def browse(request):
     return render(request, "core/browse.html", context)
 
 def internship_info(request):
-    ##internship info for organizations
     """
-    this is the view that organizations first start to provide internships on the platform. they will 
-    be informed about the partner contract and other pieces of information.
+    -> info on internships for orgs
     """
     context = {
     }
     return render(request, "core/internship_info.html", context)
 
 def scholarship_info(request):
-    ##scholarship info for organizations
     """
-    this is the view that organizations first start to provide scholarships on the platform. they will 
-    be informed about the partner contract and other pieces of information.
+    -> info on scholarships for orgs
     """
     context = {
     }
     return render(request, "core/scholarship_info.html", context)
 
 def internship_dash(request):
-    ##internship dash for organizations
     """
-    this is the view that organizations access when they have internships to manage. organizations 
-    see a list of all of their internships and can go into the detail view for each if they choose to make 
-    any updates or delete them.
+    -> internship dashboard
+    -> allows management of internships
     """
-    page_number = request.GET.get('page')
+    #paginating internship objects
     paginator = Paginator(Internship.objects.all().filter(organization=request.user), 5)
-
+    #grabbing page number
     page_number = request.GET.get('page')
+    #paginated object
     page_obj = paginator.get_page(page_number)
+    #exporting context
     context = {
         'internships': Internship.objects.all().filter(organization=request.user),
         'page_obj': page_obj
@@ -142,17 +138,17 @@ def internship_dash(request):
     return render(request, "core/internship_dash.html", context)
 
 def scholarship_dash(request):
-    ##scholarship dash for organizations
     """
-    this is the view that organizations access when they have scholarships to manage. organizations 
-    see a list of all of their scholarships and can go into the detail view for each if they choose to make 
-    any updates or delete them.
+    -> scholarship dashboard
+    -> allows management of scholarships
     """
-    page_number = request.GET.get('page')
+    #paginating scholarship objects
     paginator = Paginator(Scholarship.objects.all().filter(organization=request.user), 5)
-
+    #grabbing page number
     page_number = request.GET.get('page')
+    #paginated object
     page_obj = paginator.get_page(page_number)
+    #exporting context
     context = {
         'scholarships': Scholarship.objects.all().filter(organization=request.user),
         'page_obj': page_obj
@@ -160,40 +156,45 @@ def scholarship_dash(request):
     }
     return render(request, "core/scholarship_dash.html", context)
 
-def externalopp_dash(request):
-    ##external opportunity dash for admin
+def external_dash(request):
     """
-    this is the view that admins access when they have external opportunities to manage. admins 
-    see a list of all of the extneral opportunities and can either update or delete them.
+    -> external dashboard
+    -> allows management of external opportunities
     """
+    #paginating external objects
+    paginator = Paginator(External.objects.filter(organization=request.user), 5)
+    #grabbing page number
     page_number = request.GET.get('page')
-    paginator = Paginator(ExternalOpp.objects.filter(organization=request.user), 5)
-
-    page_number = request.GET.get('page')
+    #paginated object
     page_obj = paginator.get_page(page_number)
+    #exporting context
     context = {
-        'externalopps': ExternalOpp.objects.filter(organization=request.user),
+        'externalopps': External.objects.filter(organization=request.user),
         'page_obj': page_obj
 
     }
-    return render(request, "core/externalopp_dash.html", context)
+    return render(request, "core/external_dash.html", context)
 
 def internship_list(request):
-    ##internships list view
     """
-    this is the category view for internships 
+    -> category view for internships 
     """
+    #grabbing all internal internships
     internships = Internship.objects.all()
-    externalopps = ExternalOpp.objects.all().filter(type="EIN")
+    #grabbing all external internships
+    external = External.objects.all().filter(type="EIN")
+    #sorting them by date
     opportunities = sorted(
-        chain(internships, externalopps),
+        chain(internships, external),
         key=lambda instance: instance.date_posted
     )
-    page_number = request.GET.get('page')
+    #paginating internship objects
     paginator = Paginator(opportunities, 32)
-
+    #grabbing page number
     page_number = request.GET.get('page')
+    #paginated object
     page_obj = paginator.get_page(page_number)
+    #exporting context
     context = {
         'internships': opportunities,
         'page_obj': page_obj
@@ -202,21 +203,25 @@ def internship_list(request):
     return render(request, "core/internship_list.html", context)
 
 def scholarship_list(request):
-    ##internships list view
     """
-    this is the category view for scholarships 
+    -> category view for scholarships 
     """
+    #grabbing all internal scholarships
     scholarships = Scholarship.objects.all()
-    externalopps = ExternalOpp.objects.all().filter(type="ESC")
+    #grabbing all external scholarships
+    external = External.objects.all().filter(type="ESC")
+    #sorting them by date
     opportunities = sorted(
-        chain(scholarships, externalopps),
+        chain(scholarships, external),
         key=lambda instance: instance.date_posted
     )
-    page_number = request.GET.get('page')
+    #paginating scholarship objects
     paginator = Paginator(opportunities, 32)
-
+    #grabbing page number
     page_number = request.GET.get('page')
+    #paginated object
     page_obj = paginator.get_page(page_number)
+    #exporting context
     context = {
         'scholarships': opportunities,
         'page_obj': page_obj
@@ -224,136 +229,142 @@ def scholarship_list(request):
     }
     return render(request, "core/scholarship_list.html", context)
 
-class InternshipListView(ListView):
-    ##internships list view
-    """
-    this is the category view for internships 
-    """
-    model = Internship
-    template_name = 'core/internship_list.html'  
-    context_object_name = 'intern'
-    ordering = ['-date_posted']
-    paginate_by = 32
-
 class InternshipDetailView(DetailView):
-    ##internship detail view
     """
-    this is the detailed view for a internship, it provides further information to students before they apply,
-    and it provides access to update and delete the internship for the organizations. 
+    -> internship detail view
+    -> provides info to students before they apply
+    -> allows orgs to update and delete the internship 
     """
     model = Internship
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         '''
-        here we are checking if the user.is_student has completed their profile.
-        we are only checking if they have completed the contact, background, and academic information, 
-        they will add their resume and cover letter to the internship application. 
-        we use the variable status for this.
-
-        we are also checking if the user applied to the internship already
-        we use the variable match for this.
-
-        lastly we are collecting of the associated internship applications 
-        for the organizations to manage below.
+        -> checking if user.is_student has completed their profile. 
+        -> checking if user.is_student applied to the internship already
+        -> collecting the associated internship applications for orgs to view
         '''
         if self.request.user.is_authenticated:
             context['status'] = False 
             user = self.request.user
-            #status
+            #checking status
             try:
-                if user.contact and user.background and user.academic and user.interncommonapp:
+                if user.contact and user.background and user.academic and user.uinternshipapp:
                     context['status'] = True
             except: pass 
-            #match
-            match = InternshipApplication.objects.all().filter(student=user, internship=self.object.id)
-            print(match)
+            #checkig match
+            match = InternshipApp.objects.all().filter(student=user, internship=self.object.id)
             if match:
                 context['match'] = True
-            #applicants
-            applicants = InternshipApplication.objects.all().filter(internship=self.object.id)
+            #collecting applicants
+            applicants = InternshipApp.objects.all().filter(internship=self.object.id)
+            #checking if expired
+
             if applicants:
-                context['sub_applicants'] = applicants[0:4]
-            context['applicants'] = applicants
+                context['applicants'] = applicants
         else:
             pass
         return context
 
-class InternshipCreateView(LoginRequiredMixin, CreateView):
-    ##internship create view
+@login_required(login_url='users:login')
+def create_internship(request):
     """
-    this is form that organizations fill out to create a internship. 
+    -> internship create view
     """
-    model = Internship
-    fields = [
-        ##basic information
-        'title', 'industry', 'number_of_positions', 'description',
-        ##education requirements
-        'grade_level','degree','gpa',
-        ##financial information
-        'salary'
-        ]
+    if request.method == 'POST':
+        form = InternshipForm(request.POST)
+        form.instance.organization = request.user        
+        if form.is_valid():
+            title = request.POST['title']
+            internship = Internship(
+                organization=request.user,
+                title=title,
+                field=request.POST['field'],
+                desc=request.POST['desc'],
+                pos=request.POST['pos'],
+                edu_level=request.POST['edu_level'],
+                degree=request.POST['degree'],
+                gpa=request.POST['gpa'],
+                salary=request.POST['salary'],
+                valid_date=request.POST['valid_date'],
+                city=request.POST['city'],
+                state=request.POST['state'],
+            )
+            internship.save()
+            messages.success(request, f'{title} has been successfully created!')
+            return redirect('core:internship_dash')
+    else:
+        form = InternshipForm()
+    
+    context = {
+        'form': form,
+    }
+    return render(request, 'core/internship_form.html', context)
 
-    def form_valid(self, form):
-        form.instance.organization = self.request.user
-        return super().form_valid(form)
-
-class InternshipUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    ##internship update view
+@login_required(login_url='users:login')
+def update_internship(request, pk):
     """
-    this is form that organizations fill out to update a internship. 
+    -> internship update view
     """
-    model = Internship
-    fields = [
-        ##basic information
-        'title', 'industry', 'number_of_positions', 'description',
-        ##education requirements
-        'grade_level','degree','gpa',
-        ##financial information
-        'salary'
-        ]
-
-    def form_valid(self, form):
-        form.instance.organization = self.request.user
-        return super().form_valid(form)
-
-    def test_func(self):
-        intern = self.get_object()
-        if intern:
-            return True
-        return False
+    internship = Internship.objects.all().filter(id=pk).first()
+    if request.method == 'POST':
+        form = InternshipForm(request.POST, instance=internship)
+        form.instance.organization = request.user        
+        if form.is_valid():
+            title = request.POST['title']
+            internship.title = title
+            internship.field = request.POST['field']
+            internship.desc = request.POST['desc']
+            internship.pos = request.POST['pos']
+            internship.edu_level = request.POST['edu_level']
+            internship.degree = request.POST['degree']
+            internship.gpa = request.POST['gpa']
+            internship.salary = request.POST['salary']
+            internship.valid_date = request.POST['valid_date']
+            internship.city = request.POST['city']
+            internship.state = request.POST['state']
+            
+            internship.save()
+            messages.success(request, f'{title} has been successfully updated!')
+            return redirect('core:internship_detail', internship.id)
+    else:
+        form = InternshipForm(instance=internship)
+    
+    context = {
+        'form': form,
+    }
+    return render(request, 'core/internship_form.html', context)
 
 class InternshipDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    ##internship delete view
     """
-    this is the view that organizations see to delete a internship.
+    -> internship delete view
     """
     model = Internship
-    success_url = '/'
+    success_url = '/internship-dash'
 
     def test_func(self):
-        intern = self.get_object()
-        if intern:
+        obj = self.get_object()
+        if obj:
             return True
         return False
 
-class InternshipApplicationCreateView(LoginRequiredMixin, CreateView):
-    ##internship application create view
+class InternshipAppCreateView(LoginRequiredMixin, CreateView):
     """
-    this is how students are able to apply to the internships. we create a internship application and
-    attach it in association with the student and the organization. The organization is able to make updates to
-    the model by it's status, and students are able to check their application status.
+    -> internship app create view
     """
-    model = InternshipApplication
+    model = InternshipApp
     success_url = "/users/profile/"
     fields = ['resume', 'confirm']
 
 
     def form_valid(self, form):
+        #grabbing internship primary key
         internships = self.kwargs["internships"]
+        #setting the student and internship
         form.instance.student = self.request.user
         form.instance.internship = Internship.objects.all().filter(id=internships)[0]
-        match = InternshipApplication.objects.all().filter(internship=form.instance.internship, student=form.instance.student)
+        #determing whether student already applied to internship
+        match = InternshipApp.objects.all().filter(internship=form.instance.internship, student=form.instance.student)
         if match:
             messages.warning(self.request,f"You have already applied to this internship. Check on the status below.")
             return redirect("users:profile")
@@ -363,36 +374,30 @@ class InternshipApplicationCreateView(LoginRequiredMixin, CreateView):
             return super().form_valid(form)
     
     def get_context_data(self, **kwargs):
-        context = super(InternshipApplicationCreateView, self).get_context_data(**kwargs)
+        context = super(InternshipAppCreateView, self).get_context_data(**kwargs)
         context['internship'] = Internship.objects.all().filter(id=self.kwargs["internships"])[0]
         return context
 
-class InternshipApplicationDetailView(LoginRequiredMixin, DetailView):
-    ##internship application detail view
+class InternshipAppDetailView(LoginRequiredMixin, DetailView):
     """
-    this is the internship application detail view. 
+    -> internship app detail view
     """
-    model = InternshipApplication
+    model = InternshipApp
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        q1 = InternCommonApp.objects.get(id=self.object.id)._meta.get_field('q1').verbose_name
-        q2 = InternCommonApp.objects.get(id=self.object.id)._meta.get_field('q2').verbose_name
-        q3 = InternCommonApp.objects.get(id=self.object.id)._meta.get_field('q3').verbose_name
-        status = self.object.status
-        #insert email to student based on status type
+        q1 = UInternshipApp.objects.get(id=self.object.student.uinternshipapp.id)._meta.get_field('q1').verbose_name
+        q2 = UInternshipApp.objects.get(id=self.object.student.uinternshipapp.id)._meta.get_field('q2').verbose_name
 
         context['q1'] = q1
         context['q2'] = q2
-        context['q3'] = q3
         return context
 
-class InternshipApplicationUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    ##internship application update view
+class InternshipAppUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     """
-    this is form that organizations fill out to update a scholarship. 
+    -> internship app update view
     """
-    model = InternshipApplication
+    model = InternshipApp
     fields = [
         'status', 
         ]
@@ -401,144 +406,157 @@ class InternshipApplicationUpdateView(LoginRequiredMixin, UserPassesTestMixin, U
     def form_valid(self, form):
         form.instance.internship.organization = self.request.user
         messages.success(self.request, f"You have updated the internship application.")
+        app = InternshipApp.objects.all().filter(id=self.object.id).first()
+        send_mail(
+            "Your Application Has Been Updated!", 
+            "Your Application Has Been Updated!", 
+            app.internship.organization.email, 
+            [app.student.email], 
+            fail_silently = False,
+            html_message="<h1>Thank you for applying!</h1><p>Your application has been reviewed. Please log in to your profile to view the status of your application.</p>",
+        )
         return super().form_valid(form)
 
     def test_func(self):
-        internship = self.get_object()
-        if internship:
+        obj = self.get_object()
+        if obj:
             return True
         return False
 
-class ScholarshipListView(ListView):
-    ##scholarships list view
-    """
-    this is the category view for scholarships 
-    """
-    model = Scholarship
-    template_name = 'core/scholarship_list.html'  
-    context_object_name = 'scholarship'
-    ordering = ['-date_posted']
-    paginate_by = 32
-
 class ScholarshipDetailView(DetailView):
-    ##scholarship detail view
     """
-    this is the detailed view for a scholarship, it provides further information to students before they apply,
-    and it provides access to update and delete the scholarship for the organizations. 
+    -> scholarship detail view
+    -> provides info to students before they apply
+    -> allows orgs to update and delete the internship 
     """
     model = Scholarship
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         '''
-        here we are checking if the user.is_student has completed their profile.
-        we are only checking if they have completed the contact, background, and academic information, 
-        they will add their resume and cover letter to the internship application. 
-        we use the variable status for this.
-
-        we are also checking if the user applied to the internship already
-        we use the variable match for this.
-
-        lastly we are collecting of the associated internship applications 
-        for the organizations to manage below.
+        -> checking if user.is_student has completed their profile. 
+        -> checking if user.is_student applied to the scholarship already
+        -> collecting the associated scholarship applications for orgs to view
         '''
         if self.request.user.is_authenticated:
             context['status'] = False 
             user = self.request.user
-            #status
+            #checking status
             try:
-                if user.contact and user.background and user.academic and user.scholarcommonapp:
+                if user.contact and user.background and user.academic and user.uscholarshipapp:
                     context['status'] = True
             except: pass 
-            #match
-            match = ScholarshipApplication.objects.all().filter(student=self.request.user, scholarship=self.object.id)
-            print(match)
+            #checkig match
+            match = ScholarshipApp.objects.all().filter(student=self.request.user, scholarship=self.object.id)
             if match:
                 context['match'] = True
-            #applicants
-            applicants = ScholarshipApplication.objects.all().filter(scholarship=self.object.id)
+            #collecting applicants
+            applicants = ScholarshipApp.objects.all().filter(scholarship=self.object.id)
             if applicants:
-                context['sub_applicants'] = applicants[0:4]
                 context['applicants'] = applicants
         else:
             pass
         return context
 
-class ScholarshipCreateView(LoginRequiredMixin, CreateView):
-    ##scholarship create view
+@login_required(login_url='users:login')
+def create_scholarship(request):
     """
-    this is form that organizations fill out to create a scholarship. 
+    -> scholarship create view
     """
-    model = Scholarship
-    fields = [
-        ##basic information
-        'title', 'field', 'description', 'number_of_appliants', 'description',
-        ##education requirements
-        'grade_level','degree','gpa',
-        ##financial information
-        'amount'
-        ]
+    if request.method == 'POST':
+        form = ScholarshipForm(request.POST)
+        form.instance.organization = request.user        
+        if form.is_valid():
+            title = request.POST['title']
+            scholarship = Scholarship(
+                organization=request.user,
+                title=title,
+                field=request.POST['field'],
+                desc=request.POST['desc'],
+                pos=request.POST['pos'],
+                edu_level=request.POST['edu_level'],
+                degree=request.POST['degree'],
+                gpa=request.POST['gpa'],
+                salary=request.POST['salary'],
+                valid_date=request.POST['valid_date'],
+                city=request.POST['city'],
+                state=request.POST['state'],
+            )
+            scholarship.save()
+            messages.success(request, f'{title} has been successfully created!')
+            return redirect('core:scholarship_dash')
+    else:
+        form = ScholarshipForm()
+    
+    context = {
+        'form': form,
+    }
+    return render(request, 'core/scholarship_form.html', context)
 
-    def form_valid(self, form):
-        form.instance.organization = self.request.user
-        return super().form_valid(form)
-
-class ScholarshipUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    ##scholarship update view
+@login_required(login_url='users:login')
+def update_scholarship(request, pk):
     """
-    this is form that organizations fill out to update a scholarship. 
+    -> scholarship update view
     """
-    model = Scholarship
-    fields = [
-        ##basic information
-        'title', 'field', 'description', 'number_of_appliants', 'description',
-        ##education requirements
-        'grade_level','degree','gpa',
-        ##financial information
-        'amount'
-        ]
-
-    def form_valid(self, form):
-        form.instance.organization = self.request.user
-        return super().form_valid(form)
-
-    def test_func(self):
-        scholarship = self.get_object()
-        if scholarship:
-            return True
-        return False
+    scholarship = Scholarship.objects.all().filter(id=pk).first()
+    if request.method == 'POST':
+        form = ScholarshipForm(request.POST, instance=scholarship)
+        form.instance.organization = request.user        
+        if form.is_valid():
+            title = request.POST['title']
+            scholarship.title = title
+            scholarship.field = request.POST['field']
+            scholarship.desc = request.POST['desc']
+            scholarship.pos = request.POST['pos']
+            scholarship.edu_level = request.POST['edu_level']
+            scholarship.degree = request.POST['degree']
+            scholarship.gpa = request.POST['gpa']
+            scholarship.salary = request.POST['salary']
+            scholarship.valid_date = request.POST['valid_date']
+            scholarship.city = request.POST['city']
+            scholarship.state = request.POST['state']
+            
+            scholarship.save()
+            messages.success(request, f'{title} has been successfully updated!')
+            return redirect('core:scholarship_detail', scholarship.id)
+    else:
+        form = InternshipForm(instance=scholarship)
+    
+    context = {
+        'form': form,
+    }
+    return render(request, 'core/scholarship_form.html', context)
 
 class ScholarshipDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    ##scholarship delete view
     """
-    this is the view that organizations see to delete a scholarship.
+    -> scholarship delete view
     """
     model = Scholarship
-    success_url = '/'
+    success_url = '/scholarship-dash'
 
     def test_func(self):
-        scholarship = self.get_object()
-        if scholarship:
+        obj = self.get_object()
+        if obj:
             return True
         return False
 
-class ScholarshipApplicationCreateView(LoginRequiredMixin, CreateView):
-    ##scholarship application create view
+class ScholarshipAppCreateView(LoginRequiredMixin, CreateView):
     """
-    this is how students are able to apply to the scholarship. we create a scholarship application and
-    attach it in association with the student and the organization. The organization is able to make updates to
-    the model by it's status, and students are able to check their application status.
+    -> scholarship app create view
     """
-    model = ScholarshipApplication
+    model = ScholarshipApp
     success_url = "/users/profile/"
     fields = ['resume', 'confirm']
 
 
     def form_valid(self, form):
+        #grabbing scholarship primary key
         scholarships = self.kwargs["scholarships"]
+        #setting the student and scholarship
         form.instance.student = self.request.user
         form.instance.scholarship = Scholarship.objects.all().filter(id=scholarships)[0]
-        match = ScholarshipApplication.objects.all().filter(scholarship=form.instance.scholarship, student=form.instance.student)
+        #determing whether student already applied to scholarship
+        match = ScholarshipApp.objects.all().filter(scholarship=form.instance.scholarship, student=form.instance.student)
         if match:
             messages.warning(self.request,f"You have already applied to this scholarship. Check on the status below.")
             return redirect("users:profile")
@@ -548,36 +566,30 @@ class ScholarshipApplicationCreateView(LoginRequiredMixin, CreateView):
             return super().form_valid(form)
     
     def get_context_data(self, **kwargs):
-        context = super(ScholarshipApplicationCreateView, self).get_context_data(**kwargs)
+        context = super(ScholarshipAppCreateView, self).get_context_data(**kwargs)
         context['scholarship'] = Scholarship.objects.all().filter(id=self.kwargs["scholarships"])[0]
         return context
 
-class ScholarshipApplicationDetailView(LoginRequiredMixin, DetailView):
-    ##scholarship application detail view
+class ScholarshipAppDetailView(LoginRequiredMixin, DetailView):
     """
-    this is the scholarship application detail view. 
+    -> scholarship app detail view
     """
-    model = ScholarshipApplication
+    model = ScholarshipApp
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        q1 = ScholarCommonApp.objects.get(id=self.object.id)._meta.get_field('q1').verbose_name
-        q2 = ScholarCommonApp.objects.get(id=self.object.id)._meta.get_field('q2').verbose_name
-        q3 = ScholarCommonApp.objects.get(id=self.object.id)._meta.get_field('q3').verbose_name
-        status = self.object.status
-        #insert email to student based on status type
+        q1 = UScholarshipApp.objects.get(id=self.object.student.uscholarshipapp.id)._meta.get_field('q1').verbose_name
+        q2 = UScholarshipApp.objects.get(id=self.object.student.uscholarshipapp.id)._meta.get_field('q2').verbose_name
 
         context['q1'] = q1
         context['q2'] = q2
-        context['q3'] = q3
         return context
 
-class ScholarshipApplicationUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    ##scholarship application update view
+class ScholarshipAppUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     """
-    this is form that organizations fill out to update a scholarship. 
+    -> scholarship app update view
     """
-    model = ScholarshipApplication
+    model = ScholarshipApp
     fields = [
         'status', 
         ]
@@ -585,58 +597,64 @@ class ScholarshipApplicationUpdateView(LoginRequiredMixin, UserPassesTestMixin, 
 
     def form_valid(self, form):
         form.instance.scholarship.organization = self.request.user
+        app = ScholarshipApp.objects.all().filter(id=self.object.id).first()
         messages.success(self.request, f"You have updated the scholarship application.")
+        send_mail(
+            "Your Application Has Been Updated!", 
+            "Your Application Has Been Updated!", 
+            app.scholarship.organization.email, 
+            [app.student.email], 
+            fail_silently = False,
+            html_message="<h1>Thank you for applying!</h1><p>Your application has been reviewed. Please log in to your profile to view the status of your application.</p>",
+        )
         return super().form_valid(form)
 
     def test_func(self):
-        scholarship = self.get_object()
-        if scholarship:
+        obj = self.get_object()
+        if obj:
             return True
         return False
 
-class ExternalOppCreateView(LoginRequiredMixin, CreateView):
-    ##external opportunity create view
+class ExternalCreateView(LoginRequiredMixin, CreateView):
     """
-    this is the create view for the external opportunity model.
+    -> external create view
     """
-    model = ExternalOpp
+    model = External
     fields = ['host','title','type','field','link']
-    success_url = '/external-opportunity-dash/'
+    success_url = '/external-dash/'
 
 
     def form_valid(self, form):
         form.instance.organization = self.request.user
         return super().form_valid(form)
 
-class ExternalOppUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    ##external opportunity update view
+class ExternalUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     """
-    this is the update view for the external opportunity model.
+    -> external update view
     """
-    model = ExternalOpp
+    model = External
     fields = ['host','title','type','field','link']
-    success_url = '/external-opportunity-dash/'
+    success_url = '/external-dash/'
 
     def form_valid(self, form):
         form.instance.organization = self.request.user
         return super().form_valid(form)
 
     def test_func(self):
-        externalopp = self.get_object()
-        if externalopp:
+        obj = self.get_object()
+        if obj:
             return True
         return False
 
-class ExternalOppDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    ##external opportunity delete view
+class ExternalDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     """
-    this is the delete view for the external opportunity model.
+    -> external delete view
     """
-    model = ExternalOpp
-    success_url = '/external-opportunity-dash/'
+    model = External
+    success_url = '/external-dash/'
 
     def test_func(self):
-        externalopp = self.get_object()
-        if externalopp:
+        obj = self.get_object()
+        if obj:
             return True
         return False

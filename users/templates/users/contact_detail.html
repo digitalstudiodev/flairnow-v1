@@ -30,10 +30,10 @@
                                                 <h3 class="title mx-auto ml-3 mb-5">Contact Infomation</h3>
                                                 <ul class="fa-ul pricing-list">
                                                     <li class="pricing-list-item">
-                                                        <span class="fa-li"><i class="fas fa-phone text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">Phone Number:</span> {{ object.phone_number }}</span>
+                                                        <span class="fa-li"><i class="fas fa-phone text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">Phone Number:</span> {{ object.phone }}</span>
                                                     </li>
                                                     <li class="pricing-list-item">
-                                                        <span class="fa-li"><i class="fas fa-birthday-cake text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">Date of Birth:</span> {{ object.date_of_birth }}</span>
+                                                        <span class="fa-li"><i class="fas fa-birthday-cake text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">Date of Birth:</span> {{ object.dob }}</span>
                                                     </li>
                                                     <li class="pricing-list-item">
                                                         <span class="fa-li"><i class="fas fa-map-marker-alt text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">Primary Address</span> {{ object.primary_address }}</span>
@@ -49,7 +49,7 @@
                                                     </li>
                                                 </ul>
                                                 <div class="text-center">
-                                                    <a class="btn btn-info btn-marketing rounded-pill lift lift-sm my-3 text-white" href="{% url 'users:contact-update' object.id %}">Update</a>
+                                                    <a class="btn btn-info btn-marketing rounded-pill lift lift-sm my-3 text-white" href="{% url 'users:contact_update' object.id %}">Update</a>
                                                     <a class="btn btn-marketing text-dark" href="{% url 'users:profile' %}">Profile</a>
                                                 </div>
                                             </div>

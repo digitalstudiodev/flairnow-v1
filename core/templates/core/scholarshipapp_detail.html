@@ -23,7 +23,7 @@
                     <header class="page-header page-header-dark bg-warning" style="background-image: url({% static 'flairnow_assets/assets/img/pattern-shapes.png' %})">
                         <div class="page-header-content">
                             <div class="container">
-                                {% if object.internship.organization == request.user %}
+                                {% if object.scholarship.organization == request.user %}
                                 <div class="row justify-content-center">
                                     <div class="col-xl-8 col-lg-10 text-center">
                                         <img class="mb-4 rounded-circle" src="{{ object.student.profile.image.url }}" style="width: 15rem;" />
@@ -34,7 +34,7 @@
                                             Status
                                             <span class="badge badge-dark rounded-pill p-2">{{ object.get_status_display }}</span>
                                         </p>
-                                        <a class="btn btn-info btn-marketing rounded-pill lift lift-sm my-3 mx-2" href="{% url 'core:internship-application-update' object.id %}">Update</a>
+                                        <a class="btn btn-info btn-marketing rounded-pill lift lift-sm my-3 mx-2" href="{% url 'core:scholarship_app_update' object.id %}">Update</a>
                                         {% if object.student.resume %}
                                         <a class="btn btn-dark btn-marketing rounded-pill lift lift-sm my-3 mx-2" href="{{ object.student.resume.resume.url }}" target="_blank">View Resume</a>
                                         {% endif %}
@@ -44,12 +44,12 @@
                                 {% if object.student == request.user %}
                                 <div class="row justify-content-center">
                                     <div class="col-xl-8 col-lg-10 text-center">
-                                        <img class="mb-4 rounded-circle" src="{{ object.internship.organization.profile.image.url }}" style="width: 15rem;" />
+                                        <img class="mb-4 rounded-circle" src="{{ object.scholarship.organization.profile.image.url }}" style="width: 15rem;" />
                                         <h1 class="page-header-title">
-                                            {{ object.internship.organization.org_name }} 
+                                            {{ object.scholarship.organization.org_name }} 
                                         </h1>
                                         <h3 class="page-header-title" style="font-size: medium;">
-                                            <a href="{% url 'core:internship-detail' object.internship.id %}" class="btn-link">{{ object.internship.title }} </a>
+                                            <a href="{% url 'core:scholarship_detail' object.scholarship.id %}" class="btn-link">{{ object.scholarship.title }} </a>
                                         </h3>
                                         <p>
                                             Status
@@ -64,7 +64,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
                         </div>
                     </header>
-                    {% if object.internship.organization == request.user %}
+                    {% if object.scholarship.organization == request.user %}
                     <section class="bg-white py-10">
                         <div class="container mt-10">
                             {% include 'core/messages.html' %}
@@ -72,22 +72,25 @@
                                 <div class="col-lg-5">
                                     {% if object.student.academic %}
                                     <ul class="list-group list-group-flush list-group-careers">
+                                        <li class="list-group-item pt-0">
+                                            <a class="small" href="{% url 'core:scholarship_detail' object.scholarship.id %}"><i class="fas fa-arrow-left mr-1"></i>Back to {{ object.scholarship.title }}</a>
+                                        </li>
                                         <li class="list-group-item">
                                             Current or Preferred College/University 
                                             <span class="font-weight-bold">
-                                                {{ object.student.academic.college }}
+                                                {{ object.student.academic.school }}
                                             </span>
                                         </li>
                                         <li class="list-group-item">
-                                            Current Grade Level 
+                                            Edu Level 
                                             <span class="font-weight-bold">
-                                                {{ object.student.academic.get_current_grade_level_display }}
+                                                {{ object.student.academic.get_edu_level_display }}
                                             </span>
                                         </li>
                                         <li class="list-group-item">
-                                            Degree You Are Currently Pursuing 
+                                            Degree  
                                             <span class="font-weight-bold">
-                                                {{ object.student.academic.get_degree_in_pursuit_display }}
+                                                {{ object.student.academic.get_degree_display }}
                                             </span>
                                         </li>
                                         <li class="list-group-item">
@@ -97,27 +100,15 @@
                                             </span>
                                         </li>
                                         <li class="list-group-item">
-                                            SAT Score 
-                                            <span class="font-weight-bold">
-                                                {{ object.student.academic.get_sat_score_display }}
-                                            </span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            ACT Score 
-                                            <span class="font-weight-bold">
-                                                {{ object.student.academic.get_act_score_display }}
-                                            </span>
-                                        </li>
-                                        <li class="list-group-item">
                                             GPA 
                                             <span class="font-weight-bold">
                                                 {{ object.student.academic.get_gpa_display }}
                                             </span>
                                         </li>
                                         <li class="list-group-item">
-                                            Graudation Year 
+                                            Class 
                                             <span class="font-weight-bold">
-                                                {{ object.student.academic.get_expected_grad_year_display }}
+                                                {{ object.student.academic.get_grad_year_display }}
                                             </span>
                                         </li>
                                     </ul>
@@ -128,13 +119,11 @@
                                     {% endif %}
                                 </div>
                                 <div class="col-lg-7">
-                                    <h1 class="mb-4">Common Application</h1>
+                                    <h1 class="mb-4">Scholarship Application</h1>
                                     <h4>{{ q1 }}</h4>
-                                    <p>{{ object.student.interncommonapp.q1 }}</p>
+                                    <p>{{ object.student.uscholarshipapp.q1 }}</p>
                                     <h4>{{ q2 }}</h4>
-                                    <p>{{ object.student.interncommonapp.q2 }}</p>
-                                    <h4>{{ q3 }}</h4>
-                                    <p>{{ object.student.interncommonapp.q3 }}</p>
+                                    <p>{{ object.student.uscholarshipapp.q2 }}</p>
                                 </div>
                             </div>
                         </div>

@@ -1,5 +1,5 @@
 {% load crispy_forms_tags %}
-{% load static %}
+{% load static %} 
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -26,12 +26,13 @@
                               <div class="row align-items-center">
                                 <div class="col-lg-8 m-auto">
                                     <div class="card rounded-lg text-dark">
-                                        <div class="card-header py-4 text-dark">Scholarship Common Application</div>
+                                        <div class="card-header py-4 text-dark">Contact Information</div>
                                         <div class="card-body">
                                           <form class="register-form" method="POST">
                                             {% csrf_token %}
                                             {{ form|crispy }}
                                             <button class="btn btn-marketing btn-info btn-block btn-round rounded-pill" type="Submit">Save</button>
+                                            <a class="btn btn-warning btn-block btn-round rounded-pill" href="{% url 'users:org_profile' %}">Cancel</a>
                                           </form>
                                         </div>
                                     </div>

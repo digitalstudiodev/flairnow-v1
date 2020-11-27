@@ -77,12 +77,19 @@
                                         schools opening up their admission to undocumented students. We aim to assist students to identify opportunities that may spark interests 
                                         and help prepare them to apply. We strongly suggest our partner organizations to be open to provide for this group of our target users.
                                     </p>
+                                    {% if not request.user.is_approved %}
+                                        <div class="alert alert-warning my-5" style="border-radius: 2rem;">
+                                            Your account is currently being reviewed. We will notify you within 3 - 5 days regarding your status. In the 
+                                            meantime please complete your organization's profile information, this is necessary for our review process.
+                                        </div>
+                                    {% endif %}
                                     <hr class="my-5" />
                                     <div class="text-center">
                                         {% if not request.user.is_approved %}
                                             <a class="btn btn-link btn-marketing rounded-pill text-dark" href="{% url 'core:contact' %}">Contact</a>
+                                            <a class="btn btn-link btn-marketing rounded-pill text-dark" href="{% url 'users:org_profile' %}">Profile</a>
                                         {% else %}
-                                            <a class="btn btn-info btn-marketing rounded-pill" href="{% url 'core:scholarship-create' %}">Create</a>
+                                            <a class="btn btn-info btn-marketing rounded-pill" href="{% url 'core:scholarship_create' %}">Create</a>
                                             <a class="btn btn-link btn-marketing rounded-pill text-dark" href="{% url 'core:contact' %}">Contact</a>
                                         {% endif %}
                                     </div>

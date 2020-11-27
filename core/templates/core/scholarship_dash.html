@@ -27,7 +27,7 @@
                                 <div class="row justify-content-center">
                                     <div class="col-xl-8 col-lg-10 text-center" data-aos="fade">
                                         <h1 class="page-header-title">Scholarships</h1>
-                                        <a class="btn btn-info btn-marketing rounded-pill lift lift-sm my-3" href="{% url 'core:scholarship-create' %}">Add New</a>
+                                        <a class="btn btn-info btn-marketing rounded-pill lift lift-sm my-3" href="{% url 'core:scholarship_create' %}">Add New</a>
                                     </div>
                                 </div>
                             </div>
@@ -41,22 +41,27 @@
                             {% include 'core/messages.html' %}
                             <div class="row justify-content-center">
                                 <div class="col-lg-10">
+                                    <ul class="list-group list-group-flush list-group-careers">
+                                        <li class="list-group-item pt-0">
+                                            <a class="small" href="{% url 'users:org_profile' %}"><i class="fas fa-arrow-left mr-1"></i>Back to Profile</a>
+                                        </li>
+                                    </ul>
                                     {% for scholarship in page_obj %}
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <h2 class="mb-0"><a href="{% url 'core:scholarship-detail' scholarship.id %}" class="btn-link text-dark">{{ scholarship.title }}</a></h2>
+                                        <h2 class="mb-0"><a href="{% url 'core:scholarship_detail' scholarship.id %}" class="btn-link text-dark">{{ scholarship.title }}</a></h2>
                                         <div class="badge badge-info text-white badge-marketing">
-                                            {{ scholarship.get_amount_display }}
+                                            $ {{ scholarship.salary }}
                                         </div>
                                     </div>
                                     <hr class="mb-0" />
                                     <ul class="list-group list-group-flush list-group-careers text-dark">
                                         <li class="list-group-item">
-                                            Field
-                                            <div class="small">{{ scholarship.get_field_display }}</div>
+                                            Date Posted
+                                            <div class="small">{{ scholarship.date_posted }}</div>
                                         </li>
                                         <li class="list-group-item">
-                                            Grade Level
-                                            <div class="small">{{ scholarship.get_grade_level_display }}</div>
+                                            Application Deadline
+                                            <div class="small">{{ scholarship.valid_date }}</div>
                                         </li>
                                     </ul>
                                     {% endfor %}

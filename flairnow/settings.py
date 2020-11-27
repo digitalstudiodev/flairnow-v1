@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     'crispy_forms',
     'storages',
     'multiselectfield',
+    'bootstrap4',
+    'bootstrap_datepicker_plus',
+    'phone_field'
 ]
 
 MIDDLEWARE = [

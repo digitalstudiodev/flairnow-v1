@@ -27,7 +27,7 @@
                                 <div class="row justify-content-center">
                                     <div class="col-xl-8 col-lg-10 text-center" data-aos="fade">
                                         <h1 class="page-header-title">Internships</h1>
-                                        <a class="btn btn-info btn-marketing rounded-pill lift lift-sm my-3" href="{% url 'core:internship-create' %}">Add New</a>
+                                        <a class="btn btn-info btn-marketing rounded-pill lift lift-sm my-3" href="{% url 'core:internship_create' %}">Add New</a>
                                     </div>
                                 </div>
                             </div>
@@ -41,22 +41,27 @@
                             {% include 'core/messages.html' %}
                             <div class="row justify-content-center">
                                 <div class="col-lg-10">
+                                    <ul class="list-group list-group-flush list-group-careers">
+                                        <li class="list-group-item pt-0">
+                                            <a class="small" href="{% url 'users:org_profile' %}"><i class="fas fa-arrow-left mr-1"></i>Back to Profile</a>
+                                        </li>
+                                    </ul>
                                     {% for internship in page_obj %}
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <h2 class="mb-0"><a href="{% url 'core:internship-detail' internship.id %}" class="btn-link text-dark">{{ internship.title }}</a></h2>
+                                        <h2 class="mb-0"><a href="{% url 'core:internship_detail' internship.id %}" class="btn-link text-dark">{{ internship.title }}</a></h2>
                                         <div class="badge badge-info text-white badge-marketing">
-                                            {{ internship.get_salary_display }}
+                                            $ {{ internship.salary }}
                                         </div>
                                     </div>
                                     <hr class="mb-0" />
                                     <ul class="list-group list-group-flush list-group-careers text-dark">
                                         <li class="list-group-item">
-                                            Industry
-                                            <div class="small">{{ internship.get_industry_display }}</div>
+                                            Date Posted
+                                            <div class="small">{{ internship.date_posted }}</div>
                                         </li>
                                         <li class="list-group-item">
-                                            Grade Level
-                                            <div class="small">{{ internship.get_grade_level_display }}</div>
+                                            Application Deadline
+                                            <div class="small">{{ internship.valid_date }}</div>
                                         </li>
                                     </ul>
                                     {% endfor %}
