@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'multiselectfield',
     'bootstrap4',
     'bootstrap_datepicker_plus',
-    'phone_field'
 ]
 
 MIDDLEWARE = [

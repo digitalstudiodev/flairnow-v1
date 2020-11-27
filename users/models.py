@@ -4,7 +4,6 @@ from PIL import Image
 from django.urls import reverse
 from django.utils import timezone
 from multiselectfield import MultiSelectField
-from phone_field import PhoneField
 
 BINARY = (
     ("Y","Yes"),
