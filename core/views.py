@@ -605,7 +605,7 @@ class ScholarshipAppUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateVi
             app.scholarship.organization.email, 
             [app.student.email], 
             fail_silently = False,
-            html_message="<h1>Thank you for applying!</h1><p>Your application has been reviewed. Please log in to your profile to view the status of your application.</p>",
+            html_message=f"<h1>Thank you for applying!</h1><p>Your application for {app.scholarship.title} has been reviewed. Please log in to your profile to view the status of your application.</p>",
         )
         return super().form_valid(form)
 
