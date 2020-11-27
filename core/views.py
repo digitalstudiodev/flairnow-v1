@@ -13,6 +13,7 @@ from itertools import chain
 from blog.models import Post
 import datetime
 from django.core.mail import send_mail
+from flairnow.settings import EMAIL_HOST_USER
 
 def home(request):
     """
@@ -410,7 +411,7 @@ class InternshipAppUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateVie
         send_mail(
             "Your Application Has Been Updated!", 
             "Your Application Has Been Updated!", 
-            app.internship.organization.email, 
+            EMAIL_HOST_USER, 
             [app.student.email], 
             fail_silently = False,
             html_message="<h1>Thank you for applying!</h1><p>Your application has been reviewed. Please log in to your profile to view the status of your application.</p>",
@@ -602,7 +603,7 @@ class ScholarshipAppUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateVi
         send_mail(
             "Your Application Has Been Updated!", 
             "Your Application Has Been Updated!", 
-            app.scholarship.organization.email, 
+            EMAIL_HOST_USER, 
             [app.student.email], 
             fail_silently = False,
             html_message=f"<h1>Thank you for applying!</h1><p>Your application for {app.scholarship.title} has been reviewed. Please log in to your profile to view the status of your application.</p>",
