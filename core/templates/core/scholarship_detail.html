@@ -59,6 +59,60 @@
                                         <li class="list-group-item">Degree <span class="font-weight-bold">{{ object.get_degree_display }}</span><i class="fas fa-graduation-cap text-gray-400"></i></li>
                                         <li class="list-group-item">Scholarship Amount <span class="font-weight-bold">$ {{ object.salary }}</span><i class="far fa-clock text-gray-400"></i></li>
                                         <li class="list-group-item">Application Deadline <span class="font-weight-bold">{{ object.valid_date }}</span><i class="far fa-clock text-gray-400"></i></li>
+                                        
+                                        {% if not request.user.is_organization %}
+                                            {% if object.organization.orgcontact %}
+                                            <h3 class=" mt-5">About Organization</h3>
+                                            <ul class="list-group list-group-flush list-group-careers">
+                                                <li class="list-group-item">
+                                                    Email 
+                                                    <span class="font-weight-bold">
+                                                        {{ object.organization.email }}
+                                                    </span>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    Phone Number 
+                                                    <span class="font-weight-bold">
+                                                        {% if not object.organization.orgcontact.phone == "" or None %}
+                                                            {{ object.organization.orgcontact.phone }}
+                                                        {% else %}
+                                                            None
+                                                        {% endif %}
+                                                    </span>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    Wesite 
+                                                    <span class="font-weight-bold">
+                                                        {% if not object.organization.orgcontact.website_link == "" or None %}
+                                                            <a href="{{ object.organization.orgcontact.website_link }}" target="_blank">Link</a>
+                                                        {% else %}
+                                                            None
+                                                        {% endif %}
+                                                    </span>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    Location 
+                                                    <span class="font-weight-bold">
+                                                        {% if not object.organization.orgcontact.city == "" or None %}
+                                                            {{ object.organization.orgcontact.city }}<br>
+                                                        {% endif %}
+
+                                                        {% if not object.organization.orgcontact.state == "" or None %}
+                                                            {{ object.organization.orgcontact.state }}
+                                                        {% endif %}
+
+                                                        {% if object.organization.orgcontact.state and object.organization.orgcontact.city == "" or None %}
+                                                            None
+                                                        {% endif %}
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                            {% else %}
+                                            <div class="alert alert-warning my-5" style="border-radius: 2rem;">
+                                                Organization does not have any contact information.
+                                            </div>
+                                            {% endif %}
+                                        {% endif %}
                                     </ul>
                                 </div>
                                 <div class="col-lg-7">
@@ -73,21 +127,41 @@
                                                 <a class="btn btn-warning btn-marketing rounded-pill ml-2" href="{% url 'core:scholarship_update' object.id %}">Update</a>
                                                 <a class="btn btn-danger btn-marketing rounded-pill ml-2" href="{% url 'core:scholarship_delete' object.id %}">Delete</a>
                                             {% endif %}
+
                                             <!--if user is student-->
                                             {% if not status and request.user.is_student %}
-                                                Complete Your Profile <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:profile' %}">Complete</a>
+                                                <!--Complete Your Profile <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:profile' %}">Complete</a>-->
+                                                <div class="card bg-light shadow-none">
+                                                    <div class="card-body d-flex align-items-center justify-content-between p-4">
+                                                        <p class="lead mb-0">Complete Your Profile</p>
+                                                        <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:profile' %}">Complete</a>
+                                                    </div>
+                                                </div>
                                             {% elif status and request.user.is_student %}
                                                 {% if not match %}
-                                                    <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'core:scholarship_app_create' scholarships=object.id %}">Apply</a>
+                                                    <!--<a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'core:scholarship_app_create' scholarships=object.id %}">Apply</a>-->
+                                                    <div class="card bg-light shadow-none">
+                                                        <div class="card-body d-flex align-items-center justify-content-between p-4">
+                                                            <p class="lead mb-0">We look forward to hearing from you</p>
+                                                            <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'core:scholarship_app_create' scholarships=object.id %}">Apply</a>
+                                                        </div>
+                                                    </div>
                                                 {% else %}
                                                     <div class="alert alert-warning my-5" style="border-radius: 2rem;">
                                                         Your application has already been submited.
                                                     </div>
                                                 {% endif %}
                                             {% endif %}
+
                                             <!--if user is none-->
                                             {% if not user.is_authenticated %}
-                                                Login to apply <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:login' %}">Login</a>
+                                                    <!--Login to apply <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:login' %}">Login</a>-->
+                                                    <div class="card bg-light shadow-none">
+                                                        <div class="card-body d-flex align-items-center justify-content-between p-4">
+                                                            <p class="lead mb-0">Login to apply</p>
+                                                            <a class="btn btn-info btn-marketing rounded-pill ml-2" href="{% url 'users:login' %}">Login</a>
+                                                        </div>
+                                                    </div>
                                             {% endif %}
                                         </div>
                                     </div>
@@ -184,7 +258,11 @@
                 once: true
             });
             $(document).ready(function() {
-                $('#applicants').DataTable();
+                $('#applicants').DataTable(
+                    {
+                        "scrollX": true,
+                    }
+                );
             } );
         </script>
     </body>

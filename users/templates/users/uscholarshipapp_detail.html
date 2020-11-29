@@ -36,13 +36,11 @@
                                     <div class="col-lg-8 m-auto">
                                         <div class="card rounded-lg text-dark">
                                             <div class="card-body">
-                                                <h3 class="title mx-auto ml-3 mb-5">Scholarship Common Application</h3>
+                                                <h3 class="title mx-auto ml-3 mb-5">Universal Scholarship Application</h3>
                                                 <h4>{{ q1 }}</h4>
                                                 <p>{{ object.q1 }}</p>
                                                 <h4>{{ q2 }}</h4>
                                                 <p>{{ object.q2 }}</p>
-                                                <h4>{{ q3 }}</h4>
-                                                <p>{{ object.q3 }}</p>
                                                 <div class="text-center">
                                                     <a class="btn btn-info btn-marketing rounded-pill lift lift-sm my-3 text-white" href="{% url 'users:u_scholarship_app_update' object.id %}">Update</a>
                                                     <a class="btn btn-marketing text-dark" href="{% url 'users:profile' %}">Profile</a>

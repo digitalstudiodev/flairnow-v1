@@ -38,6 +38,13 @@
                         <div class="container">
                             {% include 'core/messages.html' %}
                             <div class="row">
+                                <div class="col-lg-12">
+                                    <ul class="list-group list-group-flush list-group-careers">
+                                        <li class="list-group-item pt-0 bg-light">
+                                            <a class="small" href="{% url 'core:browse' %}"><i class="fas fa-arrow-left mr-1"></i>Browse</a>
+                                        </li>
+                                    </ul>
+                                </div>
                                 {% for internship in page_obj %}
                                 <div class="col-lg-3 col-md-6 mb-5">
                                     {% if internship.type == "IN" %}

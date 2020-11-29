@@ -117,6 +117,28 @@
                                         Student does not have any academic information.
                                     </div>
                                     {% endif %}
+
+                                    {% if object.student.contact %}
+                                    <h3>Contact</h3>
+                                    <ul class="list-group list-group-flush list-group-careers">
+                                        <li class="list-group-item">
+                                            Email 
+                                            <span class="font-weight-bold">
+                                                {{ object.student.email }}
+                                            </span>
+                                        </li>
+                                        <li class="list-group-item">
+                                            Phone Number 
+                                            <span class="font-weight-bold">
+                                                {{ object.student.contact.phone }}
+                                            </span>
+                                        </li>
+                                    </ul>
+                                    {% else %}
+                                    <div class="alert alert-warning my-5" style="border-radius: 2rem;">
+                                        Student does not have any contact information.
+                                    </div>
+                                    {% endif %}
                                 </div>
                                 <div class="col-lg-7">
                                     <h1 class="mb-4">Universal Internship Application</h1>

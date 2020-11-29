@@ -177,7 +177,11 @@
                 once: true
             });
             $(document).ready(function() {
-                $('#apps').DataTable();
+                $('#apps').DataTable(
+                    {
+                        "scrollX": true,
+                    }
+                );
             } );
         </script>
     </body>

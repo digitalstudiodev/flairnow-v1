@@ -381,12 +381,12 @@ class Profile(models.Model):
 
 class Academic(models.Model):
     student = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Student")
-    school = models.CharField(max_length=1000, default="", null=True, verbose_name="Current or Preferred Institution")
-    edu_level = models.CharField(max_length=1000, choices=EDU_LEVEL, default="", null=True, verbose_name="Edu Level")
-    degree = models.CharField(max_length=1000, choices=DEGREES, default="", null=True, verbose_name="Degree You Are Currently Pursuing")
-    field = models.CharField(max_length=1000, choices=MAJORS, default="", null=True, verbose_name="Current Major or Field")
-    gpa = models.CharField(max_length=1000, choices=GPA, verbose_name="GPA", default="", null=True)
-    grad_year = models.CharField(max_length=1000, choices=YEARS, default="", null=True, verbose_name="Class")
+    school = models.CharField(max_length=1000, default="", blank=True, verbose_name="Current or Preferred Institution")
+    edu_level = models.CharField(max_length=1000, choices=EDU_LEVEL, default="", blank=True, verbose_name="Edu Level")
+    degree = models.CharField(max_length=1000, choices=DEGREES, default="", blank=True, verbose_name="Degree You Are Currently Pursuing")
+    field = models.CharField(max_length=1000, choices=MAJORS, default="", blank=True, verbose_name="Current Major or Field")
+    gpa = models.CharField(max_length=1000, choices=GPA, verbose_name="GPA", default="", blank=True)
+    grad_year = models.CharField(max_length=1000, choices=YEARS, default="", blank=True, verbose_name="Class")
     
     def __str__(self):
         return self.student.email
@@ -396,13 +396,13 @@ class Academic(models.Model):
 
 class Background(models.Model):
     student = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Student")
-    gender = models.CharField(max_length=1000, choices=GENDERS, default="", null=True, verbose_name="Gender")
-    sex = models.CharField(max_length=1000, choices=SEX, default="", null=True, verbose_name="Sexual Orientation")
-    race = models.CharField(max_length=1000, choices=RACE, default="", null=True, verbose_name="Race")
-    citizenship = models.CharField(max_length=1000, choices=CITIZENSHIP, default="", null=True, verbose_name="Citizenship")
-    household_size = models.CharField(max_length=1000, choices=HOUSE_SIZE, default="", null=True, verbose_name="Household Size")
-    household_income = models.CharField(max_length=1000, choices=HOUSE_INCOME, default="", null=True, verbose_name="Household Income")
-    first_gen = models.CharField(max_length=1000, choices=BINARY, default="", null=True, verbose_name="Are you the first in your family to go to college?")
+    gender = models.CharField(max_length=1000, choices=GENDERS, default="", blank=True, verbose_name="Gender")
+    sex = models.CharField(max_length=1000, choices=SEX, default="", blank=True, verbose_name="Sexual Orientation")
+    race = models.CharField(max_length=1000, choices=RACE, default="", blank=True, verbose_name="Race")
+    citizenship = models.CharField(max_length=1000, choices=CITIZENSHIP, default="", blank=True, verbose_name="Citizenship")
+    household_size = models.CharField(max_length=1000, choices=HOUSE_SIZE, default="", blank=True, verbose_name="Household Size")
+    household_income = models.CharField(max_length=1000, choices=HOUSE_INCOME, default="", blank=True, verbose_name="Household Income")
+    first_gen = models.CharField(max_length=1000, choices=BINARY, default="", blank=True, verbose_name="Are you the first in your family to go to college?")
     
     def __str__(self):
         return self.student.email
@@ -412,13 +412,13 @@ class Background(models.Model):
 
 class Contact(models.Model):
     student = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Student")
-    phone = models.CharField(default="", null=True, max_length=10, verbose_name="Phone Number")
-    dob = models.CharField(max_length=10, default="", null=True, verbose_name="Date of Birth")
-    primary_address = models.CharField(max_length=1000, default="", null=True, verbose_name="Primary Address")
-    secondary_address = models.CharField(max_length=1000, default="", null=True, verbose_name="Secondary Address")
-    zip_code = models.CharField(max_length=5, default="", null=True, verbose_name="Zip Code", help_text="Example 07102")
-    city = models.CharField(max_length=1000, default="", null=True, verbose_name="City")
-    state = models.CharField(max_length=1000, choices=US_STATES, default="", null=True, verbose_name="State")
+    phone = models.CharField(default="", blank=True, max_length=10, verbose_name="Phone Number")
+    dob = models.CharField(max_length=10, default="", blank=True, verbose_name="Date of Birth")
+    primary_address = models.CharField(max_length=1000, default="", blank=True, verbose_name="Primary Address", help_text="Ex 123 Main Street")
+    secondary_address = models.CharField(max_length=1000, default="", blank=True, verbose_name="Secondary Address", help_text="Ex Apt 13 W")
+    zip_code = models.CharField(max_length=5, default="", blank=True, verbose_name="Zip Code", help_text="Ex 07102")
+    city = models.CharField(max_length=1000, default="", blank=True, verbose_name="City")
+    state = models.CharField(max_length=1000, choices=US_STATES, default="", blank=True, verbose_name="State")
     
     def __str__(self):
         return self.student.email
@@ -428,13 +428,13 @@ class Contact(models.Model):
 
 class OrgContact(models.Model):
     organization = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Organization")
-    phone = models.CharField(max_length=10, default="", null=True, verbose_name="Phone Number")
-    primary_address = models.CharField(max_length=1000, default="", null=True, verbose_name="Primary Address")
-    secondary_address = models.CharField(max_length=1000, default="", null=True, verbose_name="Secondary Address")
-    zip_code = models.CharField(max_length=5, default="", null=True, verbose_name="Zip Code", help_text="Example 07102")
-    city = models.CharField(max_length=1000, default="", null=True, verbose_name="City")
-    state = models.CharField(max_length=1000, choices=US_STATES, default="", null=True, verbose_name="State")
-    website_link = models.CharField(max_length=1000, default="", null=True, verbose_name="Website Link")
+    phone = models.CharField(max_length=10, default="", blank=True, verbose_name="Phone Number")
+    primary_address = models.CharField(max_length=1000, default="", blank=True, verbose_name="Primary Address")
+    secondary_address = models.CharField(max_length=1000, default="", blank=True, verbose_name="Secondary Address")
+    zip_code = models.CharField(max_length=5, default="", blank=True, verbose_name="Zip Code", help_text="Example 07102")
+    city = models.CharField(max_length=1000, default="", blank=True, verbose_name="City")
+    state = models.CharField(max_length=1000, choices=US_STATES, default="", blank=True, verbose_name="State")
+    website_link = models.CharField(max_length=1000, default="", blank=True, verbose_name="Website Link")
 
     def __str__(self):
         return self.phone_number
@@ -444,9 +444,9 @@ class OrgContact(models.Model):
 
 class OrgBackground(models.Model):
     organization = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Organization")
-    size = models.IntegerField(default=1, null=True, verbose_name="Number of Individuals")
-    industry = models.CharField(max_length=1000, choices=MAJORS, default="", null=True, verbose_name="Industry")
-    org_type = models.CharField(max_length=1000, choices=ORGANIZATION_TYPES, default="", null=True, verbose_name="Organization Type")
+    size = models.IntegerField(default=1, blank=True, verbose_name="Number of Individuals")
+    industry = models.CharField(max_length=1000, choices=MAJORS, default="", blank=True, verbose_name="Industry")
+    org_type = models.CharField(max_length=1000, choices=ORGANIZATION_TYPES, default="", blank=True, verbose_name="Organization Type")
 
 
     def __str__(self):

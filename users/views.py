@@ -187,7 +187,6 @@ def create_contact(request):
                 state=request.POST['state'],
             )
             contact.save()
-            messages.success(request, f'You contact information has been successfully saved!')
             return redirect('users:contact_detail', contact.id)
     else:
         form = ContactForm()
@@ -216,7 +215,6 @@ def update_contact(request, pk):
             contact.state = request.POST['state']
             
             contact.save()
-            messages.success(request, f'Your contact information has been successfully updated!')
             return redirect('users:contact_detail', contact.id)
     else:
         form = ContactForm(instance=contact)
@@ -271,8 +269,8 @@ class OrgBackgroundUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateVie
         return super().form_valid(form)
 
     def test_func(self):
-        coap = self.get_object()
-        if coap:
+        obj = self.get_object()
+        if obj:
             return True
         return False
 

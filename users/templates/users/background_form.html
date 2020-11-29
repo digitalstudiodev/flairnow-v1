@@ -32,6 +32,7 @@
                                             {% csrf_token %}
                                             {{ form|crispy }}
                                             <button class="btn btn-marketing btn-info btn-block btn-round rounded-pill" type="Submit">Save</button>
+                                            <a class="btn btn-warning btn-block btn-round rounded-pill" href="{% url 'users:profile' %}">Cancel</a>
                                           </form>
                                         </div>
                                     </div>
