@@ -12,11 +12,11 @@ from django.template import RequestContext
 
 def invalid_error(request, code):
     messages.warning(request, f'Invalid Request {code}')
-    return redirect('core:home')
+    return redirect('core:contact')
 
 def invalid_view(request):
     messages.warning(request, f'Invalid Request')
-    return redirect('core:home')
+    return redirect('core:contact')
 
 def register(request):
     form = UserRegisterForm()
