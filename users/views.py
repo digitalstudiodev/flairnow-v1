@@ -8,6 +8,15 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import User, Academic, Background, Contact, OrgContact, OrgBackground, UInternshipApp, UScholarshipApp
 from core.models import Internship, Scholarship, InternshipApp, ScholarshipApp, External
 from itertools import chain
+from django.template import RequestContext
+
+def invalid_error(request, code):
+    messages.warning(request, f'Invalid Request {code}')
+    return redirect('core:home')
+
+def invalid_view(request):
+    messages.warning(request, f'Invalid Request')
+    return redirect('core:home')
 
 def register(request):
     form = UserRegisterForm()
