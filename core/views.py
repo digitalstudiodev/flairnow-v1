@@ -89,10 +89,11 @@ def browse(request):
     #grabbing each opportunity type
     internships = Internship.objects.all()[0:4]
     scholarships = Scholarship.objects.all()[0:4]
-    externalopps = External.objects.all()[0:4]
+    external_int = External.objects.all().filter(type="EIN")[0:4]
+    external_sc = External.objects.all().filter(type="ESC")[0:4]
     #sorting them by date
     opportunities = sorted(
-        chain(internships, scholarships, externalopps),
+        chain(internships, scholarships, external_int, external_sc),
         key=lambda instance: instance.date_posted
     )
     #grabbing the latest blog posts
