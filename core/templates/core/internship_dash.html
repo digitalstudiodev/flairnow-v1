@@ -50,7 +50,7 @@
                                     <div class="d-flex align-items-center justify-content-between">
                                         <h2 class="mb-0"><a href="{% url 'core:internship_detail' internship.id %}" class="btn-link text-dark">{{ internship.title }}</a></h2>
                                         <div class="badge badge-info text-white badge-marketing">
-                                            $ {{ internship.salary }}
+                                            $ {{ internship.amount }}
                                         </div>
                                     </div>
                                     <hr class="mb-0" />
@@ -83,7 +83,7 @@
                                 </ul>
                             </nav>
                         </div>
-                        <div class="svg-border-rounded text-light">
+                        <div class="svg-border-rounded text-warning">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
                         </div>
                     </section>

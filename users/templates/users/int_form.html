@@ -1,9 +1,5 @@
 {% load crispy_forms_tags %}
-{% load static %} 
-{% load bootstrap4 %}       {# import bootstrap4/bootstrap3 #}
-{% bootstrap_css %}         {# Embed Bootstrap CSS #}
-{% bootstrap_javascript jquery='full' %}  {# Embed Bootstrap JS+jQuery #}
-{{ form.media }}            {# Adds date-picker required JS and CSS #}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -30,40 +26,52 @@
                               <div class="row align-items-center">
                                 <div class="col-lg-10 m-auto">
                                     <div class="card rounded-lg text-dark">
-                                        <div class="card-header py-4 text-dark">Contact Information</div>
+                                        <div class="card-header py-4 text-dark">Interests</div>
                                         <div class="card-body">
                                           <form class="register-form" method="POST">
                                             {% csrf_token %}
                                             <div class="row">
-                                                <div class="col-lg-6">
-                                                    {{ form.phone|as_crispy_field }}
+                                                <div class="col-lg-6 mb-5">
+                                                    <label>What do you value most when considering a company? (Choose 4 Max)</label>
+                                                    {% for value in form.work %}
+                                                    <div class="form-check bg-warning text-dark lift rounded-pill my-2 px-4 py-2 font-weight-bold">
+                                                        <label class="form-check-label" for="gridCheck">
+                                                            {{ value }}
+                                                        </label>
+                                                    </div>
+                                                    {% endfor %}
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    {{ form.dob|as_crispy_field }}
+                                                    <label>Which of these words do you relate to most? (Choose 4 Max)</label>
+                                                    {% for value in form.values %}
+                                                    <div class="form-check bg-warning text-dark lift rounded-pill my-2 px-4 py-2 font-weight-bold">
+                                                        <label class="form-check-label" for="gridCheck">
+                                                            {{ value }}
+                                                        </label>
+                                                    </div>
+                                                    {% endfor %}
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-lg-6">
-                                                    {{ form.street|as_crispy_field }}
+                                                <div class="col-lg-6 mb-5">
+                                                    <label>What office environment would you prefer to work in? (Choose 4 Max)</label>
+                                                    {% for value in form.env %}
+                                                    <div class="form-check bg-warning text-dark lift rounded-pill my-2 px-4 py-2 font-weight-bold">
+                                                        <label class="form-check-label" for="gridCheck">
+                                                            {{ value }}
+                                                        </label>
+                                                    </div>
+                                                    {% endfor %}
                                                 </div>
-                                                <div class="col-lg-6">
-                                                    {{ form.apt|as_crispy_field }}
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-4">
-                                                    {{ form.city|as_crispy_field }}
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    {{ form.state|as_crispy_field }}
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    {{ form.zip_code|as_crispy_field }}
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-12">
-                                                    {{ form.linkedin|as_crispy_field }}
+                                                <div class="col-lg-6 mb-5">
+                                                    <label>What do you usually do in your spare time? (Choose 4 Max)</label>
+                                                    {% for value in form.acts %}
+                                                    <div class="form-check bg-warning text-dark lift rounded-pill my-2 px-4 py-2 font-weight-bold">
+                                                        <label class="form-check-label" for="gridCheck">
+                                                            {{ value }}
+                                                        </label>
+                                                    </div>
+                                                    {% endfor %}
                                                 </div>
                                             </div>
                                             <button class="btn btn-marketing btn-info btn-block btn-round rounded-pill" type="Submit">Save</button>

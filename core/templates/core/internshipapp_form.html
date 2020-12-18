@@ -27,7 +27,7 @@
                                 <div class="col-lg-8 m-auto">
                                     <div class="card rounded-lg text-dark">
                                         <div class="card-header py-4 text-dark">
-                                            Internship Application Review
+                                            Review Internship Application
                                         </div>
                                         <div class="card-body">
                                             <h1>{{ internship.title }}</h1>
@@ -35,9 +35,8 @@
                                                 <li class="list-group-item">Field <span class="font-weight-bold">{{ internship.get_field_display }}</span><i class="fas fa-globe fa-fw text-gray-400"></i></li>
                                                 <li class="list-group-item">Deadline <span class="font-weight-bold">{{ internship.valid_date }}</span><i class="fas fa-clock fa-fw text-gray-400"></i></li>
                                                 <li class="list-group-item">Edu Level <span class="font-weight-bold">{{ internship.get_edu_level_display }}</span><i class="fas fa-bars text-gray-400"></i></li>
-                                                <li class="list-group-item">GPA <span class="font-weight-bold">{{ internship.get_gpa_display }}</span><i class="fas fa-star text-gray-400"></i></li>
                                                 <li class="list-group-item">Degree <span class="font-weight-bold">{{ internship.get_degree_display }}</span><i class="fas fa-graduation-cap text-gray-400"></i></li>
-                                                <li class="list-group-item">Salary <span class="font-weight-bold">$ {{ internship.salary }}</span><i class="fas fa-money-bill-wave-alt text-gray-400"></i></li>
+                                                <li class="list-group-item">Amount <span class="font-weight-bold">$ {{ internship.amount }}</span><i class="fas fa-money-bill-wave-alt text-gray-400"></i></li>
                                             </ul>
                                             <h1>{{ user.first_name }} {{ user.last_name }}</h1>
                                             <ul class="list-group list-group-flush list-group-careers">
@@ -49,14 +48,29 @@
                                                     <i class="fas fa-bars text-gray-400"></i>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    Internship Universal Application 
+                                                    Education 
                                                     <span class="font-weight-bold">
-                                                        {% if user.uinternshipapp %}
-                                                        <a href="{% url 'users:u_internship_app_detail' user.uinternshipapp.id %}">
+                                                        {% if user.edu %}
+                                                        <a href="{% url 'users:edu_detail' user.edu.id %}">
                                                             Review
                                                         </a>
                                                         {% else %}
-                                                        <a href="{% url 'users:u_internship_app_create' %}">
+                                                        <a href="{% url 'users:edu_create' %}">
+                                                            Add
+                                                        </a>
+                                                        {% endif %}
+                                                    </span>
+                                                    <i class="fas fa-graduation-cap text-gray-400"></i>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    Experience 
+                                                    <span class="font-weight-bold">
+                                                        {% if user.exp %}
+                                                        <a href="{% url 'users:exp_detail' user.exp.id %}">
+                                                            Review
+                                                        </a>
+                                                        {% else %}
+                                                        <a href="{% url 'users:exp_create' %}">
                                                             Add
                                                         </a>
                                                         {% endif %}
@@ -64,19 +78,19 @@
                                                     <i class="fas fa-clock fa-fw text-gray-400"></i>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    Academic Information 
+                                                    Interests 
                                                     <span class="font-weight-bold">
-                                                        {% if user.academic %}
-                                                        <a href="{% url 'users:academic_detail' user.academic.id %}">
+                                                        {% if user.int %}
+                                                        <a href="{% url 'users:int_detail' user.int.id %}">
                                                             Review
                                                         </a>
                                                         {% else %}
-                                                        <a href="{% url 'users:academic_create' %}">
+                                                        <a href="{% url 'users:int_create' %}">
                                                             Add
                                                         </a>
                                                         {% endif %}
                                                     </span>
-                                                    <i class="fas fa-graduation-cap text-gray-400"></i>
+                                                    <i class="fas fa-clock fa-fw text-gray-400"></i>
                                                 </li>
                                             </ul>
                                             <form class="register-form" method="POST" enctype="multipart/form-data">
@@ -91,7 +105,7 @@
                             </div>
                             </div>
                         </div>
-                        <div class="svg-border-rounded text-light">
+                        <div class="svg-border-rounded text-warning">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
                         </div>
                     </header>

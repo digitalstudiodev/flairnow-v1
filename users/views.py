@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, LoginForm, OrgRegisterForm, ContactForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .models import User, Academic, Background, Contact, OrgContact, OrgBackground, UInternshipApp, UScholarshipApp
+from .models import User, Edu, Demo, Contact, OrgContact, OrgDemo, Int, Exp
 from core.models import Internship, Scholarship, InternshipApp, ScholarshipApp, External
 from itertools import chain
 from django.template import RequestContext
@@ -42,30 +42,30 @@ def register_org(request):
 
 @login_required(login_url='users:login')
 def profile(request):
-    internship_applications = InternshipApp.objects.all().filter(student=request.user)
-    scholarship_applications = ScholarshipApp.objects.all().filter(student=request.user)
-    applications = sorted(
-        chain(internship_applications, scholarship_applications),
+    intern_apps = InternshipApp.objects.all().filter(student=request.user)
+    scholar_apps = ScholarshipApp.objects.all().filter(student=request.user)
+    apps = sorted(
+        chain(intern_apps, scholar_apps),
         key=lambda instance: instance.date_posted
     )
     context = {
-        'applications': applications
+        'apps': apps
     }
     return render(request, 'users/profile.html', context)
 
 @login_required(login_url='users:login')
 def org_profile(request):
-    contact = OrgContact.objects.all().filter(organization=request.user).first()
-    background = OrgBackground.objects.all().filter(organization=request.user).first()
-    externalopps = External.objects.all().filter(organization=request.user)
+    contact = OrgContact.objects.all().filter(org=request.user).first()
+    demo = OrgDemo.objects.all().filter(org=request.user).first()
+    ext = External.objects.all().filter(org=request.user)
     confirmed = False
-    if contact and background:
+    if contact and demo:
         confirmed = True
     context = {
-        'internships': Internship.objects.all().filter(organization=request.user),
-        'scholarships': Scholarship.objects.all().filter(organization=request.user),
+        'intern': Internship.objects.all().filter(org=request.user),
+        'scholar': Scholarship.objects.all().filter(org=request.user),
         'confirmed': confirmed,
-        'externalopps': externalopps,
+        'ext': ext,
     }
     return render(request, 'users/org_profile.html', context)
 
@@ -123,20 +123,20 @@ def login_view(request):
 
     return render(request, "users/login.html", context)
 
-class AcademicDetailView(DetailView):
-    model = Academic
+class EduDetailView(DetailView):
+    model = Edu
 
-class AcademicCreateView(LoginRequiredMixin, CreateView):
-    model = Academic
-    fields = ['school','edu_level','degree','field','gpa','grad_year']
+class EduCreateView(LoginRequiredMixin, CreateView):
+    model = Edu
+    fields = ['school', 'city', 'state', 'edu_level','degree','major','con','grad_year']
 
     def form_valid(self, form):
         form.instance.student = self.request.user
         return super().form_valid(form)
 
-class AcademicUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = Academic
-    fields = ['school','edu_level','degree','field','gpa','grad_year']
+class EduUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Edu
+    fields = ['school', 'city', 'state', 'edu_level','degree','major','con','grad_year']
 
     def form_valid(self, form):
         form.instance.student = self.request.user
@@ -148,20 +148,20 @@ class AcademicUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             return True
         return False
 
-class BackgroundDetailView(DetailView):
-    model = Background
+class DemoDetailView(DetailView):
+    model = Demo
 
-class BackgroundCreateView(LoginRequiredMixin, CreateView):
-    model = Background
-    fields = ['gender','sex','race','citizenship','household_size','household_income','first_gen']
+class DemoCreateView(LoginRequiredMixin, CreateView):
+    model = Demo
+    fields = ['gender','sex','race','cit','house_size','house_income','first_gen']
 
     def form_valid(self, form):
         form.instance.student = self.request.user
         return super().form_valid(form)
 
-class BackgroundUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = Background
-    fields = ['gender','sex','race','citizenship','household_size','household_income','first_gen']
+class DemoUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Demo
+    fields = ['gender','sex','race','cit','house_size','house_income','first_gen']
 
     def form_valid(self, form):
         form.instance.student = self.request.user
@@ -189,11 +189,12 @@ def create_contact(request):
                 student=request.user,
                 phone=request.POST['dob'],
                 dob=request.POST['dob'],
-                primary_address=request.POST['primary_address'],
-                secondary_address=request.POST['secondary_address'],
+                street=request.POST['street'],
+                apt=request.POST['apt'],
                 zip_code=request.POST['zip_code'],
                 city=request.POST['city'],
                 state=request.POST['state'],
+                linkedin=request.POST['linkedin'],
             )
             contact.save()
             return redirect('users:contact_detail', contact.id)
@@ -217,11 +218,12 @@ def update_contact(request, pk):
         if form.is_valid():
             contact.phone = request.POST['phone']
             contact.dob = request.POST['dob']
-            contact.primary_address = request.POST['primary_address']
-            contact.secondary_address = request.POST['secondary_address']
+            contact.street = request.POST['street']
+            contact.apt = request.POST['apt']
             contact.zip_code = request.POST['zip_code']
             contact.city = request.POST['city']
             contact.state = request.POST['state']
+            contact.linkedin = request.POST['linkedin']
             
             contact.save()
             return redirect('users:contact_detail', contact.id)
@@ -238,18 +240,18 @@ class OrgContactDetailView(DetailView):
 
 class OrgContactCreateView(LoginRequiredMixin, CreateView):
     model = OrgContact
-    fields = ['phone', 'primary_address','secondary_address','zip_code','city', 'state', 'website_link']
+    fields = ['phone', 'street','apt','zip_code','city', 'state', 'website_link','linkedin']
 
     def form_valid(self, form):
-        form.instance.organization = self.request.user
+        form.instance.org = self.request.user
         return super().form_valid(form)
 
 class OrgContactUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = OrgContact
-    fields = ['phone', 'primary_address','secondary_address','zip_code','city', 'state', 'website_link']
+    fields = ['phone', 'street','apt','zip_code','city', 'state', 'website_link','linkedin']
 
     def form_valid(self, form):
-        form.instance.organization = self.request.user
+        form.instance.org = self.request.user
         return super().form_valid(form)
 
     def test_func(self):
@@ -258,56 +260,23 @@ class OrgContactUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             return True
         return False
 
-class OrgBackgroundDetailView(DetailView):
-    model = OrgBackground
+class OrgDemoDetailView(DetailView):
+    model = OrgDemo
 
-class OrgBackgroundCreateView(LoginRequiredMixin, CreateView):
-    model = OrgBackground
-    fields = ['size', 'industry','org_type']
+class OrgDemoCreateView(LoginRequiredMixin, CreateView):
+    model = OrgDemo
+    fields = ['size','field','org_type']
 
     def form_valid(self, form):
-        form.instance.organization = self.request.user
+        form.instance.org = self.request.user
         return super().form_valid(form)
 
-class OrgBackgroundUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = OrgBackground
-    fields = ['size', 'industry','org_type']
+class OrgDemoUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = OrgDemo
+    fields = ['size','field','org_type']
 
     def form_valid(self, form):
-        form.instance.organization = self.request.user
-        return super().form_valid(form)
-
-    def test_func(self):
-        obj = self.get_object()
-        if obj:
-            return True
-        return False
-
-class UInternshipAppDetailView(DetailView):
-    model = UInternshipApp
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        q1 = UInternshipApp.objects.all()[0]._meta.get_field('q1').verbose_name
-        q2 = UInternshipApp.objects.all()[0]._meta.get_field('q2').verbose_name
-        context['q1'] = q1
-        context['q2'] = q2
-        return context
-
-class UInternshipAppCreateView(LoginRequiredMixin, CreateView):
-    model = UInternshipApp
-    fields = ['q1', 'q2']
-
-    def form_valid(self, form):
-        form.instance.student = self.request.user
-        return super().form_valid(form)
-
-class UInternshipAppUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = UInternshipApp
-    fields = ['q1', 'q2']
-
-    def form_valid(self, form):
-        form.instance.student = self.request.user
+        form.instance.org = self.request.user
         return super().form_valid(form)
 
     def test_func(self):
@@ -316,28 +285,73 @@ class UInternshipAppUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateVi
             return True
         return False
 
-class UScholarshipAppDetailView(DetailView):
-    model = UScholarshipApp
+class IntDetailView(DetailView):
+    model = Int
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        q1 = UScholarshipApp.objects.all()[0]._meta.get_field('q1').verbose_name
-        q2 = UScholarshipApp.objects.all()[0]._meta.get_field('q2').verbose_name
-        context['q1'] = q1
-        context['q2'] = q2
+        work = Int.objects.all()[0]._meta.get_field('work').verbose_name
+        values = Int.objects.all()[0]._meta.get_field('values').verbose_name
+        env = Int.objects.all()[0]._meta.get_field('env').verbose_name
+        acts = Int.objects.all()[0]._meta.get_field('acts').verbose_name
+        context = {
+            'work': work,
+            'values': values,
+            'env': env,
+            'acts': acts,
+            'object': Int.objects.get(pk=self.object.id)
+        }
         return context
 
-class UScholarshipAppCreateView(LoginRequiredMixin, CreateView):
-    model = UScholarshipApp
-    fields = ['q1', 'q2']
+class IntCreateView(LoginRequiredMixin, CreateView):
+    model = Int
+    fields = ['work', 'values', 'env', 'acts']
 
     def form_valid(self, form):
         form.instance.student = self.request.user
         return super().form_valid(form)
 
-class UScholarshipAppUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = UScholarshipApp
-    fields = ['q1', 'q2']
+class IntUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Int
+    fields = ['work', 'values', 'env', 'acts']
+
+    def form_valid(self, form):
+        form.instance.student = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        obj = self.get_object()
+        if obj:
+            return True
+        return False
+
+class ExpDetailView(DetailView):
+    model = Exp
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        role = Exp.objects.all()[0]._meta.get_field('role').verbose_name
+        field = Exp.objects.all()[0]._meta.get_field('field').verbose_name
+        skills = Exp.objects.all()[0]._meta.get_field('skills').verbose_name
+        context = {
+            'role': role,
+            'field': field,
+            'skills': skills,
+            'object': Exp.objects.get(pk=self.object.id)
+        }
+        return context
+
+class ExpCreateView(LoginRequiredMixin, CreateView):
+    model = Exp
+    fields = ['role', 'field', 'skills', 'resume']
+
+    def form_valid(self, form):
+        form.instance.student = self.request.user
+        return super().form_valid(form)
+
+class ExpUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Exp
+    fields = ['role', 'field', 'skills', 'resume']
 
     def form_valid(self, form):
         form.instance.student = self.request.user

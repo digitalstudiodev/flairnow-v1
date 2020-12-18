@@ -13,9 +13,9 @@ class InternshipForm(forms.ModelForm):
             #time & location
             'valid_date', 'city', 'state',
             #edu requirements
-            'edu_level','degree','gpa',
+            'edu_level','degree',
             #financial info
-            'salary'
+            'amount'
         ]
         widgets = {
             'valid_date': DatePickerInput(format='%Y-%m-%d'), 
@@ -31,9 +31,9 @@ class ScholarshipForm(forms.ModelForm):
             #time & location
             'valid_date', 'city', 'state',
             #edu requirements
-            'edu_level','degree','gpa',
+            'edu_level','degree',
             #financial info
-            'salary'
+            'amount'
         ]
         widgets = {
             'valid_date': DatePickerInput(format='%Y-%m-%d'), 

@@ -9,10 +9,10 @@ from .views import (
     ScholarshipAppCreateView, ScholarshipAppUpdateView, ScholarshipAppDetailView,
     #internships
     create_internship, update_internship, InternshipDetailView, InternshipDeleteView,
-    internship_list, internship_info, internship_dash,
+    internship_list, internship_info, internship_dash, InternshipApplicants,
     #scholarships
     create_scholarship, update_scholarship, ScholarshipDetailView, ScholarshipDeleteView, 
-    scholarship_list, scholarship_info, scholarship_dash,
+    scholarship_list, scholarship_info, scholarship_dash, ScholarshipApplicants,
     #external
     ExternalCreateView, ExternalUpdateView, ExternalDeleteView, external_dash,
     )
@@ -35,6 +35,7 @@ urlpatterns = [
     path('internship/<int:pk>/update', update_internship, name='internship_update'),
     path('internship/<int:pk>/delete', InternshipDeleteView.as_view(), name='internship_delete'),
     path('internship/<int:internships>/apply', InternshipAppCreateView.as_view(), name='internship_app_create'),
+    path('internship/<int:pk>/applicants', InternshipApplicants.as_view(), name="internship_applicants"),
     path('internship-app/<int:pk>/', InternshipAppDetailView.as_view(), name='internship_app_detail'),
     path('internship-app/<int:pk>/update', InternshipAppUpdateView.as_view(), name='internship_app_update'),
     path('internship-info', internship_info, name="internship_info"),
@@ -46,6 +47,7 @@ urlpatterns = [
     path('scholarship/<int:pk>/update', update_scholarship, name='scholarship_update'),
     path('scholarship/<int:pk>/delete', ScholarshipDeleteView.as_view(), name='scholarship_delete'),
     path('scholarship/<int:scholarships>/apply', ScholarshipAppCreateView.as_view(), name='scholarship_app_create'),
+    path('scholarship/<int:pk>/applicants', ScholarshipApplicants.as_view(), name="scholarship_applicants"),
     path('scholarship-app/<int:pk>/', ScholarshipAppDetailView.as_view(), name='scholarship_app_detail'),
     path('scholarship-app/<int:pk>/update', ScholarshipAppUpdateView.as_view(), name='scholarship_app_update'),
     path('scholarship-info', scholarship_info, name="scholarship_info"),

@@ -24,10 +24,10 @@
                         <div class="page-header-content">
                             <div class="container">
                                 <div class="row align-items-center">
-                                    <div class="col-lg-8 m-auto">
+                                    <div class="col-lg-10 m-auto">
                                         <div class="card rounded-lg text-dark">
                                             <div class="card-body">
-                                                <h3 class="title mx-auto ml-3 mb-5">Background Infomation</h3>
+                                                <h3 class="title mx-auto ml-3 mb-5">Demographics</h3>
                                                 <ul class="fa-ul pricing-list">
                                                     <li class="pricing-list-item">
                                                         <span class="fa-li"><i class="fas fa-genderless text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">Gender </span> {{ object.get_gender_display }}</span>
@@ -39,20 +39,20 @@
                                                         <span class="fa-li"><i class="fas fa-user-alt text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">Race </span> {{ object.get_race_display }}</span>
                                                     </li>
                                                     <li class="pricing-list-item">
-                                                        <span class="fa-li"><i class="fas fa-globe-americas text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">Citizenship </span> {{ object.get_citizenship_display }}</span>
+                                                        <span class="fa-li"><i class="fas fa-globe-americas text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">Citizenship </span> {{ object.get_cit_display }}</span>
                                                     </li>
                                                     <li class="pricing-list-item">
-                                                        <span class="fa-li"><i class="fas fa-users text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">Household Size </span> {{ object.get_household_size_display  }}</span>
+                                                        <span class="fa-li"><i class="fas fa-users text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">House Size </span> {{ object.get_house_size_display  }}</span>
                                                     </li>
                                                     <li class="pricing-list-item">
-                                                        <span class="fa-li"><i class="fas fa-money-check-alt text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">Household Income </span> {{ object.get_household_income_display }}</span>
+                                                        <span class="fa-li"><i class="fas fa-money-check-alt text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">House Income </span> {{ object.get_house_income_display }}</span>
                                                     </li>
                                                     <li class="pricing-list-item">
                                                         <span class="fa-li"><i class="fas fa-user-graduate text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">First-Generation College Student </span> {{ object.get_first_gen_display }}</span>
                                                     </li>
                                                 </ul>
                                                 <div class="text-center">
-                                                    <a class="btn btn-info btn-marketing rounded-pill lift lift-sm my-3 text-white" href="{% url 'users:background_update' object.id %}">Update</a>
+                                                    <a class="btn btn-info btn-marketing rounded-pill lift lift-sm my-3 text-white" href="{% url 'users:demo_update' object.id %}">Update</a>
                                                     <a class="btn btn-marketing text-dark" href="{% url 'users:profile' %}">Profile</a>
                                                 </div>
                                             </div>
@@ -61,7 +61,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="svg-border-rounded text-light">
+                        <div class="svg-border-rounded text-warning">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
                         </div>
                     </header>

@@ -49,31 +49,47 @@
                                     </div>
                                 </div>
                                 {% endif %}
+                            </div>
+                            <div class="row">
                                 <div class="col-lg-4 col-md-6 mb-5" data-aos="fade-up">
-                                    <div class="card text-center text-decoration-none h-100 lift" href="#!">
+                                    <div class="card text-center text-decoration-none" href="#!">
                                         <div class="card-body py-5">
-                                            <h5 class="mb-3">Organization Information</h5>
+                                            <h5 class="mb-3">Basic Information</h5>
                                             <div class="list-group list-group-flush">
                                                 {% if user.orgcontact %}
                                                 <a class="list-group-item text-dark" href="{% url 'users:orgcontact_detail' user.orgcontact.id %}">Contact</a>
                                                 {% else %}
                                                 <a class="list-group-item text-dark" href="{% url 'users:orgcontact_create' %}">Contact&nbsp;<span class="badge badge-info badge-pill px-2 text-white">Add</span></a>
                                                 {% endif %}
-                                                {% if user.orgbackground %}
-                                                <a class="list-group-item text-dark" href="{% url 'users:orgbackground_detail' user.orgbackground.id %}">Background</a>
+                                                {% if user.orgdemo %}
+                                                <a class="list-group-item text-dark" href="{% url 'users:orgdemo_detail' user.orgdemo.id %}">Demographics</a>
                                                 {% else %}
-                                                <a class="list-group-item text-dark" href="{% url 'users:orgbackground_create' %}">Background&nbsp;<span class="badge badge-info badge-pill px-2 text-white">Add</span></a>
+                                                <a class="list-group-item text-dark" href="{% url 'users:orgdemo_create' %}">Demographics&nbsp;<span class="badge badge-info badge-pill px-2 text-white">Add</span></a>
                                                 {% endif %}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-6 mb-5" data-aos="fade-up">
-                                    <div class="card text-center text-decoration-none h-100 lift" href="#!">
+                                {% if not user.orgcontact or not user.orgdemo %}
+                                <div class="col-lg-8 col-md-6 mb-5" data-aos="fade-up" data-aos-delay="100">
+                                    <div class="card text-center text-decoration-none" href="#!">
                                         <div class="card-body py-5">
-                                            <h5 class="mb-3">Provide An Opportunity</h5>
                                             <div class="list-group list-group-flush">
-                                                {% if internships %}
+                                                <img src="{% static 'flairnow_assets/assets/img/profile_complete.svg' %}" height="250px" width="auto" />
+                                                <p class="mt-3">Complete your profile to start providing internships and/or scholarships. The information is used to match you with the best candidates.</p>
+                                            </div >
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% if user.orgcontact and user.orgdemo %}
+                                <div class="col-lg-8 col-md-6 mb-5" data-aos="fade-up">
+                                    <div class="card text-center text-decoration-none" href="#!">
+                                        <div class="card-body py-5">
+                                            <img src="{% static 'flairnow_assets/assets/img/mission.svg' %}" height="250px" width="auto" />
+                                            <p class="mt-3 text-dark">Start providing opportunities to students today! Free manage and easy to get in contact with students.</p>
+                                            <div class="list-group list-group-flush">
+                                                {% if intern %}
                                                 <a class="list-group-item text-dark" href="{% url 'core:internship_dash' %}">Internships</a>
                                                 {% else %}
                                                     {% if confirmed %}
@@ -83,8 +99,8 @@
                                                     {% endif %}
                                                 {% endif %}
 
-                                                {% if scholarships %}
-                                                <a class="list-group-item text-dark" href="{% url 'core:scholarship_dash' %}">Scholarships</a>
+                                                {% if scholar %}
+                                                    <a class="list-group-item text-dark" href="{% url 'core:scholarship_dash' %}">Scholarships</a>
                                                 {% else %}
                                                     {% if confirmed %}
                                                         <a class="list-group-item text-dark" href="{% url 'core:scholarship_info' %}">Scholarships&nbsp;<span class="badge badge-info badge-pill px-2 text-white">Create</span></a>
@@ -94,7 +110,7 @@
                                                 {% endif %}
 
                                                 {% if request.user.is_admin %}
-                                                    {% if not externalopps %}
+                                                    {% if not ext %}
                                                     <a class="list-group-item text-dark" href="{% url 'core:external_create' %}">External</a>
                                                     {% else %}
                                                     <a class="list-group-item text-dark" href="{% url 'core:external_dash' %}">External</a>
@@ -104,9 +120,10 @@
                                         </div>
                                     </div>
                                 </div>
+                                {% endif %}
                                 {% if user.is_admin %}
                                 <div class="col-lg-4 col-md-6 mb-5" data-aos="fade-up">
-                                    <div class="card text-center text-decoration-none h-100 lift" href="#!">
+                                    <div class="card text-center text-decoration-none" href="#!">
                                         <div class="card-body py-5">
                                             <h5 class="mb-3">Adminstration</h5>
                                             <div class="list-group list-group-flush">
@@ -122,6 +139,9 @@
                                     </div>
                                 </div>
                                 {% endif %}
+                            </div>
+                            <div class="svg-border-rounded text-warning">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
                             </div>
                         </div>
                     </section>

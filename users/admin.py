@@ -1,18 +1,18 @@
 from django.contrib import admin
 from .models import (
     Profile, Manager, User,
-    Academic, Background, Contact,
-    OrgContact, OrgBackground, 
-    UInternshipApp, UScholarshipApp
+    Edu, Demo, Contact,
+    OrgContact, OrgDemo, 
+    Int, Exp
     )
 
 admin.site.register(Profile)
 admin.site.register(User)
-admin.site.register(Academic)
-admin.site.register(Background)
+admin.site.register(Edu)
+admin.site.register(Demo)
 admin.site.register(Contact)
 admin.site.register(OrgContact)
-admin.site.register(OrgBackground)
-admin.site.register(UInternshipApp)
-admin.site.register(UScholarshipApp)
+admin.site.register(OrgDemo)
+admin.site.register(Int)
+admin.site.register(Exp)
 

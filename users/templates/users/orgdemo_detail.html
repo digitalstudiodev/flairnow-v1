@@ -1,6 +1,5 @@
 {% load crispy_forms_tags %}
 {% load static %}
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -24,24 +23,33 @@
                     <header class="page-header page-header-dark bg-warning" style="background-image: url({% static 'flairnow_assets/assets/img/pattern-shapes.png' %})">
                         <div class="page-header-content">
                             <div class="container">
-                              <div class="row align-items-center">
-                                <div class="col-lg-8 m-auto">
-                                    <div class="card rounded-lg text-dark">
-                                        <div class="card-header py-4 text-dark">Academic Information</div>
-                                        <div class="card-body">
-                                            <form class="register-form" method="POST">
-                                                {% csrf_token %}
-                                                {{ form|crispy }}
-                                                <button class="btn btn-marketing btn-info btn-block btn-round rounded-pill" type="Submit">Save</button>
-                                                <a class="btn btn-warning btn-block btn-round rounded-pill" href="{% url 'users:profile' %}">Cancel</a>
-                                            </form>
+                                <div class="row align-items-center">
+                                    <div class="col-lg-10 m-auto">
+                                        <div class="card rounded-lg text-dark">
+                                            <div class="card-body">
+                                                <h3 class="title mx-auto ml-3 mb-5">Demographics</h3>
+                                                <ul class="fa-ul pricing-list">
+                                                    <li class="pricing-list-item">
+                                                        <span class="fa-li"><i class="fas fa-users text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">Size </span> {{ object.size  }}</span>
+                                                    </li>
+                                                    <li class="pricing-list-item">
+                                                        <span class="fa-li"><i class="fas fa-globe-americas text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">Field </span> {{ object.get_field_display }}</span>
+                                                    </li>
+                                                    <li class="pricing-list-item">
+                                                        <span class="fa-li"><i class="fas fa-font text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">Type </span> {{ object.get_org_type_display }}</span>
+                                                    </li>
+                                                </ul>
+                                                <div class="text-center">
+                                                    <a class="btn btn-info btn-marketing rounded-pill lift lift-sm my-3 text-white" href="{% url 'users:orgdemo_update' object.id %}">Update</a>
+                                                    <a class="btn btn-marketing text-dark" href="{% url 'users:org_profile' %}">Profile</a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            </div>
                         </div>
-                        <div class="svg-border-rounded text-light">
+                        <div class="svg-border-rounded text-warning">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
                         </div>
                     </header>

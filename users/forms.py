@@ -65,8 +65,8 @@ class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
         fields = [
-            'phone', 'dob', 'primary_address', 'secondary_address',
-            'zip_code', 'city', 'state',
+            'phone', 'dob', 'street', 'apt',
+            'zip_code', 'city', 'state', 'linkedin'
         ]
         widgets = {
             'dob': DatePickerInput(format='%Y-%m-%d'), 

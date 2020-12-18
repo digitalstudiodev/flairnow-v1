@@ -23,7 +23,7 @@
                     <header class="page-header page-header-dark bg-warning" style="background-image: url({% static 'flairnow_assets/assets/img/pattern-shapes.png' %})">
                         <div class="page-header-content">
                             <div class="container">
-                                {% if object.scholarship.organization == request.user %}
+                                {% if object.scholar.org == request.user %}
                                 <div class="row justify-content-center">
                                     <div class="col-xl-8 col-lg-10 text-center">
                                         <img class="mb-4 rounded-circle" src="{{ object.student.profile.image.url }}" style="width: 15rem;" />
@@ -35,121 +35,136 @@
                                             <span class="badge badge-dark rounded-pill p-2">{{ object.get_status_display }}</span>
                                         </p>
                                         <a class="btn btn-info btn-marketing rounded-pill lift lift-sm my-3 mx-2" href="{% url 'core:scholarship_app_update' object.id %}">Update</a>
-                                        {% if object.student.resume %}
-                                        <a class="btn btn-dark btn-marketing rounded-pill lift lift-sm my-3 mx-2" href="{{ object.student.resume.resume.url }}" target="_blank">View Resume</a>
-                                        {% endif %}
                                     </div>
                                 </div>
                                 {% endif %}
-                                {% if object.student == request.user %}
-                                <div class="row justify-content-center">
-                                    <div class="col-xl-8 col-lg-10 text-center">
-                                        <img class="mb-4 rounded-circle" src="{{ object.scholarship.organization.profile.image.url }}" style="width: 15rem;" />
-                                        <h1 class="page-header-title">
-                                            {{ object.scholarship.organization.org_name }} 
-                                        </h1>
-                                        <h3 class="page-header-title" style="font-size: medium;">
-                                            <a href="{% url 'core:scholarship_detail' object.scholarship.id %}" class="btn-link">{{ object.scholarship.title }} </a>
-                                        </h3>
-                                        <p>
-                                            Status
-                                            <span class="badge badge-dark rounded-pill p-2">{{ object.get_status_display }}</span>
-                                        </p>
-                                    </div>
-                                </div>
-                                {% endif %}
+
                             </div>
                         </div>
                         <div class="svg-border-rounded text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
                         </div>
                     </header>
-                    {% if object.scholarship.organization == request.user %}
+                    {% if object.scholar.org == request.user %}
                     <section class="bg-white py-10">
                         <div class="container mt-10">
                             {% include 'core/messages.html' %}
                             <div class="row">
-                                <div class="col-lg-5">
-                                    {% if object.student.academic %}
+                                <div class="col-lg-12">
                                     <ul class="list-group list-group-flush list-group-careers">
                                         <li class="list-group-item pt-0">
-                                            <a class="small" href="{% url 'core:scholarship_detail' object.scholarship.id %}"><i class="fas fa-arrow-left mr-1"></i>Back to {{ object.scholarship.title }}</a>
-                                        </li>
-                                        <li class="list-group-item">
-                                            Current or Preferred College/University 
-                                            <span class="font-weight-bold">
-                                                {{ object.student.academic.school }}
-                                            </span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            Edu Level 
-                                            <span class="font-weight-bold">
-                                                {{ object.student.academic.get_edu_level_display }}
-                                            </span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            Degree  
-                                            <span class="font-weight-bold">
-                                                {{ object.student.academic.get_degree_display }}
-                                            </span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            Current Major or Field
-                                            <span class="font-weight-bold">
-                                                {{ object.student.academic.get_field_display }}
-                                            </span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            GPA 
-                                            <span class="font-weight-bold">
-                                                {{ object.student.academic.get_gpa_display }}
-                                            </span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            Class 
-                                            <span class="font-weight-bold">
-                                                {{ object.student.academic.get_grad_year_display }}
-                                            </span>
+                                            <a class="small" href="{% url 'core:scholarship_applicants' object.scholar.id %}"><i class="fas fa-arrow-left mr-1"></i>Back to Applicants</a>
                                         </li>
                                     </ul>
-                                    {% else %}
-                                    <div class="alert alert-warning my-5" style="border-radius: 2rem;">
-                                        Student does not have any academic information.
-                                    </div>
-                                    {% endif %}
-
-                                    {% if object.student.contact %}
-                                    <h3>Contact</h3>
-                                    <ul class="list-group list-group-flush list-group-careers">
-                                        <li class="list-group-item">
-                                            Email 
-                                            <span class="font-weight-bold">
-                                                {{ object.student.email }}
-                                            </span>
-                                        </li>
-                                        <li class="list-group-item">
-                                            Phone Number 
-                                            <span class="font-weight-bold">
-                                                {{ object.student.contact.phone }}
-                                            </span>
-                                        </li>
-                                    </ul>
-                                    {% else %}
-                                    <div class="alert alert-warning my-5" style="border-radius: 2rem;">
-                                        Student does not have any contact information.
-                                    </div>
-                                    {% endif %}
                                 </div>
-                                <div class="col-lg-7">
-                                    <h1 class="mb-4">Universal Scholarship Application</h1>
-                                    <h4>{{ q1 }}</h4>
-                                    <p>{{ object.student.uscholarshipapp.q1 }}</p>
-                                    <h4>{{ q2 }}</h4>
-                                    <p>{{ object.student.uscholarshipapp.q2 }}</p>
+                                <div class="col-lg-8">
+                                    <div class="card shadow">
+                                        <div class="card-body">
+                                            <h3>Education</h3>
+                                            <span class="font-weight-bold">School</span>
+                                            <p>{{ object.student.edu.school }}</p>
+
+                                            <span class="font-weight-bold">Edu Level</span>
+                                            <p>{{ object.student.edu.get_edu_level_display }}</p>
+
+                                            <span class="font-weight-bold">Degree</span>
+                                            <p>{{ object.student.edu.get_degree_display }}</p>
+
+                                            <span class="font-weight-bold">Current Major or Field</span>
+                                            <p>{{ object.student.edu.major }}</p>
+
+                                            <span class="font-weight-bold">Minor or Concentration</span>
+                                            <p>{{ object.student.edu.con }}</p>
+
+                                            <span class="font-weight-bold">Graduation Year</span>
+                                            <p>{{ object.student.edu.get_grad_year_display }}</p>
+
+                                            <hr /> 
+
+                                            <h3>Experience</h3>
+                                            <span class="font-weight-bold">Current or Preferred Role</span>
+                                            <p>{{ object.student.exp.role }}</p>
+
+                                            <span class="font-weight-bold">Fields</span>
+                                            <p>{{ object.student.exp.field }}</p>
+
+                                            <span class="font-weight-bold">Skills</span>
+                                            <p>{{ object.student.exp.skills }}</p>
+
+                                            <hr /> 
+
+                                            <h3>Interests</h3>
+                                            <span class="font-weight-bold">What do you value most when considering a company?</span>
+                                            <p>{{ object.student.int.work }}</p>
+
+                                            <span class="font-weight-bold">Which of these words do you relate to most?</span>
+                                            <p>{{ object.student.int.values }}</p>
+
+                                            <span class="font-weight-bold">What office environment would you prefer to work in?</span>
+                                            <p>{{ object.student.int.env }}</p>
+
+                                            <span class="font-weight-bold">What do you usually do in your spare time?</span>
+                                            <p>{{ object.student.int.acts }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="card shadow mb-5">
+                                        <div class="card-body">
+                                            <h5>Resume</h5>
+                                            {% if object.student.exp.resume %}
+                                                <a href="{{ object.student.exp.resume.url }}" target="_blank">View</a>
+                                            {% else %}
+                                                None
+                                            {% endif %}
+        
+                                            <h5 class="mt-3">Cover</h5>
+                                            {% if object.cover %}
+                                                <a href="{{ object.cover.url }}" target="_blank">View</a>
+                                            {% else %}
+                                                None
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="card shadow">
+                                        <div class="card-body">
+                                            <h5>Contact</h5>
+                                            <span class="font-weight-bold">Email</span>
+                                            <p>{{ object.student.email }}</p>
+
+                                            <span class="font-weight-bold">Phone</span>
+                                            {% if object.student.contact.phone  %}
+                                                <p>{{ object.student.contact.phone }}</p>
+                                            {% else %}
+                                                None
+                                            {% endif %}
+
+                                            <span class="font-weight-bold">City</span>
+                                            {% if object.student.contact.city  %}
+                                                <p>{{ object.student.contact.city }}</p>
+                                            {% else %}
+                                                None
+                                            {% endif %}
+
+                                            <span class="font-weight-bold">State</span>
+                                            {% if object.student.contact.state  %}
+                                                <p>{{ object.student.contact.state }}</p>
+                                            {% else %}
+                                                None
+                                            {% endif %}
+
+                                            <span class="font-weight-bold">LinkedIn</span>
+                                            {% if object.student.contact.linkedin  %}
+                                                <p>@{{ object.student.contact.linkedin }}</p>
+                                            {% else %}
+                                                None
+                                            {% endif %}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="svg-border-rounded text-light">
+                        <div class="svg-border-rounded text-warning">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
                         </div>
                     </section>

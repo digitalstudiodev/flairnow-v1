@@ -51,10 +51,10 @@
                                     <a class="card lift border-bottom-lg border-warning" href="{% url 'core:scholarship_detail' scholarship.id %}">
                                         <div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">{{ scholarship.get_field_display }}</div>
                                         <div class="card-body text-center">
-                                            <img src="{{ scholarship.organization.profile.image.url }}" width="auto" height="100px" class="m-auto rounded-circle"" alt="{{ scholarship.organization.org_name }} Logo" />
+                                            <img src="{{ scholarship.org.profile.image.url }}" width="auto" height="100px" class="m-auto rounded-circle"" alt="{{ scholarship.org.org_name }} Logo" />
                                             <div class="small text-dark-600">{{ scholarship.title }}</div>
                                             <p class="text-muted text-dark">
-                                                $ {{ scholarship.salary }}
+                                                $ {{ scholarship.amount }}
                                             </p>
                                         </div>
                                     </a>
@@ -62,7 +62,7 @@
                                     <a class="card lift border-bottom-lg border-warning" href="{{ scholarship.link }}" target="_blank">
                                         <div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">{{ scholarship.get_field_display }}</div>
                                         <div class="card-body text-center">
-                                            <img src="{{ scholarship.organization.profile.image.url }}" width="auto" height="100px" class="m-auto rounded-circle"" alt="{{ scholarship.organization.org_name }} Logo" />
+                                            <img src="{{ scholarship.org.profile.image.url }}" width="auto" height="100px" class="m-auto rounded-circle"" alt="{{ scholarship.org.org_name }} Logo" />
                                             <div class="small text-dark-600">{{ scholarship.title }}</div>
                                             <p class="text-muted text-dark">
                                                 {{ scholarship.host }}
@@ -88,6 +88,9 @@
                                     {% endif %}
                                 </ul>
                             </nav>
+                        </div>
+                        <div class="svg-border-rounded text-warning">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
                         </div>
                     </section>
                 </main>
