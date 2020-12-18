@@ -119,4 +119,4 @@ class External(models.Model):
     date_posted = models.DateField(default=date.today)
 
     def __str__(self):
-        return self.organization.email
+        return self.org.email
