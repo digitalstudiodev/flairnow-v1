@@ -51,7 +51,13 @@
                                                         <span class="fa-li"><i class="fas fa-flag-usa text-warning"></i></span><span class="text-dark"><span class="font-weight-bold">State </span> {{ object.get_state_display }}</span>
                                                     </li>
                                                     <li class="pricing-list-item">
-                                                        <span class="fa-li"><i class="fab fa-linkedin text-primary"></i></span><span class="text-dark"><span class="font-weight-bold">LinkedIn </span> {{ object.linkedin }}</span>
+                                                        <span class="fa-li"><i class="fab fa-linkedin text-primary"></i></span><span class="text-dark"><span class="font-weight-bold">LinkedIn </span> 
+                                                        {% if object.linkedin %}
+                                                            <a href="{{ object.linkedin }}" target="_blank">Visit</a>
+                                                        {% else %}
+                                                            None
+                                                        {% endif %}
+                                                        </span>
                                                     </li>
                                                 </ul>
                                                 <div class="text-center">

@@ -125,7 +125,7 @@ class Contact(models.Model):
     zip_code = models.CharField(max_length=5, default=None, blank=True, verbose_name="Zip Code", help_text="Ex 07102")
     city = models.CharField(max_length=50, default=None, blank=True, verbose_name="City")
     state = models.CharField(max_length=1000, choices=US_STATES, default=None, blank=True, verbose_name="State")
-    linkedin = models.CharField(max_length=35, default=None, blank=True, verbose_name="LinkedIn Username")
+    linkedin = models.CharField(max_length=150, default=None, blank=True, verbose_name="LinkedIn URL", help_text="Ex: https://www.linkedin.com/in/your-profile")
     
     def __str__(self):
         return self.student.email
