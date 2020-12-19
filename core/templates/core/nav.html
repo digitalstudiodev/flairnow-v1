@@ -71,13 +71,25 @@
                 <li class="nav-item"><a class="nav-link" href="{% url 'core:contact' %}">Contact</a></li>
             </ul>
             {% if user.is_authenticated and user.is_student %}
-            <a class="text-white" href="{% url 'users:profile' %}"><img class="m-2" src="{% static 'flairnow_assets/assets/img/user.svg' %}" width="auto" height="25px" alt="User Profile" /></a>
+            <a class="text-white" href="{% url 'users:profile' %}">
+                <!--<img class="m-2" src="{% static 'flairnow_assets/assets/img/user.svg' %}" width="auto" height="25px" alt="User Profile" />-->
+                <i class="fas fa-user-cog text-white xl"></i>
+            </a>
             <a class="btn-info btn rounded-pill px-4 ml-lg-4" href="{% url 'users:logout' %}">Logout<i class="fas fa-arrow-right ml-1"></i></a>
             {% elif user.is_authenticated and user.is_organization %}
-            <a class="text-white" href="{% url 'users:org_profile' %}"><img class="m-2" src="{% static 'flairnow_assets/assets/img/user.svg' %}" width="auto" height="25px" alt="User Profile" /></a>
-            <a class="btn-info btn rounded-pill px-4 ml-lg-4" href="{% url 'users:logout' %}">Logout<i class="fas fa-arrow-right ml-1"></i></a>
+            <a class="text-white" href="{% url 'users:org_profile' %}">
+                <!--<img class="m-2" src="{% static 'flairnow_assets/assets/img/user.svg' %}" width="auto" height="25px" alt="User Profile" />-->
+                <i class="fas fa-user-cog text-white xl"></i>
+            </a>
+            <a class="btn-info btn rounded-pill px-4 ml-lg-4" href="{% url 'users:logout' %}">
+                Logout
+                <i class="fas fa-arrow-right ml-1"></i>
+            </a>
             {% else %}
-            <a class="btn-info btn rounded-pill px-4 ml-lg-4" href="{% url 'users:login' %}">Login<i class="fas fa-arrow-right ml-1"></i></a>
+            <a class="btn-info btn rounded-pill px-4 ml-lg-4" href="{% url 'users:login' %}">
+                Login
+                <i class="fas fa-arrow-right ml-1"></i>
+            </a>
             {% endif %}
         </div>
     </div>
