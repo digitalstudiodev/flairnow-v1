@@ -164,16 +164,16 @@
                                             <div class="card-body bg-light">
                                                 <h5>Demographics</h5>
                                                 <span class="font-weight-bold">Race</span>
-                                                <p>{{ object.student.demo.race }}</p>
+                                                <p>{{ object.student.demo.get_race_display }}</p>
 
                                                 <span class="font-weight-bold">Gender</span>
-                                                <p>{{ object.student.demo.gender }}</p>
+                                                <p>{{ object.student.demo.get_gender_display }}</p>
             
                                                 <span class="font-weight-bold">Sex</span>
-                                                <p>{{ object.student.demo.sex }}</p>
+                                                <p>{{ object.student.demo.get_sex_display }}</p>
 
                                                 <span class="font-weight-bold">First-Generation Student</span>
-                                                <p>{{ object.student.demo.first_gen }}</p>
+                                                <p>{{ object.student.demo.get_first_gen_display }}</p>
                                             </div>
                                         </div>
                                     </div>
