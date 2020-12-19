@@ -40,12 +40,12 @@
                         <div class="container">
                             {% include 'core/messages.html' %}
                             <div class="row justify-content-center">
-                                <ul class="list-group list-group-flush list-group-careers">
-                                    <li class="list-group-item pt-0">
-                                        <a class="small" href="{% url 'users:org_profile' %}"><i class="fas fa-arrow-left mr-1"></i>Back to Profile</a>
-                                    </li>
-                                </ul>
                                 <div class="col-lg-10">
+                                    <ul class="list-group list-group-flush list-group-careers">
+                                        <li class="list-group-item pt-0">
+                                            <a class="small" href="{% url 'users:org_profile' %}"><i class="fas fa-arrow-left mr-1"></i>Back to Profile</a>
+                                        </li>
+                                    </ul>
                                     {% for external in page_obj %}
                                     <div class="d-flex align-items-center justify-content-between">
                                         <h2 class="mb-0"><a href="{{ external.link }}" class="btn-link text-dark" target="_blank">{{ external.title }}</a></h2>
