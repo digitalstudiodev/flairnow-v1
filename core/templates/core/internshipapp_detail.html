@@ -40,12 +40,12 @@
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="svg-border-rounded text-white">
+                        <div class="svg-border-rounded text-light">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
                         </div>
                     </header>
                     {% if object.intern.org == request.user %}
-                    <section class="bg-white py-10">
+                    <section class="bg-light py-10">
                         <div class="container mt-10">
                             {% include 'core/messages.html' %}
                             <div class="row">
@@ -58,7 +58,7 @@
                                         </ul>
                                     </div>
                                     <div class="col-lg-8">
-                                        <div class="card shadow">
+                                        <div class="card">
                                             <div class="card-body">
                                                 <h3>Education</h3>
                                                 <span class="font-weight-bold">School</span>
@@ -109,7 +109,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
-                                        <div class="card shadow mb-5">
+                                        <div class="card mb-5">
                                             <div class="card-body">
                                                 <h5>Resume</h5>
                                                 {% if object.student.exp.resume %}
@@ -126,7 +126,7 @@
                                                 {% endif %}
                                             </div>
                                         </div>
-                                        <div class="card shadow">
+                                        <div class="card">
                                             <div class="card-body">
                                                 <h5>Contact</h5>
                                                 <span class="font-weight-bold">Email</span>
@@ -159,6 +159,22 @@
                                                 {% else %}
                                                     None
                                                 {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="card mb-5">
+                                            <div class="card-body">
+                                                <h5>Demographics</h5>
+                                                <span class="font-weight-bold">Race</span>
+                                                <p>{{ object.student.demo.race }}</p>
+
+                                                <span class="font-weight-bold">Gender</span>
+                                                <p>{{ object.student.demo.gender }}</p>
+            
+                                                <span class="font-weight-bold">Sex</span>
+                                                <p>{{ object.student.demo.sex }}</p>
+
+                                                <span class="font-weight-bold">First-Generation Student</span>
+                                                <p>{{ object.student.demo.first_gen }}</p>
                                             </div>
                                         </div>
                                     </div>
