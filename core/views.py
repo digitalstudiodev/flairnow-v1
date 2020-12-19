@@ -371,7 +371,16 @@ class InternshipAppCreateView(LoginRequiredMixin, CreateView):
             return redirect("users:profile")
         else:
             form.instance.status = "P"
+            app_title = form.instance.intern.title
             messages.success(self.request,f"Congrats you have successfullly applied to this internship!")
+            send_mail(
+                f"Congrats you have successfullly applied {app_title}!", 
+                f"Congrats you have successfullly applied {app_title}!", 
+                EMAIL_HOST_USER, 
+                [form.instance.student.email], 
+                fail_silently = False,
+                html_message=f"<h1>Thank you for applying to {app_title}!</h1><p>Your application is currently being reviewed. Please <a href='https://www.flairnow.org/users/login'>log in</a> to your profile to view the status of your application. </p>",
+            )
             return super().form_valid(form)
     
     def get_context_data(self, **kwargs):
@@ -425,7 +434,7 @@ class InternshipAppUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateVie
             EMAIL_HOST_USER, 
             [app.student.email], 
             fail_silently = False,
-            html_message=f"<h1>Thank you for applying to {app_title}!</h1><p>Your application has been reviewed. Please log in to your profile to view the status of your application.</p>",
+            html_message=f"<h1>Thank you for applying to {app_title}!</h1><p>Your application has been reviewed. Please <a href='https://www.flairnow.org/users/login'>log in</a> to your profile to view the status of your application.</p>",
         )
         return super().form_valid(form)
 
@@ -572,7 +581,16 @@ class ScholarshipAppCreateView(LoginRequiredMixin, CreateView):
             return redirect("users:profile")
         else:
             form.instance.status = "P"
-            messages.success(self.request,f"Congrats you have successfullly applied to this scholarship!. Check on the status below.")
+            messages.success(self.request,f"Congrats you have successfullly applied to this scholarship!")
+            app_title = form.instance.scholar.title
+            send_mail(
+                f"Congrats you have successfullly applied {app_title}!", 
+                f"Congrats you have successfullly applied {app_title}!", 
+                EMAIL_HOST_USER, 
+                [form.instance.student.email], 
+                fail_silently = False,
+                html_message=f"<h1>Thank you for applying to {app_title}!</h1><p>Your application is currently being reviewed. Please <a href='https://www.flairnow.org/users/login'>log in</a> to your profile to view the status of your application. </p>",
+            )
             return super().form_valid(form)
     
     def get_context_data(self, **kwargs):
@@ -626,7 +644,7 @@ class ScholarshipAppUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateVi
             EMAIL_HOST_USER, 
             [app.student.email], 
             fail_silently = False,
-            html_message=f"<h1>Thank you for applying to {app_title}!</h1><p>Your application has been reviewed. Please log in to your profile to view the status of your application.</p>",
+            html_message=f"<h1>Thank you for applying to {app_title}!</h1><p>Your application has been reviewed. Please <a href='https://www.flairnow.org/users/login'>log in</a> to your profile to view the status of your application. </p>",
         )
         return super().form_valid(form)
 
