@@ -77,7 +77,7 @@
             </a>
             <a class="btn-info btn rounded-pill px-4 ml-lg-4" href="{% url 'users:logout' %}">Logout<i class="fas fa-arrow-right ml-1"></i></a>
             {% elif user.is_authenticated and user.is_organization %}
-            <a class="text-white" href="{% url 'users:org_profile' %}">
+            <a class="text-white" href="{% url 'users:org_profile' %}" class="mb-2">
                 <!--<img class="m-2" src="{% static 'flairnow_assets/assets/img/user.svg' %}" width="auto" height="25px" alt="User Profile" />-->
                 <i class="fas fa-user-cog text-white xl"></i>
             </a>
@@ -86,7 +86,7 @@
                 <i class="fas fa-arrow-right ml-1"></i>
             </a>
             {% else %}
-            <a class="btn-info btn rounded-pill px-4 ml-lg-4" href="{% url 'users:login' %}">
+            <a class="btn-info btn rounded-pill px-4 ml-lg-4" href="{% url 'users:login' %}" class="mb-2">
                 Login
                 <i class="fas fa-arrow-right ml-1"></i>
             </a>
