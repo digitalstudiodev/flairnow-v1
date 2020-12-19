@@ -155,7 +155,7 @@
     
                                                 <span class="font-weight-bold">LinkedIn</span>
                                                 {% if object.student.contact.linkedin  %}
-                                                    <p>@{{ object.student.contact.linkedin }}</p>
+                                                    <a href="{{ object.student.contact.linkedin }}">View</a> 
                                                 {% else %}
                                                     None
                                                 {% endif %}
