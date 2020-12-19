@@ -121,51 +121,11 @@
                                 <h2>Pricing</h2>
                             </div>
                             <div class="row no-gutters align-items-center">
-                                <div class="col-lg-4 mb-5 mb-lg-0">
-                                    <div class="card pricing pricing-left">
-                                        <div class="card-body p-5">
-                                            <div class="text-center">
-                                                <div class="badge badge-gray badge-pill badge-marketing badge-sm text-white">Plus</div>
-                                                <div class="pricing-price text-muted">
-                                                    <sup>$</sup>25
-                                                    <span class="pricing-price-period">/mo</span>
-                                                </div>
-                                                <p>Pending</p>
-                                            </div>
-                                            <ul class="fa-ul pricing-list">
-                                                <li class="pricing-list-item">
-                                                    <span class="fa-li">
-                                                        <i class="far fa-check-circle text-teal"></i>
-                                                    </span>
-                                                    <span class="text-dark">Create opportunities (internships and scholarships) fast and easy.</span>
-                                                </li>
-                                                <li class="pricing-list-item">
-                                                    <span class="fa-li">
-                                                        <i class="far fa-check-circle text-teal"></i>
-                                                    </span>
-                                                    <span class="text-dark">Manage and award opportunities to eligible students.</span>
-                                                </li>
-                                                <li class="pricing-list-item">
-                                                    <span class="fa-li">
-                                                        <i class="far fa-check-circle text-teal"></i>
-                                                    </span>
-                                                    <span class="text-dark">Matching tool to run and sort through applicants and rank by the best fit.</span>
-                                                </li>
-                                                <li class="pricing-list-item">
-                                                    <span class="fa-li">
-                                                        <i class="far fa-circle text-gray-200"></i>
-                                                    </span>
-                                                    Analytics to gather insights on your opportunities' metrics.
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 mb-5 mb-lg-0">
+                                <div class="col-lg-6 mb-5 mb-lg-0">
                                     <div class="card pricing py-4 z-1">
                                         <div class="card-body p-5">
                                             <div class="text-center">
-                                                <div class="badge badge-warning badge-pill badge-marketing badge-sm">Basic</div>
+                                                <div class="badge badge-warning badge-pill badge-marketing badge-sm">Standard</div>
                                                 <div class="pricing-price">
                                                     <sup>$</sup>0
                                                     <span class="pricing-price-period">/mo</span>
@@ -198,46 +158,20 @@
                                                 </li>
                                             </ul>
                                         </div>
+                                        <div class="card-footer px-5">
+                                            <a class="d-flex align-items-center justify-content-between" href="{% url 'users:register_org' %}">Get Started!<i class="fas fa-arrow-right"></i></a>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 mb-5 mb-lg-0">
-                                    <div class="card pricing pricing-right">
+                                <div class="col-lg-6">
+                                    <div class="card pricing pricing-right bg-gray-800">
                                         <div class="card-body p-5">
-                                            <div class="text-center">
-                                                <div class="badge badge-gray badge-pill badge-marketing badge-sm text-white">Pro</div>
-                                                <div class="pricing-price text-muted">
-                                                    <sup>$</sup>50
-                                                    <span class="pricing-price-period">/mo</span>
-                                                </div>
-                                                <p>Pending</p>
-                                            </div>
-                                            <ul class="fa-ul pricing-list">
-                                                <li class="pricing-list-item">
-                                                    <span class="fa-li">
-                                                        <i class="far fa-check-circle text-teal"></i>
-                                                    </span>
-                                                    <span class="text-dark">Create opportunities (internships and scholarships) fast and easy.</span>
-                                                </li>
-                                                <li class="pricing-list-item">
-                                                    <span class="fa-li">
-                                                        <i class="far fa-check-circle text-teal"></i>
-                                                    </span>
-                                                    <span class="text-dark">Manage and award opportunities to eligible students.</span>
-                                                </li>
-                                                <li class="pricing-list-item">
-                                                    <span class="fa-li">
-                                                        <i class="far fa-check-circle text-teal"></i>
-                                                    </span>
-                                                    <span class="text-dark">Matching tool to run and sort through applicants and rank by the best fit.</span>
-                                                </li>
-                                                <li class="pricing-list-item">
-                                                    <span class="fa-li">
-                                                        <i class="far fa-check-circle text-teal"></i>
-                                                    </span>
-                                                    <span class="text-dark">Analytics to gather insights on your opportunities' metrics.</span>
-                                                </li>
-                                            </ul>
+                                            <div class="badge badge-transparent-light badge-marketing badge-pill badge-sm">Growth</div>
+                                            <p class="card-text py-5">We are growing and expanding on paid services for the future. Currently enjoy the platform free of charge. Provide feedback by contacting us <a href="{% url 'core:contact' %}">here</a>.</p>
                                         </div>
+                                        <!--<div class="card-footer bg-gray-900 px-5">
+                                            <a class="text-white-50 d-flex align-items-center justify-content-between" href="#!">Support<i class="fas fa-arrow-right"></i></a>
+                                        </div>-->
                                     </div>
                                 </div>
                             </div>
