@@ -150,9 +150,8 @@
                                                 <h3></h3>
                                                 <form action="https://formspree.io/f/mbjpprvl" method="POST" class="m-auto p-4">
                                                     <div class="row">
-                                                        <input id="user" name="user" type="hidden" value="{{ request.user.email }}">
-                                                        <label for="recommend">How likely are you to recommend this to a colleague?</label>
-                                                        <select name="recommend" id="recommend" class="form-control">
+                                                        <label for="rec">How likely are you to recommend this to a colleague?</label>
+                                                        <select name="rec" id="rec" class="form-control">
                                                             <option value="definitely">Definitely</option>
                                                             <option value="maybe">Maybe</option>
                                                             <option value="not_sure">Not Sure</option>
@@ -177,6 +176,7 @@
                                                         <textarea name="comments" rows="5" cols="30" class="form-control"></textarea>
                                                     </div>
                                                     <div class="row">
+                                                        <input id="user" name="user" type="hidden" value="{{ request.user.email }}">
                                                         <input type="submit" value="Submit" class="btn btn-info btn-marketing rounded-pill lift lift-sm my-3">
                                                     </div>
                                                 </form>
