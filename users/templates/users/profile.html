@@ -163,12 +163,22 @@
                                             <p class="mt-3 text-dark">Thank you for using our product. Please consider providing feedback below.</p>
                                             <form action="https://formspree.io/f/mbjpprvl" method="POST">
                                                 <div class="row">
-                                                    <input type="range" id="recommend" name="recommend" min="0" max="12">
                                                     <label for="recommend">How likely are you to recommend this to a colleague?</label>
+                                                    <select name="recommend" id="recommend">
+                                                        <option value="definitely">Definitely</option>
+                                                        <option value="maybe">Maybe</option>
+                                                        <option value="not_sure">Not Sure</option>
+                                                        <option value="definitely_not">Definitely Not</option>
+                                                    </select>
                                                 </div>
                                                 <div class="row">
-                                                    <input type="range" id="apply" name="apply" min="0" max="12">
                                                     <label for="apply">How easy is the application process for opportunities?</label>
+                                                    <select name="apply" id="apply">
+                                                        <option value="awesome">Awesome</option>
+                                                        <option value="easy">Easy</option>
+                                                        <option value="weird">Weird</option>
+                                                        <option value="difficult">Difficult</option>
+                                                    </select>
                                                 </div>
                                                 <div class="row">
                                                     <label for="comments">Additional Comments</label>
