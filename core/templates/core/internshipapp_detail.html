@@ -58,124 +58,116 @@
                                         </ul>
                                     </div>
                                     <div class="col-lg-8">
-                                        <div class="card">
-                                            <div class="card-body bg-light">
-                                                <h3>Education</h3>
-                                                <span class="font-weight-bold">School</span>
-                                                <p>{{ object.student.edu.school }}</p>
+                                        <div class="mb-5">
+                                            <h3>Education</h3>
+                                            <span class="font-weight-bold">School</span>
+                                            <p>{{ object.student.edu.school }}</p>
     
-                                                <span class="font-weight-bold">Edu Level</span>
-                                                <p>{{ object.student.edu.get_edu_level_display }}</p>
+                                            <span class="font-weight-bold">Edu Level</span>
+                                            <p>{{ object.student.edu.get_edu_level_display }}</p>
     
-                                                <span class="font-weight-bold">Degree</span>
-                                                <p>{{ object.student.edu.get_degree_display }}</p>
+                                            <span class="font-weight-bold">Degree</span>
+                                            <p>{{ object.student.edu.get_degree_display }}</p>
     
-                                                <span class="font-weight-bold">Current Major or Field</span>
-                                                <p>{{ object.student.edu.major }}</p>
+                                            <span class="font-weight-bold">Current Major or Field</span>
+                                            <p>{{ object.student.edu.major }}</p>
     
-                                                <span class="font-weight-bold">Minor or Concentration</span>
-                                                <p>{{ object.student.edu.con }}</p>
+                                            <span class="font-weight-bold">Minor or Concentration</span>
+                                            <p>{{ object.student.edu.con }}</p>
     
-                                                <span class="font-weight-bold">Graduation Year</span>
-                                                <p>{{ object.student.edu.get_grad_year_display }}</p>
+                                            <span class="font-weight-bold">Graduation Year</span>
+                                            <p>{{ object.student.edu.get_grad_year_display }}</p>
     
-                                                <hr /> 
+                                            <hr /> 
     
-                                                <h3>Experience</h3>
-                                                <span class="font-weight-bold">Current or Preferred Role</span>
-                                                <p>{{ object.student.exp.role }}</p>
+                                            <h3>Experience</h3>
+                                            <span class="font-weight-bold">Current or Preferred Role</span>
+                                            <p>{{ object.student.exp.role }}</p>
     
-                                                <span class="font-weight-bold">Fields</span>
-                                                <p>{{ object.student.exp.field }}</p>
+                                            <span class="font-weight-bold">Fields</span>
+                                            <p>{{ object.student.exp.field }}</p>
     
-                                                <span class="font-weight-bold">Skills</span>
-                                                <p>{{ object.student.exp.skills }}</p>
+                                            <span class="font-weight-bold">Skills</span>
+                                            <p>{{ object.student.exp.skills }}</p>
     
-                                                <hr /> 
+                                            <hr /> 
     
-                                                <h3>Interests</h3>
-                                                <span class="font-weight-bold">What do you value most when considering a company?</span>
-                                                <p>{{ object.student.int.work }}</p>
+                                            <h3>Interests</h3>
+                                            <span class="font-weight-bold">What do you value most when considering a company?</span>
+                                            <p>{{ object.student.int.work }}</p>
     
-                                                <span class="font-weight-bold">Which of these words do you relate to most?</span>
-                                                <p>{{ object.student.int.values }}</p>
+                                            <span class="font-weight-bold">Which of these words do you relate to most?</span>
+                                            <p>{{ object.student.int.values }}</p>
     
-                                                <span class="font-weight-bold">What office environment would you prefer to work in?</span>
-                                                <p>{{ object.student.int.env }}</p>
+                                            <span class="font-weight-bold">What office environment would you prefer to work in?</span>
+                                            <p>{{ object.student.int.env }}</p>
     
-                                                <span class="font-weight-bold">What do you usually do in your spare time?</span>
-                                                <p>{{ object.student.int.acts }}</p>
-                                            </div>
+                                            <span class="font-weight-bold">What do you usually do in your spare time?</span>
+                                            <p>{{ object.student.int.acts }}</p>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
-                                        <div class="card mb-5">
-                                            <div class="card-body bg-light">
-                                                <h5>Resume</h5>
-                                                {% if object.student.exp.resume %}
-                                                    <a href="{{ object.student.exp.resume.url }}" target="_blank">View</a>
-                                                {% else %}
-                                                    None
-                                                {% endif %}
-            
-                                                <h5 class="mt-3">Cover</h5>
-                                                {% if object.cover %}
-                                                    <a href="{{ object.cover.url }}" target="_blank">View</a>
-                                                {% else %}
-                                                    None
-                                                {% endif %}
-                                            </div>
+                                        <div class="mb-5">
+                                            <h5>Resume</h5>
+                                            {% if object.student.exp.resume %}
+                                                <a href="{{ object.student.exp.resume.url }}" target="_blank">View</a>
+                                            {% else %}
+                                                None
+                                            {% endif %}
+        
+                                            <h5 class="mt-3">Cover</h5>
+                                            {% if object.cover %}
+                                                <a href="{{ object.cover.url }}" target="_blank">View</a>
+                                            {% else %}
+                                                None
+                                            {% endif %}
                                         </div>
-                                        <div class="card mb-5">
-                                            <div class="card-body bg-light">
-                                                <h5>Contact</h5>
-                                                <span class="font-weight-bold">Email</span>
-                                                <p>{{ object.student.email }}</p>
-    
-                                                <span class="font-weight-bold">Phone</span>
-                                                {% if object.student.contact.phone  %}
-                                                    <p>{{ object.student.contact.phone }}</p>
-                                                {% else %}
-                                                    None
-                                                {% endif %}
-    
-                                                <span class="font-weight-bold">City</span>
-                                                {% if object.student.contact.city  %}
-                                                    <p>{{ object.student.contact.city }}</p>
-                                                {% else %}
-                                                    None
-                                                {% endif %}
-    
-                                                <span class="font-weight-bold">State</span>
-                                                {% if object.student.contact.state  %}
-                                                    <p>{{ object.student.contact.state }}</p>
-                                                {% else %}
-                                                    None
-                                                {% endif %}
-    
-                                                <span class="font-weight-bold">LinkedIn</span>
-                                                {% if object.student.contact.linkedin  %}
-                                                    <a href="{{ object.student.contact.linkedin }}">View</a> 
-                                                {% else %}
-                                                    None
-                                                {% endif %}
-                                            </div>
+                                        <div class="mb-5">
+                                            <h5>Contact</h5>
+                                            <span class="font-weight-bold">Email</span>
+                                            <p>{{ object.student.email }}</p>
+
+                                            <span class="font-weight-bold">Phone</span>
+                                            {% if object.student.contact.phone  %}
+                                                <p>{{ object.student.contact.phone }}</p>
+                                            {% else %}
+                                                None
+                                            {% endif %}
+
+                                            <span class="font-weight-bold">City</span>
+                                            {% if object.student.contact.city  %}
+                                                <p>{{ object.student.contact.city }}</p>
+                                            {% else %}
+                                                None
+                                            {% endif %}
+
+                                            <span class="font-weight-bold">State</span>
+                                            {% if object.student.contact.state  %}
+                                                <p>{{ object.student.contact.state }}</p>
+                                            {% else %}
+                                                None
+                                            {% endif %}
+
+                                            <span class="font-weight-bold">LinkedIn</span>
+                                            {% if object.student.contact.linkedin  %}
+                                                <a href="{{ object.student.contact.linkedin }}">View</a> 
+                                            {% else %}
+                                                None
+                                            {% endif %}
                                         </div>
-                                        <div class="card mb-5">
-                                            <div class="card-body bg-light">
-                                                <h5>Demographics</h5>
-                                                <span class="font-weight-bold">Race</span>
-                                                <p>{{ object.student.demo.get_race_display }}</p>
+                                        <div class="mb-5">
+                                            <h5>Demographics</h5>
+                                            <span class="font-weight-bold">Race</span>
+                                            <p>{{ object.student.demo.get_race_display }}</p>
 
-                                                <span class="font-weight-bold">Gender</span>
-                                                <p>{{ object.student.demo.get_gender_display }}</p>
-            
-                                                <span class="font-weight-bold">Sex</span>
-                                                <p>{{ object.student.demo.get_sex_display }}</p>
+                                            <span class="font-weight-bold">Gender</span>
+                                            <p>{{ object.student.demo.get_gender_display }}</p>
+        
+                                            <span class="font-weight-bold">Sex</span>
+                                            <p>{{ object.student.demo.get_sex_display }}</p>
 
-                                                <span class="font-weight-bold">First-Generation Student</span>
-                                                <p>{{ object.student.demo.get_first_gen_display }}</p>
-                                            </div>
+                                            <span class="font-weight-bold">First-Generation Student</span>
+                                            <p>{{ object.student.demo.get_first_gen_display }}</p>
                                         </div>
                                     </div>
                                 </div>
