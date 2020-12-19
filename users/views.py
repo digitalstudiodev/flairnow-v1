@@ -27,7 +27,7 @@ def register(request):
             return redirect('users:login')
     else:
         form = UserRegisterForm()
-    return render(request, 'users/register.html', {'form': form})
+    return render(request, 'users/register_student.html', {'form': form})
 
 def register_org(request):
     form = OrgRegisterForm()
@@ -38,7 +38,7 @@ def register_org(request):
             return redirect('users:login')
     else:
         form = OrgRegisterForm()
-    return render(request, 'users/register.html', {'form': form})
+    return render(request, 'users/register_org.html', {'form': form})
 
 @login_required(login_url='users:login')
 def profile(request):
