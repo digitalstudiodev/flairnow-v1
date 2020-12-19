@@ -78,7 +78,7 @@ class User(AbstractBaseUser):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default='default.svg', upload_to='profile_pics', verbose_name="Profile Picture")
+    image = models.ImageField(default='default.png', upload_to='profile_pics', verbose_name="Profile Picture")
 
     def __str__(self):
         return f'{self.user.email} Profile'
